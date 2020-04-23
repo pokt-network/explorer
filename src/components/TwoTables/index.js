@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
 import Wrapper from '../../components/Wrapper';
-import T from './Table';
-import TTitle from './TTitle';
-import Th from './Th';
-import Td from './Td';
-import Tr from './Tr';
-import THead from './THead';
-import TBody from './TBody';
-import TFooter from './TFooter';
+import T from './../Table/Table';
+import TTitle from './../Table/TTitle';
+import Th from './../Table/Th';
+import Td from './../Table/Td';
+import Tr from './../Table/Tr';
+import THead from './../Table/THead';
+import TBody from './../Table/TBody';
+import TFooter from './../Table/TFooter';
 
 class TwoTables extends Component {
   render () {
