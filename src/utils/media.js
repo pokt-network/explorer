@@ -12,8 +12,14 @@ export const tablet = inner => css`
   }
 `;
 
-export const desktop = inner => css`
+export const tabletLandscape = inner => css`
   @media only screen and (min-width : ${992 / 16}em) {
+    ${inner}
+  }
+`;
+
+export const desktop = inner => css`
+  @media only screen and (min-width : ${1200 / 16}em) {
     ${inner}
   }
 `;
@@ -26,6 +32,12 @@ export const maxPhone = inner => css`
 
 export const maxTablet = inner => css`
   @media only screen and (max-width : ${992 / 16}em) {
+    ${inner}
+  }
+`;
+
+export const maxTabletLandscape = inner => css`
+  @media only screen and (max-width : ${1200 / 16}em) {
     ${inner}
   }
 `;
