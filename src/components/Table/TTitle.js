@@ -11,6 +11,10 @@ const TTitle = styled.caption`
     text-align: left;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
+    .one-table-container & {
+        color: ${colors.white};
+        background-image: linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+    }
 `;
 
 export default TTitle;
