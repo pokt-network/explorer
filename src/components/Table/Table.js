@@ -28,9 +28,11 @@ const T = styled.table`
         `)};
     }
     .two-tables-container & {
-        ${tabletLandscape(css`
-            margin-top: 50px;
-        `)};
+        @media only screen and (min-width: 1024px) and (max-width: 1199px) {
+            &:last-child {
+                margin-top: 50px;
+            }
+        }
         ${maxTablet(css`
             margin-top: 30px;
         `)};
