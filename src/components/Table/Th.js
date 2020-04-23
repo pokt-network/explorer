@@ -26,11 +26,32 @@ const Th = styled.th`
                 text-align: center;
             `)};
         }
+        &:nth-child(3) {
+            text-align: center;
+        }
     }
     .trns & {
         &:nth-child(2) {
             ${maxTablet(css`
                 text-align: center;
+            `)};
+            text-align: center;
+        }
+    }
+    .latest-blks & {
+        &:nth-child(3),
+        &:nth-child(4) {
+            text-align: center;
+        }
+        &:nth-child(4) {
+            ${maxPhone(css`
+                display: none;
+            `)};
+        }
+        &:nth-child(5),
+        &:nth-child(6) {
+            ${maxTablet(css`
+                display: none;
             `)};
         }
     }
