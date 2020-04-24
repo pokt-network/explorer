@@ -136,7 +136,7 @@ class OneTable extends Component {
           <TFooter>
             <Tr>
               <Td colSpan={6}> 
-                <a href="#" target="_blank" className="button button-1"> Load More </a> 
+                <a href="http://example.com" target="_blank" rel="noopener noreferrer" className="button button-1"> Load More </a> 
               </Td>
             </Tr>
           </TFooter>

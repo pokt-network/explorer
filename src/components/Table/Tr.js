@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const Tr = styled.tr`
     border-bottom: solid 1px #f5f5f5;

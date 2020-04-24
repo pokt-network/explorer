@@ -107,7 +107,7 @@ class TwoTables extends Component {
           <TFooter>
             <Tr>
               <Td colSpan={4}> 
-                <a href="#" target="_blank" className="button button-1"> View all Blocks </a> 
+                <a href="http://example.com" target="_blank" rel="noopener noreferrer" className="button button-1"> View all Blocks </a> 
               </Td>
             </Tr>
           </TFooter>
@@ -191,7 +191,7 @@ class TwoTables extends Component {
           <TFooter>
             <Tr>
               <Td colSpan={4}> 
-                <a href="#" target="_blank" className="button button-1"> View all Blocks </a> 
+                <a href="http://example.com" target="_blank" rel="noopener noreferrer" className="button button-1"> View all Blocks </a> 
               </Td>
             </Tr>
           </TFooter>
