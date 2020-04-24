@@ -110,7 +110,7 @@ const Td = styled.td`
             background-image: url(${block});
             background-repeat: no-repeat;
             background-size: 20px;
-            background-position: 15px 10px;
+            background-position: 15px 12px;
         }
         &:nth-of-type(2) {
             color: ${colors.blueLink};
@@ -163,7 +163,7 @@ const Td = styled.td`
             font-weight: 300;
         }
         img {
-            max-width: 10px;
+            max-width: 8px;
         }
     }
 `;
