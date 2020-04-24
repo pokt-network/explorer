@@ -13,13 +13,13 @@ class Footer extends Component {
         <FooterContent >
             <ul className="nav-f">
               <span>Follow Us</span>
-              <a href="http://example.com" target="_blank"><img className="nav__link right icon-social" src={fb}/></a>
-              <a href="http://example.com" target="_blank"><img className="nav__link right icon-social" src={tw}/></a>
+              <a href="http://example.com" rel="noopener noreferrer" target="_blank"><img className="nav__link right icon-social" alt="social" src={fb}/></a>
+              <a href="http://example.com" rel="noopener noreferrer" target="_blank"><img className="nav__link right icon-social" alt="social" src={tw}/></a>
             </ul>
             <ul className="nav-f">
-              <a href="#" className="nav-f">PRODUCT</a>
-              <a href="#" className="nav-f">RESOURCES</a>
-              <a href="#" className="nav-f">COMUNITY</a>
+              <a href="http://example.com" className="nav-f">PRODUCT</a>
+              <a href="http://example.com" className="nav-f">RESOURCES</a>
+              <a href="http://example.com" className="nav-f">COMUNITY</a>
             </ul>
         </FooterContent>
       </Wrapper> 
