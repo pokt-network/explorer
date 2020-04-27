@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { colors } from '../../utils/colors';
+import blockW from '../../utils/images/block-w.png';
 
 const TTitle = styled.caption`
     color: ${colors.blue};
@@ -14,6 +15,16 @@ const TTitle = styled.caption`
     .one-table-container & {
         color: ${colors.white};
         background-image: linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+    }
+    .details & {
+        &.bd {
+            background-image: url(${blockW}), linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+            background-repeat: no-repeat, no-repeat;
+            background-size: 20px, cover;
+            background-position: 20px 27px, center;
+            color: ${colors.white};
+            padding: 25px 20px 25px 50px;
+        }
     }
 `;
 

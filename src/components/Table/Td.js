@@ -14,6 +14,11 @@ const Td = styled.td`
         font-size: 14px;
         padding: 15px 10px;
     `)};
+    a {
+        color: ${colors.blueLink};
+        text-decoration: none;
+        font-weight: 300;
+    }
     .blocks & {
         &:first-child {
             padding-left: 42px;
@@ -54,11 +59,6 @@ const Td = styled.td`
                 text-align: center;
             `)};
         }
-        a {
-            color: ${colors.blueLink};
-            text-decoration: none;
-            font-weight: 300;
-        }
     }
     .transactions & {
         &:first-child {
@@ -97,11 +97,6 @@ const Td = styled.td`
             ${tablet(css`
                 text-align: center;
             `)};
-        }
-        a {
-            color: ${colors.blueLink};
-            text-decoration: none;
-            font-weight: 300;
         }
     }
     .l-blocks & {
@@ -157,13 +152,44 @@ const Td = styled.td`
                 display: none;
             `)};
         }
-        a {
-            color: ${colors.blueLink};
-            text-decoration: none;
-            font-weight: 300;
-        }
         img {
             max-width: 8px;
+        }
+    }
+    .details & {
+        padding: 13px 20px;
+    }
+    tr:first-of-type & {
+        .details & {
+            font-size: 12px;
+            color: ${colors.darkBlue};
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+    }
+    tr:nth-of-type(2) & {
+        .details & {
+            color: ${colors.gray};
+            font-weight: 300;
+            ${maxPhone(css`
+                max-width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            `)};
+        }
+    }
+    tr:nth-of-type(3) & {
+        .details & {
+            color: ${colors.gray};
+            font-weight: 300;
+        }
+    }
+    tr:nth-of-type(4) & {
+        .details & {
+            color: ${colors.blueLink};
+            font-weight: 900;
+            font-size: 11px;
         }
     }
 `;
