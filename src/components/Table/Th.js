@@ -55,6 +55,22 @@ const Th = styled.th`
             `)};
         }
     }
+    .details-t & {
+        max-width: 100px;
+        width: 100px;
+        word-wrap: break-word;
+        padding: 13px 20px;
+    }
+    .additional-i & {
+        max-width: 180px;
+        width: 180px;
+        word-wrap: break-word;
+        padding: 13px 20px;
+        ${maxPhone(css`
+            max-width: 100px;
+            width: 100px;
+        `)};
+    }
 `;
 
 export default Th;

@@ -47,6 +47,17 @@ const T = styled.table`
             margin-top: 30px;
         `)};
     }
+    .details & {
+        width: 100%;
+        border-top: 12px solid transparent;
+        border-bottom: 13px solid transparent;
+        &:first-of-type {
+            margin-top: 50px;
+        }
+        &:last-of-type {
+            margin-top: 60px;
+        }
+    }
 `;
 
 
