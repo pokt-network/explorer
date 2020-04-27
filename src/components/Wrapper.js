@@ -11,6 +11,9 @@ const Wrapper = styled.div`
         display: block;
     }
   `)};
+  &.details-wr {
+    display: block;
+  }
   @media (min-width: 900px) {
     max-width: 870px;
   }
