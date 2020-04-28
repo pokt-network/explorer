@@ -4,9 +4,12 @@ import Wrapper from '.././Wrapper';
 import Menu, { MenuItem } from "./Menu";
 import MobileButton from "./MobileButton";
 import Logo from "./Logo";
+import StyledUl from "./Ul";
+import StyledLi from "./Li";
 import HeaderContainer from "./Header";
+import logo from '../../utils/images/pocket-logo.png';
 
-class NavBar extends Component {
+class Header extends Component {
   state = {
     isMenuHidden: true
   };
@@ -21,10 +24,22 @@ class NavBar extends Component {
     return (
       <HeaderContainer>
         <Wrapper className="header">
-          <Logo href="/">Block Explorer</Logo>
+          <Logo href="/"> <img src={logo} alt="logo pocket" /> <span>/ &nbsp; BLOCK EXPLORER</span> </Logo>
           <Menu isHidden={this.state.isMenuHidden}>
-            <MenuItem href="/latest">Latest</MenuItem>
-            <MenuItem href="/detail">Detail</MenuItem>
+            <StyledUl>
+              <StyledLi>
+                <MenuItem href="/">Home</MenuItem>
+              </StyledLi>
+              <StyledLi>
+                <MenuItem href="/latest">Latest</MenuItem>
+              </StyledLi>
+              <StyledLi>
+                <MenuItem href="/detail">Detail</MenuItem>
+              </StyledLi>
+              <StyledLi className="submenu">
+                <MenuItem href="/">POKT-T</MenuItem>
+              </StyledLi>
+            </StyledUl>
           </Menu>
           <MobileButton onClick={this.onToggleMenu} />
         </Wrapper>
@@ -33,4 +48,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default Header;

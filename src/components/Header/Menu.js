@@ -4,7 +4,7 @@ import { desktop, maxTablet } from "../../utils/media";
 
 import StyledLink from "./Link";
 
-const MenuWrapper = styled.div`
+const MenuWrapper = styled.nav`
   overflow: hidden;
   display: none;
 

@@ -1,23 +1,25 @@
 import styled, { css } from "styled-components";
 import { desktop } from "../../utils/media";
+import { colors } from '../../utils/colors';
 
 const StyledLink = styled.a`
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
-  color: #fff;
-  display: inline-block;
-  text-align: center;
-  padding: 15px 25px 15px 25px;
+  color: ${colors.black};
   text-decoration: none;
 
   ${desktop(css`
     &:hover {
-      color: #ccc;
+      color: ${colors.black};
     }`)};
   
   &:last-of-type{
     padding-right: 0;
     vertical-align: middle;
+  }
+  .submenu & {
+    font-weight: 700;
+    color: ${colors.blue};
   }
 `;
 
