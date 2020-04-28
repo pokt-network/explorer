@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-const HomeContent = styled.main`
+const LatestContent = styled.main`
   position: relative;
 `;
 
-export default HomeContent;
+export default LatestContent;

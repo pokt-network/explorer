@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { colors } from '../../utils/colors';
 import block from '../../utils/images/block.png';
 import transaction from '../../utils/images/transaction.png';
-import { maxPhone, tablet } from "../../utils/media";
+import { maxPhone, tablet, maxTablet } from "../../utils/media";
 
 const Td = styled.td`
     text-align: left;
@@ -14,6 +14,11 @@ const Td = styled.td`
         font-size: 14px;
         padding: 15px 10px;
     `)};
+    a {
+        color: ${colors.blueLink};
+        text-decoration: none;
+        font-weight: 300;
+    }
     .blocks & {
         &:first-child {
             padding-left: 42px;
@@ -54,11 +59,6 @@ const Td = styled.td`
                 text-align: center;
             `)};
         }
-        a {
-            color: ${colors.blueLink};
-            text-decoration: none;
-            font-weight: 300;
-        }
     }
     .transactions & {
         &:first-child {
@@ -98,10 +98,98 @@ const Td = styled.td`
                 text-align: center;
             `)};
         }
-        a {
+    }
+    .l-blocks & {
+        &:first-child {
+            padding-left: 42px;
+            background-image: url(${block});
+            background-repeat: no-repeat;
+            background-size: 20px;
+            background-position: 15px 12px;
+        }
+        &:nth-of-type(2) {
             color: ${colors.blueLink};
-            text-decoration: none;
             font-weight: 300;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        &:nth-of-type(3) {
+            color: ${colors.gray};
+            font-weight: 300;
+            ${tablet(css`
+                text-align: center;
+            `)};
+            ${maxPhone(css`
+                text-align: center;
+            `)};
+        }
+        &:nth-child(4) {
+            padding: 15px 19px;
+            a {
+                color: ${colors.blueLink};
+                font-weight: 900;
+                font-size: 11px;
+            }
+            ${maxPhone(css`
+                display: none;
+            `)};
+            ${tablet(css`
+                text-align: center;
+            `)};
+        }
+        &:nth-child(5) {
+            max-width: 180px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: ${colors.blueLink};
+        }
+        &:nth-child(5),
+        &:nth-child(6) {
+            ${maxTablet(css`
+                display: none;
+            `)};
+        }
+        img {
+            max-width: 8px;
+        }
+    }
+    .details & {
+        padding: 13px 20px;
+    }
+    tr:first-of-type & {
+        .details & {
+            font-size: 12px;
+            color: ${colors.darkBlue};
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+    }
+    tr:nth-of-type(2) & {
+        .details & {
+            color: ${colors.gray};
+            font-weight: 300;
+            ${maxPhone(css`
+                max-width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            `)};
+        }
+    }
+    tr:nth-of-type(3) & {
+        .details & {
+            color: ${colors.gray};
+            font-weight: 300;
+        }
+    }
+    tr:nth-of-type(4) & {
+        .details & {
+            color: ${colors.blueLink};
+            font-weight: 900;
+            font-size: 11px;
         }
     }
 `;
