@@ -1,17 +1,20 @@
 import styled, { css } from "styled-components";
-import { maxTablet } from "../../utils/media";
+import { tablet } from "../../utils/media";
 
 import StyledLink from "./Link";
 
 const Brand = styled(StyledLink)`
   margin-right: auto;
   padding: 11px 14px 11px 0;
-  ${maxTablet(css`
+  ${tablet(css`
     padding: 0 14px;
   `)};
 
   img {
     max-width: 100px;
+    ${tablet(css`
+      vertical-align: middle;
+    `)};
   }
   span {
     display: inline-block;
@@ -21,6 +24,9 @@ const Brand = styled(StyledLink)`
     color: #515151;
     margin-top: 17px;
     margin-left: 4px;
+    ${tablet(css`
+      display: none;
+    `)};
   }
 `;
 

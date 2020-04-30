@@ -8,6 +8,7 @@ import StyledUl from "./Ul";
 import StyledLi from "./Li";
 import HeaderContainer from "./Header";
 import logo from '../../utils/images/pocket-logo.png';
+import arrow from '../../utils/images/right-arrow.png';
 
 class Header extends Component {
   state = {
@@ -36,8 +37,13 @@ class Header extends Component {
               <StyledLi>
                 <MenuItem href="/detail">Detail</MenuItem>
               </StyledLi>
-              <StyledLi className="submenu">
-                <MenuItem href="/">POKT-T</MenuItem>
+              <StyledLi className="sub_menu">
+                <MenuItem href="/"> POKT-T <img src={arrow} alt="greater than" /> </MenuItem>
+                <ul>
+                  <li><a href="http://example.com">Pocket Testnet</a></li>
+                  <li><a href="http://example.com">Pocket Core</a></li>
+                  <li><a href="http://example.com"><span>+</span>Add Network</a></li>
+              </ul>
               </StyledLi>
             </StyledUl>
           </Menu>
