@@ -9,7 +9,7 @@ import Tr from './../Table/Tr';
 import THead from './../Table/THead';
 import TBody from './../Table/TBody';
 import TFooter from './../Table/TFooter';
-import moreThan from '../../utils/images/right arrow.png';
+import moreThan from '../../utils/images/right-arrow.png';
 
 class OneTable extends Component {
   render () {

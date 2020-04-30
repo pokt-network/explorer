@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { desktop } from "../../utils/media";
+import { tablet } from "../../utils/media";
 import { colors } from '../../utils/colors';
 
 const StyledLink = styled.a`
@@ -8,7 +8,7 @@ const StyledLink = styled.a`
   color: ${colors.black};
   text-decoration: none;
 
-  ${desktop(css`
+  ${tablet(css`
     &:hover {
       color: ${colors.black};
     }`)};
@@ -17,9 +17,14 @@ const StyledLink = styled.a`
     padding-right: 0;
     vertical-align: middle;
   }
-  .submenu & {
+  .sub_menu & {
     font-weight: 700;
     color: ${colors.blue};
+    img {
+      width: 8px;
+      transform: rotate(90deg);
+      margin-left: 8px;
+    }
   }
 `;
 

@@ -1,14 +1,15 @@
 import styled, { css } from "styled-components";
-import { desktop, maxTablet } from "../../utils/media";
+import { tablet, maxPhone } from "../../utils/media";
 import { colors } from '../../utils/colors';
 
 const HeaderContainer = styled.header`
-  ${desktop(css`
+  ${tablet(css`
     background-color: ${colors.white};
-    height: 120px;
+    height: 140px;
+    padding-top: 8px;
   `)};
-  ${maxTablet(css`
-    background-color: #000;
+  ${maxPhone(css`
+    background-color: #fff;
     height: initial;
   `)};
   position: relative;
