@@ -21,12 +21,12 @@ const Wrapper = styled.div`
     max-width: 1100px;
   }
   &.header {
-    height: 100px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
     ${maxTablet(css`
       height: 70px;
+      grid-template-columns: 0.5fr 1.5fr;
   `)};
   }
 `;

@@ -1,20 +1,26 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { desktop, maxTablet } from "../../utils/media";
+import { desktop, tablet, maxPhone } from "../../utils/media";
+import { colors } from '../../utils/colors';
 
 import StyledLink from "./Link";
 
 const MenuWrapper = styled.nav`
   overflow: hidden;
   display: none;
+  ${maxPhone(css`
+    background-color: ${colors.blue};
+    padding-bottom: 30px;
+  `)};
 
-  ${desktop(css`
+  ${tablet(css`
     display:block;
     text-align: right;
+    overflow: visible;
   `)};
 
   ${props =>
-    maxTablet(
+    maxPhone(
       props.isHidden ||
         css`
         display:block;
@@ -22,23 +28,21 @@ const MenuWrapper = styled.nav`
         top: 70px;
         position: absolute;
         left: 0;
+        z-index: 9999;
       `
     )};
 `;
 
 const MenuItem = styled(StyledLink)`
   ${props =>
-    maxTablet(
+    maxPhone(
       props.isHidden ||
         css`
-      float: none;
-      display:block;
+      display: block;
       text-align: left;
-      letter-spacing: 1px;
-      border-bottom: 1px solid #fff;
-      font-size: 18px;
-      color: #fff;
-      background-color: #000;
+      color: ${colors.white};
+      font-size: 22px;
+      line-height: 1.5;
 
       &:active {
         background-color: #e6e6e6;

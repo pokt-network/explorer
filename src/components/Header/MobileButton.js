@@ -1,13 +1,13 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { desktop, maxTablet } from "../../utils/media";
+import { desktop, tablet, maxPhone } from "../../utils/media";
 
 import StyledLink from "./Link";
 
-const MenuButton = styled(StyledLink).attrs({
-  height: null,
-  width: null
-})`
+  const MenuButton = styled(StyledLink).attrs({
+    height: null,
+    width: null
+  })`
   height: 16px;
   position: absolute;
   right: 0;
@@ -16,13 +16,13 @@ const MenuButton = styled(StyledLink).attrs({
   line-height: 14px;
   cursor: pointer;
 
-  ${desktop(css`
+  ${tablet(css`
     display: none;
   `)};
-  ${maxTablet(css`
-    font-size: 36px;
+  ${maxPhone(css`
+    font-size: 25px;
     right: 5%;
-    top: 13px;
+    top: 28px;
   `)};
 `;
 
