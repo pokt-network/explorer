@@ -9,9 +9,6 @@ function Detail (){
             <div className="details">
                 <Details />
             </div>
-            <EmptyWrapper>
-                <h1>Detail</h1>
-            </EmptyWrapper>
         </DetailsContent>
     );
 }

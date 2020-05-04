@@ -1,67 +1,135 @@
 import styled, { css } from "styled-components";
-import { maxTablet, phone } from "../../utils/media";
+import { desktop, tablet, tabletLandscape, maxPhone } from "../../utils/media";
+import { colors } from '../../utils/colors';
 
 const FooterContent = styled.footer`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  padding: 30px 0;
-  background-image: linear-gradient(to right, black 33%, rgba(255,255,255,0) 0%);
-  background-position: top;
-  background-size: 5px 1px;
-  background-repeat: repeat-x;
-  ${phone(css`
-    padding-bottom: 35px;
-    .nav-f.left {
-      padding-bottom: 20px;
-    }
-    .nav-f.right {
-      padding-left: 0;
-      padding-top: 10px;
-    }
+  background-color: ${colors.footerBg};
+  padding: 67px 0;
+  margin-top: 90px;
+  ${maxPhone(css`
+    padding: 60px 0 50px 0;
+    margin-top: 50px;
   `)};
-  @media (max-width: 500px)  and (orientation: portrait){
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;
-  }
-  .nav-f {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 0;
-    &.left {
-      padding-left: 0;
+  .social-ch {
+    .title {
+      h3 {
+        text-transform: uppercase;
+        font-size: 16px;
+        color: ${colors.blue};
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 17px;
+        ${maxPhone(css`
+          margin-top: 0;
+          font-size: 18px;
+        `)};
+      }
     }
-    a.nav-f {
-      cursor: pointer;
-      font-size: 12px;
+    .description {
+      p {
+        font-weight: 300;
+        font-size: 12px;
+        color: ${colors.white};
+        line-height: 1.4;
+        margin-bottom: 17px;
+        ${maxPhone(css`
+          font-size: 14px;
+        `)};
+        ${tablet(css`
+            max-width: 295px;
+        `)};
+        ${tabletLandscape(css`
+            max-width: 80%;
+        `)};
+        ${desktop(css`
+          max-width: 390px;
+        `)};
+      }
+    }
+  }
+  .tech-logos {
+    a {
+      max-width: 27px;
       margin-right: 25px;
       text-decoration: none;
-      color: #333;
-      font-weight: 300;
-      ${maxTablet(css`
-        font-size: 13px;
-        &:last-of-type {
-          margin-right: 0;
-        }
+      display: inline-block;
+      ${maxPhone(css`
+        margin-right: 35px;
       `)};
-    }
-    span {
-      margin-left: 30px;
-      font-size: 12px;
-      font-weight: 300;
-      color: #666666;
-    }
-    .icon-social {
-      height: 25px;
-      width: auto;
-      padding-left: 23px;
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
     }
   }
+  .footer-nav {
+    text-align: center;
+    width: 100%;
+    .menu-footer {
+      font-size: 0;
+      background-color: transparent;
+      padding: 0;
+      li {
+        &.mainli {
+          width: calc(33.333% - 40px);
+          display: inline-block;
+          vertical-align: top;
+          text-align: left;
+          ${maxPhone(css`
+            width: 100%;
+            margin-bottom: 25px;
+          `)};
+          ${tablet(css`
+            padding-left: 45px;
+          `)};
+          ${tabletLandscape(css`
+            padding-left: 60px;
+          `)};
+          &:first-of-type {
+            padding-left: 0;
+          }
+        }
+        .title-sm {
+          font-weight: 900;
+          font-size: 16px;
+          text-align: left;
+          color: ${colors.blue};
+          text-transform: uppercase;
+          padding-bottom: 21px;
+          ${maxPhone(css`
+            font-size: 18px;
+            padding-bottom: 16px;
+          `)};
+        }
+        .sub-menu {
+          padding-left: 0;
+          li {
+            a {
+              font-size: 12px;
+              font-weight: 300;
+              color: ${colors.white};
+              margin-bottom: 19px;
+              display: inline-block;
+              text-decoration: none;
+              ${maxPhone(css`
+                font-size: 16px;
+              `)};
+            }
+            &:last-child {
+              a {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
 `;
 
 export default FooterContent;
