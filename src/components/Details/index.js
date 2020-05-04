@@ -7,7 +7,6 @@ import Th from './../Table/Th';
 import Td from './../Table/Td';
 import Tr from './../Table/Tr';
 import TBody from './../Table/TBody';
-/* import moreThan from '../../utils/images/right arrow.png'; */
 
 class Details extends Component {
   render () {

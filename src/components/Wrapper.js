@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { maxTablet, maxTabletLandscape } from "../utils/media";
+import { maxPhone, maxTablet, maxTabletLandscape } from "../utils/media";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -14,6 +14,11 @@ const Wrapper = styled.div`
   &.details-wr {
     display: block;
   }
+  ${maxPhone(css`
+    &.footer-w {
+      display: block;
+   }
+  `)};
   @media (min-width: 900px) {
     max-width: 870px;
   }
