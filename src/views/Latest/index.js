@@ -9,9 +9,6 @@ function Latest (){
             <div className="one-table-container">
                 <OneTable />
             </div>
-            <EmptyWrapper>
-                <h1>Latest</h1>
-            </EmptyWrapper>
         </LatestContent>
     );
 }

@@ -13,9 +13,6 @@ function Home (){
             <div className="two-tables-container">
                 <TwoTables />
             </div>
-            <EmptyWrapper>
-                <h1>Home</h1>
-            </EmptyWrapper>
         </HomeContent>
     );
 }

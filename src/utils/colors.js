@@ -7,4 +7,5 @@ export const colors = {
     gray: "#888888",
     darkGray: "#474747",
     lightGray: "#d8d8d8",
+    footerBg: "#07212f",
 }
