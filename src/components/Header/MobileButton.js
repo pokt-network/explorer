@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { desktop, tablet, maxPhone } from "../../utils/media";
+import { tablet, maxPhone } from "../../utils/media";
 
 import StyledLink from "./Link";
 

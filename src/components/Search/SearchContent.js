@@ -23,7 +23,7 @@ const SearchContent = styled.section`
       background-image: url(${search});
       background-repeat: no-repeat;
       background-size: 13px;
-      background-position: 22px 14px;
+      background-position: 22px 15px;
       ${phone(css`
         background-image: none;
         padding: 12px 20px;

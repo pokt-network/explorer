@@ -1,9 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { desktop, tablet, maxPhone } from "../../utils/media";
+import { tablet, maxPhone } from "../../utils/media";
 import { colors } from '../../utils/colors';
-
-import StyledLink from "./Link";
 
 const MenuWrapper = styled.nav`
   overflow: hidden;
@@ -33,25 +31,6 @@ const MenuWrapper = styled.nav`
     )};
 `;
 
-const MenuItem = styled(StyledLink)`
-  ${props =>
-    maxPhone(
-      props.isHidden ||
-        css`
-      display: block;
-      text-align: left;
-      color: ${colors.white};
-      font-size: 22px;
-      line-height: 1.5;
-
-      &:active {
-        background-color: #e6e6e6;
-        font-weight: bold;
-      }
-    `
-    )};
-`;
-
 function Menu(props) {
   const children = props.children;
 
@@ -65,4 +44,3 @@ function Menu(props) {
 }
 
 export default Menu;
-export { MenuItem };
