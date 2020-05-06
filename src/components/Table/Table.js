@@ -3,8 +3,10 @@ import { colors } from '../../utils/colors';
 import { maxPhone, tablet, maxTablet, tabletLandscape, desktop } from "../../utils/media";
 
 const T = styled.table`
+    position: relative;
     border-collapse: collapse;
-    border-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
     box-shadow: 0 6px 25px -8px rgba(0, 0, 0, 0.23);
     background-color: ${colors.white};
     .one-table-container & {
@@ -34,17 +36,8 @@ const T = styled.table`
     }
 
     .one-table-container & {
-        margin-top: 50px;
-    }
-    .two-tables-container &,
-    .one-table-container & {
-        @media only screen and (min-width: 1024px) and (max-width: 1199px) {
-            &:last-child {
-                margin-top: 50px;
-            }
-        }
-        ${maxTablet(css`
-            margin-top: 30px;
+        ${maxPhone(css`
+            margin-top: 20px;
         `)};
     }
     .details & {

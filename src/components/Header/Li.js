@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { maxPhone } from "../../utils/media";
+import { maxPhone, tablet } from "../../utils/media";
 import { colors } from '../../utils/colors'; 
 
 const StyledLi = styled.li`
@@ -15,6 +15,43 @@ const StyledLi = styled.li`
       }
     }
   `)};
+  a {
+    font-weight: 300;
+    color: ${colors.black};
+    text-decoration: none;
+    ${maxPhone(css`
+      display: block;
+      text-align: left;
+      color: ${colors.white};
+      font-size: 20px;
+      line-height: 1.5;  
+      &.active {
+        font-weight: 700;
+      }
+    `)};
+    ${tablet(css`
+      &:hover {
+        color: ${colors.black};
+      }
+    `)};
+    
+    &:last-of-type{
+      padding-right: 0;
+      vertical-align: middle;
+    }
+    &.active {
+      border-bottom: 1px solid ${colors.blue};
+    }
+  }
+  &.sub_menu {
+    font-weight: 700;
+    color: ${colors.blue};
+    img {
+      width: 8px;
+      transform: rotate(90deg);
+      margin-left: 8px;
+    }
+  }
   ul {
     position: absolute;
     height: 110px;
