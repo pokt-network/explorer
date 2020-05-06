@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 
 import Wrapper from '.././Wrapper';
-import Menu, { MenuItem } from "./Menu";
+import Menu from "./Menu";
 import MobileButton from "./MobileButton";
 import Logo from "./Logo";
 import StyledUl from "./Ul";
@@ -15,6 +16,10 @@ class Header extends Component {
     isMenuHidden: true
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   onToggleMenu = () => {
     this.setState((prevState, props) => {
       return { isMenuHidden: !prevState.isMenuHidden };
@@ -22,6 +27,7 @@ class Header extends Component {
   };
 
   render() {
+    let hrefLink = '#';
     return (
       <HeaderContainer>
         <Wrapper className="header">
@@ -29,16 +35,16 @@ class Header extends Component {
           <Menu isHidden={this.state.isMenuHidden}>
             <StyledUl>
               <StyledLi>
-                <MenuItem href="/">Home</MenuItem>
+                <NavLink exact activeClassName="active" to="/">Home</NavLink>
               </StyledLi>
               <StyledLi>
-                <MenuItem href="/latest">Latest</MenuItem>
+                <NavLink activeClassName="active" to="/latest">Latest</NavLink>
               </StyledLi>
               <StyledLi>
-                <MenuItem href="/detail">Detail</MenuItem>
+                <NavLink activeClassName="active" to="/detail">Detail</NavLink>
               </StyledLi>
               <StyledLi className="sub_menu">
-                <MenuItem href="/"> POKT-T <img src={arrow} alt="greater than" /> </MenuItem>
+                <a href={hrefLink}> POKT-T <img src={arrow} alt="greater than" /> </a>
                 <ul>
                   <li><a href="http://example.com">Pocket Testnet</a></li>
                   <li><a href="http://example.com">Pocket Core</a></li>

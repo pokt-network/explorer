@@ -8,7 +8,7 @@ const Th = styled.th`
     color: ${colors.darkBlue};
     font-weight: 900;
     text-transform: uppercase;
-    padding: 20px 20px;
+    padding: 25px 20px 15px 21px;
     ${maxPhone(css`
         padding: 15px 10px;
     `)};
@@ -27,7 +27,7 @@ const Th = styled.th`
             `)};
         }
         &:nth-child(3) {
-            text-align: center;
+            text-align: left;
         }
     }
     .trns & {
@@ -35,14 +35,10 @@ const Th = styled.th`
             ${maxTablet(css`
                 text-align: center;
             `)};
-            text-align: center;
+            text-align: left;
         }
     }
     .latest-blks & {
-        &:nth-child(3),
-        &:nth-child(4) {
-            text-align: center;
-        }
         &:nth-child(4) {
             ${maxPhone(css`
                 display: none;
@@ -69,6 +65,15 @@ const Th = styled.th`
         ${maxPhone(css`
             max-width: 100px;
             width: 100px;
+        `)};
+    }
+    .details-t &,
+    .additional-i & {
+        ${maxPhone(css`
+            padding: 13px 9px !important;
+        `)};
+        ${maxTablet(css`
+            padding: 13px 20px;
         `)};
     }
 `;

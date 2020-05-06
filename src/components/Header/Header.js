@@ -5,7 +5,7 @@ import { colors } from '../../utils/colors';
 const HeaderContainer = styled.header`
   ${tablet(css`
     background-color: ${colors.white};
-    height: 140px;
+    height: 100px;
     padding-top: 8px;
   `)};
   ${maxPhone(css`
