@@ -9,6 +9,7 @@ const StyledLi = styled.li`
   ${maxPhone(css`
     display: block;
     padding: 25px;
+    text-align: left;
     &:last-of-type {
       a {
         color: ${colors.white};        
@@ -25,8 +26,10 @@ const StyledLi = styled.li`
       color: ${colors.white};
       font-size: 20px;
       line-height: 1.5;  
+      display: initial;
       &.active {
-        font-weight: 700;
+        border-bottom: 1px solid ${colors.white} !important;
+        padding-bottom: 2px !important;
       }
     `)};
     ${tablet(css`
@@ -41,6 +44,7 @@ const StyledLi = styled.li`
     }
     &.active {
       border-bottom: 1px solid ${colors.blue};
+      padding-bottom: 3px;
     }
   }
   &.sub_menu {
@@ -77,39 +81,50 @@ const StyledLi = styled.li`
       }
     `)};
   }
-  &:hover {
-    ul {
-      display: block;
-      right: 20px;
-      left: initial;
-      top: 40px;
-      z-index: 99999;
-      list-style-type: none;
-      border: none;
-      padding-left: 0;
-      background-color: ${colors.white};
-      border-radius: 8px;
-      box-shadow: 0 6px 25px -8px rgba(0, 0, 0, 0.5);
-      height: initial;
-      width: initial;
-      padding: 10px 0;
-      li {
-        padding: 8px 25px;
-        text-align: left;
-        &:hover {
-          background-color: ${colors.blue};
-        }
-        a {
-          text-decoration: none;
-          color: ${colors.black};
-          font-size: 16px;
-          span {
-            color: ${colors.blue};
+  ${tablet(css`
+    &:hover {
+      ul {
+        display: block;
+        right: 20px;
+        left: initial;
+        top: 40px;
+        z-index: 99999;
+        list-style-type: none;
+        border: none;
+        padding-left: 0;
+        background-color: ${colors.white};
+        border-radius: 8px;
+        box-shadow: 0 6px 25px -8px rgba(0, 0, 0, 0.5);
+        height: initial;
+        width: initial;
+        padding: 10px 0;
+        li {
+          padding: 8px 25px;
+          text-align: left;
+          &:hover {
+            background-color: ${colors.blue};
+            span {
+              color: ${colors.white};
+            }
+            a {
+              &.active {
+                border-bottom: 1px solid ${colors.white};
+              }
+            }
+          }
+          a {
+            text-decoration: none;
+            color: ${colors.black};
+            font-size: 16px;
+            span {
+              color: ${colors.blue};
+              margin-right: 2px;
+            }
           }
         }
       }
     }
-  }
+  `)};
 `;
 
 export default StyledLi;

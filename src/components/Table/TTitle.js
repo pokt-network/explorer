@@ -3,6 +3,7 @@ import { colors } from '../../utils/colors';
 import blockW from '../../utils/images/block-w.png';
 
 const TTitle = styled.caption`
+    font-family: 'Open Sans', sans-serif;
     color: ${colors.blue};
     font-size: 21px;
     font-weight: 900;
