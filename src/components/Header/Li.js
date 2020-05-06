@@ -18,6 +18,7 @@ const StyledLi = styled.li`
   `)};
   a {
     font-weight: 300;
+    font-size: 14px;
     color: ${colors.black};
     text-decoration: none;
     ${maxPhone(css`
@@ -115,7 +116,7 @@ const StyledLi = styled.li`
           a {
             text-decoration: none;
             color: ${colors.black};
-            font-size: 16px;
+            font-size: 14px;
             span {
               color: ${colors.blue};
               margin-right: 2px;
