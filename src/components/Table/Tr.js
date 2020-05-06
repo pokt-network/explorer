@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { maxPhone, tablet, maxTablet } from "../../utils/media";
+import { maxPhone, maxTablet } from "../../utils/media";
 
 const Tr = styled.tr`
     position: relative;
