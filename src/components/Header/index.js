@@ -21,7 +21,7 @@ class Header extends Component {
   }
 
   onToggleMenu = () => {
-    this.setState((prevState, props) => {
+    this.setState((prevState) => {
       return { isMenuHidden: !prevState.isMenuHidden };
     });
   };
@@ -35,20 +35,20 @@ class Header extends Component {
           <Menu isHidden={this.state.isMenuHidden}>
             <StyledUl>
               <StyledLi>
-                <NavLink exact activeClassName="active" to="/">Home</NavLink>
+                <NavLink exact activeClassName="active" to="/" onClick={this.onToggleMenu}>Home</NavLink>
               </StyledLi>
               <StyledLi>
-                <NavLink activeClassName="active" to="/latest">Latest</NavLink>
+                <NavLink activeClassName="active" to="/latest" onClick={this.onToggleMenu}>Latest</NavLink>
               </StyledLi>
               <StyledLi>
-                <NavLink activeClassName="active" to="/detail">Detail</NavLink>
+                <NavLink activeClassName="active" to="/detail" onClick={this.onToggleMenu}>Detail</NavLink>
               </StyledLi>
               <StyledLi className="sub_menu">
                 <a href={hrefLink}> POKT-T <img src={arrow} alt="greater than" /> </a>
                 <ul>
-                  <li><a href="http://example.com">Pocket Testnet</a></li>
-                  <li><a href="http://example.com">Pocket Core</a></li>
-                  <li><a href="http://example.com"><span>+</span>Add Network</a></li>
+                  <li><NavLink activeClassName="active" to="/pockettestnet" onClick={this.onToggleMenu}>Pocket Testnet</NavLink></li>
+                  <li><NavLink activeClassName="active" to="/pocketcore" onClick={this.onToggleMenu}>Pocket Core</NavLink></li>
+                  <li><NavLink activeClassName="active" to="/addnetwork" onClick={this.onToggleMenu}>Add Network</NavLink></li>
               </ul>
               </StyledLi>
             </StyledUl>

@@ -52,6 +52,7 @@ const Td = styled.td`
         }
         &:last-child {
             padding: 15px 19px;
+            font-family: 'Open Sans', sans-serif;
             a {
                 color: ${colors.blueLink};
                 font-weight: 900;
@@ -93,6 +94,7 @@ const Td = styled.td`
         }
         &:last-child {
             padding: 15px 19px;
+            font-family: 'Open Sans', sans-serif;
             a {
                 color: ${colors.blueLink};
                 font-weight: 900;
@@ -139,6 +141,7 @@ const Td = styled.td`
         }
         &:nth-child(4) {
             padding: 15px 19px;
+            font-family: 'Open Sans', sans-serif;
             a {
                 color: ${colors.blueLink};
                 font-weight: 900;
@@ -196,6 +199,7 @@ const Td = styled.td`
     }
     tr:nth-of-type(4) & {
         .details & {
+            font-family: 'Open Sans', sans-serif;
             color: ${colors.blueLink};
             font-weight: 900;
             font-size: 11px;

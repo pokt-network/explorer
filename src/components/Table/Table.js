@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { colors } from '../../utils/colors';
-import { maxPhone, tablet, maxTablet, tabletLandscape, desktop } from "../../utils/media";
+import { maxPhone, tablet, tabletLandscape, desktop } from "../../utils/media";
 
 const T = styled.table`
     position: relative;
