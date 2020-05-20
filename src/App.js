@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { createGlobalStyle } from 'styled-components';
 
-import Home from './views/Home/index';
-import Latest from './views/Latest/index';
-import Detail from './views/Detail/index';
-import PocketTestnet from './views/PocketTestnet/index';
-import PocketCore from './views/PocketCore/index';
-import AddNetwork from './views/AddNetwork/index';
+import Home from './views/home';
+// import Latest from './views/Latest/index';
+// import Detail from './views/Detail/index';
+// import PocketTestnet from './views/PocketTestnet/index';
+// import PocketCore from './views/PocketCore/index';
+// import AddNetwork from './views/AddNetwork/index';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
@@ -30,11 +30,11 @@ class App extends Component {
           <GlobalStyles />
           <Header />
           <Route exact path='/' component={Home}></Route>
-          <Route exact path='/latest' component={Latest}></Route>
+          {/* <Route exact path='/latest' component={Latest}></Route>
           <Route exact path='/detail' component={Detail}></Route>
           <Route exact path='/pockettestnet' component={PocketTestnet}></Route>
           <Route exact path='/pocketcore' component={PocketCore}></Route>
-          <Route exact path='/addnetwork' component={AddNetwork}></Route>
+          <Route exact path='/addnetwork' component={AddNetwork}></Route> */}
           <Footer />
         </div>
       </Router>
