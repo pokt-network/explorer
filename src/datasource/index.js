@@ -1,3 +1,3 @@
-import { Datasouce } from "./datasource"
+import { DataSource } from "./datasource"
 
-export default { Datasouce }
+export { DataSource }

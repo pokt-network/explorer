@@ -1,3 +1,5 @@
-import { Account, Block, Transaction } from "./"
+import { Account } from "./account"
+import { Block } from "./block"
+import { Transaction } from "./transaction"
 
-export default { Account, Block, Transaction }
+export { Account, Block, Transaction }
