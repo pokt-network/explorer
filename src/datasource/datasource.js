@@ -1,41 +1,53 @@
+/* global BigInt */
+
 import {
     Pocket,
     PocketRpcProvider,
     typeGuard,
     RpcError,
     PocketAAT,
-    BigInt
+    StakingStatus,
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
+import {QueryBalanceResponse} from "@pokt-network/pocket-js/dist/rpc";
+import {LatestInfo} from "../models/latestInfo";
+
 
 export class DataSource {
-    constructor(pocketAAT, dispatchers) {
-        this.pocketAAT = pocketAAT
+    static instance = DataSource.instance || new DataSource([new URL("http://localhost:26657")])
+
+    constructor(dispatchers) {
         this.dispatchers = dispatchers
     }
 
     async getPocketInstance() {
-        if (!this.pocket) {
-            const rpcProviderPocket = new Pocket(this.dispatchers)
-            const clientPubKeyHex =
-                "86ae55f4ea5e8344903346261946939c7638fc63ddb3fd99d3fb5d17b3e20e25"
-            const appPubKeyHex =
-                "da121ff5477ffcc130d1eaa475f02ecefabce0b664c7216c8d67b34962ecb065"
-            const appPrivateKey =
-                "ad73ea70255d140ca0a654fe40eb1b8bb6aaf43cbe037dc6e58594db311cba6fda121ff5477ffcc130d1eaa475f02ecefabce0b664c7216c8d67b34962ecb065"
+        if (!this.pocket || !this.pocket.rpc()) {
+
+            const pocketPrivateKey = 'e56bd9d4205d95850a9646421eb940767061b19ae840231216296cc3f06349cfd87bad4cc26a6a0493421a446e6d2ebc86eaff074e971adea1a5187602b39a9e'
+            const pocketPublicKey = 'd87bad4cc26a6a0493421a446e6d2ebc86eaff074e971adea1a5187602b39a9e'
+            const pocketAddress = 'dec6ba13f0b2f86909291988b7b44db7db79fc5e'
+            const pocketPassphrase = 'poktDivineJustice4190!'
+
+            this.blockchain = "0022"
+            this.pocket = new Pocket(this.dispatchers)
+
+            await this.pocket.keybase.importAccount(Buffer.from(pocketPrivateKey, 'hex'), pocketPassphrase)
+            await this.pocket.keybase.unlockAccount(pocketAddress, pocketPassphrase, 0)
+
+
             const aat = await PocketAAT.from(
                 "0.0.1",
-                clientPubKeyHex,
-                appPubKeyHex,
-                appPrivateKey
+                pocketPublicKey,
+                pocketPublicKey,
+                pocketPrivateKey
             )
-            const blockchain = "0001"
             const pocketRpcProvider = new PocketRpcProvider(
-                rpcProviderPocket,
+                this.pocket,
                 aat,
-                blockchain
+                this.blockchain
             )
-            this.pocket = new Pocket(this.dispatchers, pocketRpcProvider)
+
+            this.pocket.rpc(pocketRpcProvider)
         }
         return this.pocket
     }
@@ -44,11 +56,10 @@ export class DataSource {
      * @returns {BigInt}
      */
     async getHeight() {
-        debugger
         const pocket = await this.getPocketInstance()
         const heightResponseOrError = await pocket.rpc().query.getHeight()
         if (typeGuard(heightResponseOrError, RpcError)) {
-            return 0
+            return undefined
         } else {
             return heightResponseOrError.height
         }
@@ -60,7 +71,8 @@ export class DataSource {
      * @returns {Account}
      */
     async getAccount(id) {
-        const accountOrError = await this.pocket.rpc().query.getAccount(id)
+        const pocket = await this.getPocketInstance()
+        const accountOrError = await pocket.rpc().query.getAccount(id)
         if (typeGuard(accountOrError, RpcError)) {
             return undefined
         } else {
@@ -73,7 +85,8 @@ export class DataSource {
      * @param {string} id
      */
     async getTransaction(id) {
-        const txResponseOrError = await this.pocket.rpc().query.getTransaction(id)
+        const pocket = await this.getPocketInstance()
+        const txResponseOrError = await pocket.rpc().query.getTX(id)
         if (typeGuard(txResponseOrError, RpcError)) {
             return undefined
         } else {
@@ -93,23 +106,20 @@ export class DataSource {
      * @returns {Block}
      */
     async getBlock(height) {
-        debugger
-        // const blockResponseOrError = await this.pocket.rpc().query.getBlock(
-        //     BigInt(height)
-        // )
-        // if (typeGuard(blockResponseOrError, RpcError)) {
-        //     return undefined
-        // } else {
-        //     const block = blockResponseOrError.block
-        //     const blockMeta = blockResponseOrError.blockMeta
-        //     return new Block(
-        //         blockMeta.blockID.hash,
-        //         block.header.height.toString(),
-        //         block.header.time,
-        //         blockResponseOrError.toJSON()
-        //     )
-        // }
-        return undefined
+        const pocket = await this.getPocketInstance()
+        const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
+        if (typeGuard(blockResponseOrError, RpcError)) {
+            return undefined
+        } else {
+            const block = blockResponseOrError.block
+            const blockMeta = blockResponseOrError.blockMeta
+            return new Block(
+                blockMeta.blockID.hash,
+                block.header.height.toString(),
+                block.header.time,
+                blockResponseOrError.toJSON()
+            )
+        }
     }
 
     /**
@@ -122,7 +132,14 @@ export class DataSource {
         }
         const height = await this.getHeight()
         if (height === undefined) {
-            return []
+            return [
+                new Block(
+                    "test_hash",
+                    "10",
+                    "1321231",
+                    {}
+                )
+            ]
         }
         let currHeight = height
         const result = []
@@ -140,22 +157,58 @@ export class DataSource {
      * @param {number} page
      * @param {number} perPage
      */
-    async getLatestTransactions(height, page, perPage) {
-        // const result = []
-        // if (!height || height === new BigInt(0)) {
-        //     height = await this.getHeight()
-        // }
-        // const blockTxsResponseOrError = await this.pocket.rpc.query.getBlockTxs(
-        //     height,
-        //     false,
-        //     page,
-        //     perPage
-        // )
-        // if (typeGuard(blockTxsResponseOrError(blockTxsResponseOrError, RpcError))) {
-        //     return result
-        // }
-        
-        // return result
-        return []
+    async getLatestTransactions(page, perPage) {
+        const pocket = await this.getPocketInstance()
+        const result = []
+        const height = await this.getHeight()
+        if (height === undefined) {
+            return []
+        }
+        const blockTxsResponseOrError = await pocket.rpc.query.getBlockTxs(
+            height,
+            false,
+            page,
+            perPage
+        )
+        if (typeGuard(blockTxsResponseOrError(blockTxsResponseOrError, RpcError))) {
+            return result
+        }
+        blockTxsResponseOrError.resultTx.forEach(element => {
+            result.push(
+                new Transaction(
+                    element.hash,
+                    element.height,
+                    undefined,
+                    element.toJSON()
+                )
+            )
+        })
+        return result
+    }
+
+    async getTotalStakedApps() {
+        const pocket = await this.getPocketInstance()
+        const height = await this.getHeight()
+        if (height === undefined) {
+            return []
+        }
+        const appsResponseOrError = await pocket.rpc().query.getApps(StakingStatus.Staked, height, this.blockchain, 1, 10)
+        if (typeGuard(appsResponseOrError, RpcError)) {
+            return 0
+        } else {
+            return appsResponseOrError.applications.length
+        }
+    }
+
+    async getBalance() {
+        const pocket = await this.getPocketInstance()
+        const pocketAddress = 'dec6ba13f0b2f86909291988b7b44db7db79fc5e'
+        const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
+        if (typeGuard(queryBalanceResponseOrError, RpcError)) {
+            console.log(queryBalanceResponseOrError.message)
+            return 0
+        } else {
+            return queryBalanceResponseOrError.balance
+        }
     }
 }
