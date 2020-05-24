@@ -10,128 +10,41 @@ import THead from './../Table/THead';
 import TBody from './../Table/TBody';
 import TFooter from './../Table/TFooter';
 import moreThan from '../../utils/images/right-arrow.png';
+import {Link} from "react-router-dom";
 
 class OneTable extends Component {
   render () {
     return (
       <Wrapper className="t-wrapper">
         <T>
-          <TTitle>LATEST BLOCKS</TTitle>
+          <TTitle>{this.props.header}</TTitle>
           <THead className="latest-blks">
             <Tr>
-              <Th>BLOCK #</Th>
-              <Th>HASH</Th>
+              <Th>{this.props.columnOne}</Th>
+              <Th>{this.props.columnTwo}</Th>
               <Th>TIMESTAMP</Th>
               <Th>NETWORK</Th>
               <Th>LOREM</Th>
               <Th> </Th>
             </Tr>
           </THead>
-          <TBody className="l-blocks">
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
-            <Tr>
-              <Td> <a href="http://example.com">36792</a> </Td>
-              <Td> <a href="http://example.com">a969144c864bd87abd87a9974f187a9974f1</a> </Td>
-              <Td>34 sec ago</Td>
-              <Td> <a href="http://example.com"> POCKET TESTNET </a> </Td>
-              <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-              <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
-            </Tr>
+          <TBody className={this.props.className}>
+            {this.props.data.map((tableData) => {
+              const idInfo = tableData.firstColumn
+              const hash = tableData.secondColumn
+              const timestamp = tableData.timestamp
+              const network = tableData.network
+              return (
+                  <Tr>
+                    <Td> <a href="http://example.com">{idInfo}</a> </Td>
+                    <Td> <a href="http://example.com">{hash}</a> </Td>
+                    <Td>{timestamp}</Td>
+                    <Td> <a href="http://example.com"> {network} </a> </Td>
+                    <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
+                    <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
+                  </Tr>
+              )
+            })}
           </TBody>
           <TFooter>
             <Tr>
