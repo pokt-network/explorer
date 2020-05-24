@@ -2,7 +2,7 @@
 export class Transaction {
     /**
      * @param {string} id 
-     * @param {string} height 
+     * @param {BigInt} height
      * @param {Date} timestamp 
      * @param {object} data 
      */

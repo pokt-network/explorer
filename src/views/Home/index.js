@@ -1,7 +1,7 @@
 import React from "react"
 import HomeContent from "./home-content"
 import Search from "../../components/Search"
-import Statistics from "../../components/statistics"
+import Statistics from "../../components/Statistics"
 import HomeTables from "../../components/home-tables"
 import { DataSource } from "../../datasource"
 
@@ -9,18 +9,33 @@ class Home extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { latestBlocks: [], latestTransactions: [] }
-        this.dataSource = new DataSource(undefined, [new URL("http://localhost:8081")])
-        this.refresh()
+        this.state = { latestBlocks: [], latestTransactions: [], totalApps: 0, totalNodes: 0, totalTokens: 0}
+        this.dataSource = DataSource.instance
+        this.block = this.props.location.search.replace("?block=", "")
+
+        if(this.block !== "") {
+            if(!isNaN(this.block)){
+                window.open(`/block/${this.block}`, '_self');
+            } else {
+                window.open(`/tx/${this.block}`, '_self');
+            }
+        }
+
     }
 
-    async refresh() {
-        this.state.latestBlocks = []
-        this.state.latestTransactions = []
-        const height = await this.dataSource.getHeight()
-        debugger
-        //this.state.latestBlocks = await this.dataSource.getLatestBlocks(10)
-        //this.state.latestTransactions = await this.dataSource.getLatestTransactions()
+    componentWillMount() {
+        this.dataSource.getTotalStakedApps().then(totalApps => {
+            this.setState({totalApps: totalApps})
+        })
+
+        this.dataSource.getBalance().then(totalTokens => {
+            this.setState({totalTokens: totalTokens})
+        })
+
+        this.dataSource.getLatestBlocks(10).then(latestBlocks => {
+            this.setState({latestBlocks: latestBlocks})
+        })
+
     }
 
     render() {
@@ -28,9 +43,9 @@ class Home extends React.Component {
             <HomeContent>
                 <Search />
                 <Statistics
-                    totalStakedNodes={100}
-                    totalStaked={200}
-                    totalStakedApps={100}
+                    totalStakedNodes={this.state.totalNodes}
+                    totalStaked={this.state.totalTokens}
+                    totalStakedApps={this.state.totalApps}
                 />
                 <div className="two-tables-container">
                     <HomeTables

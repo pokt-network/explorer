@@ -2,9 +2,9 @@ import React, { Component } from "react"
 
 import Wrapper from "../Wrapper"
 import StatisticsWrapper from "./statistics-wrapper"
-import Statistic from "./statistic"
-import Number from "./number"
-import Description from "./description"
+import Statistic from "./Statistic"
+import Number from "./Number"
+import Description from "./Description"
 
 class Statistics extends Component {
     render() {
@@ -12,16 +12,16 @@ class Statistics extends Component {
             <Wrapper>
                 <StatisticsWrapper>
                     <Statistic>
-                        <Number>{this.props.totalStakedNodes} POKT</Number>
-                        <Description>Nodes Total Stake</Description>
+                        <Number>{this.props.totalStakedNodes}</Number>
+                        <Description>Total Staked Nodes</Description>
                     </Statistic>
                     <Statistic>
                         <Number>{this.props.totalStaked} POKT</Number>
                         <Description>Total Staked</Description>
                     </Statistic>
                     <Statistic>
-                        <Number>{this.props.totalStakedApps} POKT</Number>
-                        <Description>Apps Total Stake</Description>
+                        <Number>{this.props.totalStakedApps}</Number>
+                        <Description>Total Staked Apps</Description>
                     </Statistic>
                 </StatisticsWrapper>
             </Wrapper>

@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { createGlobalStyle } from 'styled-components';
 
-import Home from './views/home';
-// import Latest from './views/Latest/index';
+import Home from './views/Home';
+import BlockDetails from './views/Block/Details'
+import TxDetails from './views/Tx/Details'
+import BlockLatest from './views/Block/Latest';
+import TxLatest from './views/Tx/Latest';
 // import Detail from './views/Detail/index';
 // import PocketTestnet from './views/PocketTestnet/index';
 // import PocketCore from './views/PocketCore/index';
@@ -29,7 +32,11 @@ class App extends Component {
         <div>
           <GlobalStyles />
           <Header />
-          <Route exact path='/' component={Home}></Route>
+          <Route exact path='/' component={Home}/>
+          <Route path='/block/:id' component={BlockDetails}/>
+          <Route path='/tx/:id' component={TxDetails}/>
+          <Route exact path='/latest/block' component={BlockLatest}/>
+          <Route exact path='/latest/tx' component={TxLatest}/>
           {/* <Route exact path='/latest' component={Latest}></Route>
           <Route exact path='/detail' component={Detail}></Route>
           <Route exact path='/pockettestnet' component={PocketTestnet}></Route>
