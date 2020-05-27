@@ -14,7 +14,7 @@ import {LatestInfo} from "../models/latestInfo";
 
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL("http://localhost:26657")])
+    static instance = DataSource.instance || new DataSource([new URL("http://localhost:8081")])
 
     constructor(dispatchers) {
         this.dispatchers = dispatchers
@@ -23,12 +23,12 @@ export class DataSource {
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
 
-            const pocketPrivateKey = 'e56bd9d4205d95850a9646421eb940767061b19ae840231216296cc3f06349cfd87bad4cc26a6a0493421a446e6d2ebc86eaff074e971adea1a5187602b39a9e'
-            const pocketPublicKey = 'd87bad4cc26a6a0493421a446e6d2ebc86eaff074e971adea1a5187602b39a9e'
-            const pocketAddress = 'dec6ba13f0b2f86909291988b7b44db7db79fc5e'
-            const pocketPassphrase = 'poktDivineJustice4190!'
+            const pocketPrivateKey = '657773c03e9b11474d0e9e42c635b1591fff148902642f9251e11944309f83a5e0282373b32f617ffad172cac45e55df26a3f1d01beaa52cc262d523f25afe29'
+            const pocketPublicKey = 'e0282373b32f617ffad172cac45e55df26a3f1d01beaa52cc262d523f25afe29'
+            const pocketAddress = 'F7E8637E13033279095CFCC9E50548EC78E4C0FD'
+            const pocketPassphrase = 'yo'
 
-            this.blockchain = "0022"
+            this.blockchain = "0011"
             this.pocket = new Pocket(this.dispatchers)
 
             await this.pocket.keybase.importAccount(Buffer.from(pocketPrivateKey, 'hex'), pocketPassphrase)
@@ -202,13 +202,24 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = 'dec6ba13f0b2f86909291988b7b44db7db79fc5e'
+        const pocketAddress = 'F7E8637E13033279095CFCC9E50548EC78E4C0FD'
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
             console.log(queryBalanceResponseOrError.message)
             return 0
         } else {
             return queryBalanceResponseOrError.balance
+        }
+    }
+
+    async getNodes() {
+        const pocket = await this.getPocketInstance()
+        const validatorsResponseOrError = await pocket.rpc().query.getValidators(StakingStatus.Staked)
+        if (typeGuard(validatorsResponseOrError, RpcError)) {
+            console.log(validatorsResponseOrError.message)
+            return 0
+        } else {
+            return validatorsResponseOrError.balance
         }
     }
 }
