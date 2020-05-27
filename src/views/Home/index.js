@@ -36,6 +36,10 @@ class Home extends React.Component {
             this.setState({latestBlocks: latestBlocks})
         })
 
+        this.dataSource.getNodes().then(nodes => {
+            this.setState({totalNodes: nodes})
+        })
+
     }
 
     render() {
