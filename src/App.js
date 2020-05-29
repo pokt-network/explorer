@@ -14,6 +14,7 @@ import TxLatest from './views/Tx/Latest';
 // import AddNetwork from './views/AddNetwork/index';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { OCAlertsProvider } from '@opuscapita/react-alerts';
 
 import './normalize.css';
 
@@ -30,6 +31,7 @@ class App extends Component {
     return (
       <Router>
         <div>
+          <OCAlertsProvider />
           <GlobalStyles />
           <Header />
           <Route exact path='/' component={Home}/>
