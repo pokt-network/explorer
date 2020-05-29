@@ -32,8 +32,12 @@ class Home extends React.Component {
             this.setState({totalTokens: totalTokens})
         })
 
-        this.dataSource.getLatestBlocks(10).then(latestBlocks => {
+        this.dataSource.getLatestBlocks(100).then(latestBlocks => {
             this.setState({latestBlocks: latestBlocks})
+        })
+
+        this.dataSource.getLatestTransactions(1, 100).then(latestTransactions => {
+            this.setState({latestTransactions: latestTransactions})
         })
 
         this.dataSource.getNodes().then(nodes => {
