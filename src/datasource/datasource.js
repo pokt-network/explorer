@@ -9,12 +9,11 @@ import {
     StakingStatus,
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
-import {QueryBalanceResponse} from "@pokt-network/pocket-js/dist/rpc";
-import {LatestInfo} from "../models/latestInfo";
+import { OCAlert } from '@opuscapita/react-alerts';
 
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(process.env.REACT_APP_BASE_URL)])
+    static instance = DataSource.instance || new DataSource([new URL(process.env.REACT_APP_POCKET_URL)])
 
     constructor(dispatchers) {
         this.dispatchers = dispatchers
@@ -28,7 +27,7 @@ export class DataSource {
             const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
             const pocketPassphrase = process.env.REACT_APP_POCKET_PASSPHRASE
 
-            this.blockchain = "0011"
+            this.blockchain = process.env.REACT_APP_POCKET_CHAIN
             this.pocket = new Pocket(this.dispatchers)
 
             await this.pocket.keybase.importAccount(Buffer.from(pocketPrivateKey, 'hex'), pocketPassphrase)
@@ -59,6 +58,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const heightResponseOrError = await pocket.rpc().query.getHeight()
         if (typeGuard(heightResponseOrError, RpcError)) {
+            OCAlert.alertError(heightResponseOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             return heightResponseOrError.height
@@ -74,6 +74,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const accountOrError = await pocket.rpc().query.getAccount(id)
         if (typeGuard(accountOrError, RpcError)) {
+            OCAlert.alertError(accountOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             return new Account(accountOrError.address, accountOrError.toJSON())
@@ -88,6 +89,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const txResponseOrError = await pocket.rpc().query.getTX(id)
         if (typeGuard(txResponseOrError, RpcError)) {
+            OCAlert.alertError(txResponseOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             const pocketTx = txResponseOrError.transaction
@@ -109,6 +111,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
         if (typeGuard(blockResponseOrError, RpcError)) {
+            OCAlert.alertError(blockResponseOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             const block = blockResponseOrError.block
@@ -171,6 +174,7 @@ export class DataSource {
             perPage
         )
         if (typeGuard(blockTxsResponseOrError(blockTxsResponseOrError, RpcError))) {
+            OCAlert.alertError(blockTxsResponseOrError.message, { timeOut: 3000 });
             return result
         }
         blockTxsResponseOrError.resultTx.forEach(element => {
@@ -194,6 +198,7 @@ export class DataSource {
         }
         const appsResponseOrError = await pocket.rpc().query.getApps(StakingStatus.Staked, height, this.blockchain, 1, 10)
         if (typeGuard(appsResponseOrError, RpcError)) {
+            OCAlert.alertError(appsResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
             return appsResponseOrError.applications.length
@@ -205,7 +210,7 @@ export class DataSource {
         const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
-            console.log(queryBalanceResponseOrError.message)
+            OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
             return queryBalanceResponseOrError.balance
@@ -216,7 +221,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const validatorsResponseOrError = await pocket.rpc().query.getValidators(StakingStatus.Staked)
         if (typeGuard(validatorsResponseOrError, RpcError)) {
-            console.log(validatorsResponseOrError.message)
+            OCAlert.alertError(validatorsResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
             return validatorsResponseOrError.balance
