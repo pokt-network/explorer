@@ -14,7 +14,7 @@ import {LatestInfo} from "../models/latestInfo";
 
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL("http://localhost:8081")])
+    static instance = DataSource.instance || new DataSource([new URL(process.env.REACT_APP_BASE_URL)])
 
     constructor(dispatchers) {
         this.dispatchers = dispatchers
@@ -23,10 +23,10 @@ export class DataSource {
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
 
-            const pocketPrivateKey = '657773c03e9b11474d0e9e42c635b1591fff148902642f9251e11944309f83a5e0282373b32f617ffad172cac45e55df26a3f1d01beaa52cc262d523f25afe29'
-            const pocketPublicKey = 'e0282373b32f617ffad172cac45e55df26a3f1d01beaa52cc262d523f25afe29'
-            const pocketAddress = 'F7E8637E13033279095CFCC9E50548EC78E4C0FD'
-            const pocketPassphrase = 'yo'
+            const pocketPrivateKey = process.env.REACT_APP_POCKET_PRIVATE_KEY
+            const pocketPublicKey = process.env.REACT_APP_POCKET_PUBLIC_KEY
+            const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
+            const pocketPassphrase = process.env.REACT_APP_POCKET_PASSPHRASE
 
             this.blockchain = "0011"
             this.pocket = new Pocket(this.dispatchers)
@@ -202,7 +202,7 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = 'F7E8637E13033279095CFCC9E50548EC78E4C0FD'
+        const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
             console.log(queryBalanceResponseOrError.message)
