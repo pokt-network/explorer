@@ -1,15 +1,15 @@
 import React, { Component } from "react"
 import { Link } from 'react-router-dom';
 
-import Wrapper from "../Wrapper"
-import T from "../Table/Table"
-import TTitle from "../Table/TTitle"
-import Th from "../Table/Th"
-import Td from "../Table/Td"
-import Tr from "../Table/Tr"
-import THead from "../Table/THead"
-import TBody from "../Table/TBody"
-import TFooter from "../Table/TFooter"
+import Wrapper from "../wrapper"
+import T from "../table/table"
+import TTitle from "../table/ttitle"
+import Th from "../table/th"
+import Td from "../table/td"
+import Tr from "../table/tr"
+import THead from "../table/thead"
+import TBody from "../table/tbody"
+import TFooter from "../table/tfooter"
 
 class HomeTables extends Component {
     render() {
