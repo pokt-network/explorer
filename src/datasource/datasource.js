@@ -6,46 +6,64 @@ import {
     typeGuard,
     RpcError,
     PocketAAT,
-    StakingStatus,
+    StakingStatus
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
 import { OCAlert } from '@opuscapita/react-alerts';
+import config from "../config/config.json"
 
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(process.env.REACT_APP_POCKET_URL)])
+    static instance = DataSource.instance || new DataSource([new URL(config.baseUrl)])
+    static AATVersion = "0.0.1"
 
     constructor(dispatchers) {
         this.dispatchers = dispatchers
     }
 
     async getPocketInstance() {
+        console.log(config)
         if (!this.pocket || !this.pocket.rpc()) {
 
-            const pocketPrivateKey = process.env.REACT_APP_POCKET_PRIVATE_KEY
-            const pocketPublicKey = process.env.REACT_APP_POCKET_PUBLIC_KEY
-            const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
-            const pocketPassphrase = process.env.REACT_APP_POCKET_PASSPHRASE
+            // TEMP
+            // const pocketAAT = await PocketAAT.from(
+            //     "0.0.1",
+            //     "5484b130ec0e107c0afd8a1bea1f7f019f320ad0d0eda3ffa1f3901aa996c2db",
+            //     "4fd90da5ff3ddb6e2e3c1851a4164b26c5caf85265775d1664d6f4df2d664753",
+            //     "762f20a7860a285fd40d27c7445a4cf498f0ef5e7d24150b50ec84ea16e142864fd90da5ff3ddb6e2e3c1851a4164b26c5caf85265775d1664d6f4df2d664753"
+            // )
+            // debugger
 
-            this.blockchain = process.env.REACT_APP_POCKET_CHAIN
+            // Load AAT constants
+            const clientPassphrase = config.clientPassphrase
+            const clientPrivateKey = config.clientPrivateKey
+            const leifAppPublicKey = config.leifAppPublicKey
+            const leifAppAATSignature = config.leifAppAATSignature
+
+            // Create pocket instance
             this.pocket = new Pocket(this.dispatchers)
 
-            await this.pocket.keybase.importAccount(Buffer.from(pocketPrivateKey, 'hex'), pocketPassphrase)
-            await this.pocket.keybase.unlockAccount(pocketAddress, pocketPassphrase, 0)
+            // Import client account
+            const clientAccountOrError = await this.pocket.keybase.importAccount(Buffer.from(clientPrivateKey, "hex"), clientPassphrase)
+            if (typeGuard(clientAccountOrError, Error)) {
+                throw clientAccountOrError
+            }
+            const clientAccount = clientAccountOrError
+            await this.pocket.keybase.unlockAccount(clientAccount.addressHex, clientPassphrase, 0)
 
-
-            const aat = await PocketAAT.from(
-                "0.0.1",
-                pocketPublicKey,
-                pocketPublicKey,
-                pocketPrivateKey
+            // Create AAT
+            const aat = new PocketAAT(
+                DataSource.AATVersion,
+                clientAccount.publicKey.toString("hex"),
+                leifAppPublicKey,
+                leifAppAATSignature
             )
-            const pocketRpcProvider = new PocketRpcProvider(
-                this.pocket,
-                aat,
-                this.blockchain
-            )
 
+            // Create Pocket RPC Provider
+            const blockchain = config.chain
+            const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
+
+            // Set RPC Provider
             this.pocket.rpc(pocketRpcProvider)
         }
         return this.pocket
@@ -207,7 +225,7 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
+        const pocketAddress = config.address
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
             OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
