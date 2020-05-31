@@ -24,16 +24,6 @@ export class DataSource {
     async getPocketInstance() {
         console.log(config)
         if (!this.pocket || !this.pocket.rpc()) {
-
-            // TEMP
-            // const pocketAAT = await PocketAAT.from(
-            //     "0.0.1",
-            //     "5484b130ec0e107c0afd8a1bea1f7f019f320ad0d0eda3ffa1f3901aa996c2db",
-            //     "4fd90da5ff3ddb6e2e3c1851a4164b26c5caf85265775d1664d6f4df2d664753",
-            //     "762f20a7860a285fd40d27c7445a4cf498f0ef5e7d24150b50ec84ea16e142864fd90da5ff3ddb6e2e3c1851a4164b26c5caf85265775d1664d6f4df2d664753"
-            // )
-            // debugger
-
             // Load AAT constants
             const clientPassphrase = config.clientPassphrase
             const clientPrivateKey = config.clientPrivateKey
@@ -59,12 +49,12 @@ export class DataSource {
                 leifAppAATSignature
             )
 
-            // Create Pocket RPC Provider
-            const blockchain = config.chain
+			// Create Pocket RPC Provider
+            const blockchain = process.env.LEIF_POCKET_CHAIN
             const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
 
             // Set RPC Provider
-            this.pocket.rpc(pocketRpcProvider)
+            this.pocket.rpc(pocketRpcProvider)      
         }
         return this.pocket
     }

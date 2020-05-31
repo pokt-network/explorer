@@ -8,10 +8,6 @@ import BlockDetails from './views/block/details'
 import TxDetails from './views/tx/details'
 import BlockLatest from './views/block/latest';
 import TxLatest from './views/tx/latest';
-// import Detail from './views/Detail/index';
-// import pocket-testnet from './views/pocket-testnet/index';
-// import pocket-core from './views/pocket-core/index';
-// import add-network from './views/add-network/index';
 import Header from "./components/header";
 import Footer from "./components/footer";
 import { OCAlertsProvider } from '@opuscapita/react-alerts';
