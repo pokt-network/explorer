@@ -7,13 +7,12 @@ import {
     RpcError,
     PocketAAT,
     StakingStatus,
-} from "@pokt-network/pocket-js/dist/web.js"
+} from "@pokt-network/pocket-js"
 import { Account, Transaction, Block } from "../models"
 import { OCAlert } from '@opuscapita/react-alerts';
 
-
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(process.env.REACT_APP_POCKET_URL)])
+    static instance = DataSource.instance || new DataSource([new URL("http://localhost:8081")])
 
     constructor(dispatchers) {
         this.dispatchers = dispatchers
@@ -22,12 +21,12 @@ export class DataSource {
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
 
-            const pocketPrivateKey = process.env.REACT_APP_POCKET_PRIVATE_KEY
-            const pocketPublicKey = process.env.REACT_APP_POCKET_PUBLIC_KEY
-            const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
-            const pocketPassphrase = process.env.REACT_APP_POCKET_PASSPHRASE
+            const pocketPrivateKey = '657773c03e9b11474d0e9e42c635b1591fff148902642f9251e11944309f83a5e0282373b32f617ffad172cac45e55df26a3f1d01beaa52cc262d523f25afe29'
+            const pocketPublicKey = 'e0282373b32f617ffad172cac45e55df26a3f1d01beaa52cc262d523f25afe29'
+            const pocketAddress = 'F7E8637E13033279095CFCC9E50548EC78E4C0FD'
+            const pocketPassphrase = 'yo'
 
-            this.blockchain = process.env.REACT_APP_POCKET_CHAIN
+            this.blockchain = '0011'
             this.pocket = new Pocket(this.dispatchers)
 
             await this.pocket.keybase.importAccount(Buffer.from(pocketPrivateKey, 'hex'), pocketPassphrase)
@@ -207,7 +206,7 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = process.env.REACT_APP_POCKET_ADDRESS
+        const pocketAddress = 'F7E8637E13033279095CFCC9E50548EC78E4C0FD'
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
             OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
@@ -219,7 +218,7 @@ export class DataSource {
 
     async getNodes() {
         const pocket = await this.getPocketInstance()
-        const validatorsResponseOrError = await pocket.rpc().query.getValidators(StakingStatus.Staked)
+        const validatorsResponseOrError = await pocket.rpc().query.getNodes(StakingStatus.Staked)
         if (typeGuard(validatorsResponseOrError, RpcError)) {
             OCAlert.alertError(validatorsResponseOrError.message, { timeOut: 3000 });
             return 0
