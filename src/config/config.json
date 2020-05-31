@@ -1,0 +1,9 @@
+{
+  "baseUrl": "http://localhost:8081",
+  "clientPassphrase": "pocketnetwork",
+  "clientPrivateKey": "149bb219fa15e8479252f5bf2507ac2921c789b9a9a603cad1dbc73a8b8bce1e5484b130ec0e107c0afd8a1bea1f7f019f320ad0d0eda3ffa1f3901aa996c2db",
+  "leifAppPublicKey": "4fd90da5ff3ddb6e2e3c1851a4164b26c5caf85265775d1664d6f4df2d664753",
+  "leifAppAATSignature": "b58dc84a02aabeab581c695bf28d54dd77521e52d83f08f2c7abb386e1dffc92425341859afe8bd0852ba12899441e9845a913687caeb9e85d45610f54195909",
+  "chain": "0001",
+  "address": ""
+}
