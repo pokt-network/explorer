@@ -22,7 +22,6 @@ export class DataSource {
     }
 
     async getPocketInstance() {
-        console.log(config)
         if (!this.pocket || !this.pocket.rpc()) {
             // Load AAT constants
             const clientPassphrase = config.clientPassphrase
