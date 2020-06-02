@@ -9,12 +9,12 @@ class BlockLatest extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state.blocks = []
+        this.state = { blocks: [] }
         this.dataSource = DataSource.instance
     }
 
     componentWillMount() {
-        this.dataSource.getLatestBlocks(100).then(blocks => {
+        this.dataSource.getLatestBlocks(10).then(blocks => {
             if(blocks.length !== 0) {
                 const latestArray = []
                 blocks.forEach(block => {

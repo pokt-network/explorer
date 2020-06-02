@@ -11,16 +11,6 @@ class Home extends React.Component {
 
         this.state = { latestBlocks: [], latestTransactions: [], totalApps: 0, totalNodes: 0, totalTokens: 0}
         this.dataSource = DataSource.instance
-        this.block = this.props.location.search.replace("?block=", "")
-
-        if(this.block !== "") {
-            if(!isNaN(this.block)){
-                window.open(`/block/${this.block}`, '_self');
-            } else {
-                window.open(`/tx/${this.block}`, '_self');
-            }
-        }
-
     }
 
     componentWillMount() {
@@ -32,7 +22,7 @@ class Home extends React.Component {
             this.setState({totalTokens: totalTokens})
         })
 
-        this.dataSource.getLatestBlocks(100).then(latestBlocks => {
+        this.dataSource.getLatestBlocks(10).then(latestBlocks => {
             this.setState({latestBlocks: latestBlocks})
         })
 

@@ -30,6 +30,7 @@ class HomeTables extends Component {
                             const blockHeightStr = block.number.toString()
                             const blockLink = `block/${blockHeightStr}`
                             const blockID = block.id
+                            const time = block.timestamp
                             return (
                                 <Tr>
                                     <Td>
@@ -38,7 +39,7 @@ class HomeTables extends Component {
                                     <Td>
                                         <Link to={{pathname: `${blockLink}`, query: {blockHeightStr}}}>{blockID}</Link>
                                     </Td>
-                                    <Td>34 sec ago</Td>
+                                    <Td>{time}</Td>
                                     <Td>
                                         <Link to={{pathname: `${blockLink}`, query: {blockHeightStr}}}>POKT</Link>
                                     </Td>
@@ -61,7 +62,7 @@ class HomeTables extends Component {
                     <THead className="trns">
                         <Tr>
                             <Th> TX HASH</Th>
-                            <Th>TIMESTAMP</Th>
+                            <Th>BLOCK</Th>
                             <Th> </Th>
                         </Tr>
                     </THead>
@@ -69,7 +70,7 @@ class HomeTables extends Component {
                         {this.props.transactions.map((transaction) => {
                             const transactionID = transaction.id
                             const transactionLink = `tx/${transactionID}`
-                            const transactionTimestamp = transaction.timestamp
+                            const transactionTimestamp = transaction.height.toString()
                             return (
                                 <Tr>
                                     <Td>
