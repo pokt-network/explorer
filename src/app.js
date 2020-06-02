@@ -10,9 +10,12 @@ import BlockLatest from './views/block/latest';
 import TxLatest from './views/tx/latest';
 import Header from "./components/header";
 import Footer from "./components/footer";
+import AccountDetails from "./views/account/details";
 import { OCAlertsProvider } from '@opuscapita/react-alerts';
+import history from './history';
 
 import './normalize.css';
+import {DataSource} from "./datasource";
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -23,9 +26,17 @@ const GlobalStyles = createGlobalStyle`
 `
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.dataSource = DataSource.instance
+    this.dataSource.getPocketInstance()
+
+  }
+
   render() {
     return (
-      <Router>
+      <Router history={history}>
         <div>
           <OCAlertsProvider />
           <GlobalStyles />
@@ -33,6 +44,7 @@ class App extends Component {
           <Route exact path='/' component={Home}/>
           <Route path='/block/:id' component={BlockDetails}/>
           <Route path='/tx/:id' component={TxDetails}/>
+          <Route path='/account/:id' component={AccountDetails}/>
           <Route exact path='/latest/block' component={BlockLatest}/>
           <Route exact path='/latest/tx' component={TxLatest}/>
           {/* <Route exact path='/latest' component={latest}></Route>

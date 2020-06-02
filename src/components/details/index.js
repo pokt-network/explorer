@@ -33,27 +33,29 @@ class Details extends Component {
             </Tr>
           </TBody>
         </T>
-        <T>
-          <TTitle>ADDITIONAL INFORMATION</TTitle>
-          <TBody className="additional-i">
-            <Tr>
-              <Th>BLOCK #</Th>
-              <Td> 36792 </Td>
-            </Tr>
-            <Tr>
-              <Th>BLOCK HASH</Th>
-              <Td> a969144c864bd87abd87a9974f187a9974f1 </Td>
-            </Tr>
-            <Tr>
-              <Th>TIMESTAMP</Th>
-              <Td>34 sec ago</Td>
-            </Tr>
-            <Tr>
-              <Th>NETWORK</Th>
-              <Td>POCKET TESTNET</Td>
-            </Tr>
-          </TBody>
-        </T>
+        {this.props.data1Header !== undefined ?
+          <T>
+            <TTitle>ADDITIONAL INFORMATION</TTitle>
+            <TBody className="additional-i">
+              <Tr>
+                <Th>{this.props.data1Header}</Th>
+                <Td> {this.props.data1} </Td>
+              </Tr>
+              <Tr>
+                <Th>{this.props.data2Header}</Th>
+                <Td> {this.props.data2} </Td>
+              </Tr>
+              <Tr>
+                <Th>{this.props.data3Header}</Th>
+                <Td> {this.props.data3} </Td>
+              </Tr>
+              <Tr>
+                <Th>{this.props.data4Header}</Th>
+                <Td> {this.props.data4} </Td>
+              </Tr>
+            </TBody>
+          </T>
+        : ""}
       </Wrapper>
     );
   }

@@ -24,24 +24,27 @@ class OneTable extends Component {
               <Th>{this.props.columnTwo}</Th>
               <Th>TIMESTAMP</Th>
               <Th>NETWORK</Th>
-              <Th>LOREM</Th>
               <Th> </Th>
             </Tr>
           </THead>
           <TBody className={this.props.className}>
             {this.props.data.map((tableData) => {
-              const idInfo = tableData.firstColumn
-              const hash = tableData.secondColumn
+              const idInfo = tableData.secondColumn
+              const hash = tableData.firstColumn
               const timestamp = tableData.timestamp
               const network = tableData.network
+              const blockHeightStr = idInfo.toString()
+              const blockLink = `../block/${blockHeightStr}`
               return (
                   <Tr>
-                    <Td> <a href="http://example.com">{idInfo}</a> </Td>
-                    <Td> <a href="http://example.com">{hash}</a> </Td>
+                    <Td>
+                      <Link to={{pathname: `${blockLink}`, query: {blockHeightStr}}}>{idInfo}</Link>
+                    </Td>
+                    <Td>
+                      <Link to={{pathname: `${blockLink}`, query: {blockHeightStr}}}>{hash}</Link>
+                    </Td>
                     <Td>{timestamp}</Td>
-                    <Td> <a href="http://example.com"> {network} </a> </Td>
-                    <Td> <a href="http://example.com"> 94691343T5cbd87abd8864bd87abd87a9974f1R34 </a> </Td>
-                    <Td> <a href="http://example.com"> <img src={moreThan} alt="greater than" /> </a> </Td>
+                    <Td>{network}</Td>
                   </Tr>
               )
             })}
