@@ -49,7 +49,7 @@ export class DataSource {
             )
 
 			// Create Pocket RPC Provider
-            const blockchain = process.env.LEIF_POCKET_CHAIN
+            const blockchain = config.chain
             const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
 
             // Set RPC Provider
@@ -84,7 +84,7 @@ export class DataSource {
             OCAlert.alertError(accountOrError.message, { timeOut: 3000 });
             return undefined
         } else {
-            return new Account(accountOrError.address, accountOrError.toJSON())
+            return new Account(accountOrError.address, accountOrError.balance / 1000000, accountOrError.toJSON())
         }
     }
 
@@ -118,7 +118,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
         if (typeGuard(blockResponseOrError, RpcError)) {
-            OCAlert.alertError(blockResponseOrError.message, { timeOut: 3000 });
+            //OCAlert.alertError(blockResponseOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             const block = blockResponseOrError.block
@@ -142,14 +142,7 @@ export class DataSource {
         }
         const height = await this.getHeight()
         if (height === undefined) {
-            return [
-                new Block(
-                    "test_hash",
-                    "10",
-                    "1321231",
-                    {}
-                )
-            ]
+            return []
         }
         let currHeight = height
         const result = []
@@ -174,15 +167,14 @@ export class DataSource {
         if (height === undefined) {
             return []
         }
-        const blockTxsResponseOrError = await pocket.rpc.query.getBlockTxs(
+        const blockTxsResponseOrError = await pocket.rpc().query.getBlockTxs(
             height,
             false,
             page,
             perPage
         )
-        if (typeGuard(blockTxsResponseOrError(blockTxsResponseOrError, RpcError))) {
-            OCAlert.alertError(blockTxsResponseOrError.message, { timeOut: 3000 });
-            return result
+        if (typeGuard(blockTxsResponseOrError, RpcError)) {
+            return []
         }
         blockTxsResponseOrError.resultTx.forEach(element => {
             result.push(
@@ -220,18 +212,19 @@ export class DataSource {
             OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
-            return queryBalanceResponseOrError.balance
+            const uPOKT = Number(queryBalanceResponseOrError.balance.toString())
+            return uPOKT / 1000000
         }
     }
 
     async getNodes() {
         const pocket = await this.getPocketInstance()
-        const validatorsResponseOrError = await pocket.rpc().query.getValidators(StakingStatus.Staked)
+        const validatorsResponseOrError = await pocket.rpc().query.getNodes(StakingStatus.Staked)
         if (typeGuard(validatorsResponseOrError, RpcError)) {
             OCAlert.alertError(validatorsResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
-            return validatorsResponseOrError.balance
+            return validatorsResponseOrError.nodes.length
         }
     }
 }

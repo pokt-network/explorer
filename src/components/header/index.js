@@ -37,20 +37,6 @@ class Header extends Component {
               <StyledLi>
                 <NavLink exact activeClassName="active" to="/" onClick={this.onToggleMenu}>Home</NavLink>
               </StyledLi>
-              <StyledLi>
-                <NavLink activeClassName="active" to="/latest" onClick={this.onToggleMenu}>Latest</NavLink>
-              </StyledLi>
-              <StyledLi>
-                <NavLink activeClassName="active" to="/detail" onClick={this.onToggleMenu}>Detail</NavLink>
-              </StyledLi>
-              <StyledLi className="sub_menu">
-                <a href={hrefLink}> POKT-T <img src={arrow} alt="greater than" /> </a>
-                <ul>
-                  <li><NavLink activeClassName="active" to="/pockettestnet" onClick={this.onToggleMenu}>Pocket Testnet</NavLink></li>
-                  <li><NavLink activeClassName="active" to="/pocketcore" onClick={this.onToggleMenu}>Pocket Core</NavLink></li>
-                  <li><NavLink activeClassName="active" to="/addnetwork" onClick={this.onToggleMenu}>Add Network</NavLink></li>
-              </ul>
-              </StyledLi>
             </StyledUl>
           </Menu>
           <MobileButton onClick={this.onToggleMenu} />

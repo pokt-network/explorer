@@ -38,7 +38,7 @@ const SearchContent = styled.section`
         font-size: 12px;
       }
     }
-    input[type="submit"] {
+    input[type="button"] {
       background-color: ${colors.blue};
       color: ${colors.white};
       font-size: 12px;
