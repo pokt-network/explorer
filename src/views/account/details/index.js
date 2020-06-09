@@ -26,6 +26,7 @@ class AccountDetails extends React.Component {
             <DetailsContent>
                 <div className="details">
                     <Details
+                        className={"acc"}
                         header={"ACCOUNT DETAIL"}
                         line1Header={"ADDRESS"}
                         line2Header={"BALANCE"}

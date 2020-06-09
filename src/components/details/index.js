@@ -13,7 +13,7 @@ class Details extends Component {
     return (
       <Wrapper className="details-wr">
         <T>
-          <TTitle className="bd">{this.props.header}</TTitle>
+          <TTitle className={this.props.className}>{this.props.header}</TTitle>
           <TBody className="details-t">
             <Tr>
               <Th>{this.props.line1Header}</Th>

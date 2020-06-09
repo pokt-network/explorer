@@ -12,6 +12,10 @@ const T = styled.table`
     .one-table-container & {
         width: 100%;
     }
+    
+    .margin-container {
+        margin-top: 20px;
+    }
     .two-tables-container & {
         ${maxPhone(css`
             width: 100%;
