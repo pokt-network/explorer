@@ -38,11 +38,11 @@ class TxLatest extends React.Component {
             <LatestContent>
                 <div className="one-table-container">
                     <OneTable
-
                         header={"LATEST TRANSACTIONS"}
                         className={"l-transactions"}
                         columnOne={"TRANSACTION HASH"}
                         columnTwo={"BLOCK #"}
+                        link={"tx"}
                         data={this.state.transactions}
                     />
                 </div>

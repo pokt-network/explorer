@@ -23,7 +23,7 @@ class OneTable extends Component {
               <Th>{this.props.columnOne}</Th>
               <Th>{this.props.columnTwo}</Th>
               <Th>TIMESTAMP</Th>
-              <Th>NETWORK</Th>
+              <Th>{this.props.columnThree}</Th>
               <Th> </Th>
             </Tr>
           </THead>
@@ -32,9 +32,9 @@ class OneTable extends Component {
               const idInfo = tableData.secondColumn
               const hash = tableData.firstColumn
               const timestamp = tableData.timestamp
-              const network = tableData.network
+              const network = tableData.extraInfo
               const blockHeightStr = idInfo.toString()
-              const blockLink = `../block/${blockHeightStr}`
+              const blockLink = `../${this.props.link}/${blockHeightStr}`
               return (
                   <Tr>
                     <Td>
@@ -45,16 +45,15 @@ class OneTable extends Component {
                     </Td>
                     <Td>{timestamp}</Td>
                     <Td>{network}</Td>
+                    <Td>
+                      <Link to={{pathname: `${blockLink}`, query: {blockHeightStr}}}> <img src={moreThan} alt="greater than" /> </Link>
+                    </Td>
                   </Tr>
               )
             })}
           </TBody>
           <TFooter>
-            <Tr>
-              <Td colSpan={6}> 
-                <a href="http://example.com" target="_blank" rel="noopener noreferrer" className="button button-1"> Load More </a> 
-              </Td>
-            </Tr>
+
           </TFooter>
         </T>
       </Wrapper>

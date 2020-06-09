@@ -4,6 +4,7 @@ import Search from "../../components/search"
 import Statistics from "../../components/statistics"
 import HomeTables from "../../components/home-tables"
 import { DataSource } from "../../datasource"
+import OneTable from "../../components/one-table";
 
 class Home extends React.Component {
     constructor(props) {
@@ -22,12 +23,8 @@ class Home extends React.Component {
             this.setState({totalTokens: totalTokens})
         })
 
-        this.dataSource.getLatestBlocks(10).then(latestBlocks => {
+        this.dataSource.getLatestBlocks(100).then(latestBlocks => {
             this.setState({latestBlocks: latestBlocks})
-        })
-
-        this.dataSource.getLatestTransactions(1, 100).then(latestTransactions => {
-            this.setState({latestTransactions: latestTransactions})
         })
 
         this.dataSource.getNodes().then(nodes => {
@@ -45,10 +42,15 @@ class Home extends React.Component {
                     totalStaked={this.state.totalTokens}
                     totalStakedApps={this.state.totalApps}
                 />
-                <div className="two-tables-container">
-                    <HomeTables
-                        blocks={this.state.latestBlocks}
-                        transactions={this.state.latestTransactions}
+                <div className="one-table-container">
+                    <OneTable
+                        header={"LATEST BLOCKS"}
+                        className={"l-blocks"}
+                        columnOne={"BLOCK #"}
+                        columnTwo={"HASH"}
+                        columnThree={"NUMBER OF TXS"}
+                        link={'block'}
+                        data={this.state.latestBlocks}
                     />
                 </div>
             </HomeContent>

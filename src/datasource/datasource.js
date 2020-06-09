@@ -11,6 +11,7 @@ import {
 import { Account, Transaction, Block } from "../models"
 import { OCAlert } from '@opuscapita/react-alerts';
 import config from "../config/config.json"
+import {LatestInfo} from "../models/latestInfo";
 
 
 export class DataSource {
@@ -140,18 +141,37 @@ export class DataSource {
         if (count === 0 || count === undefined) {
             return []
         }
-        const height = await this.getHeight()
+        const height = BigInt(100)//await this.getHeight()
         if (height === undefined) {
             return []
         }
-        let currHeight = height
-        const result = []
-        for (let index = count; index > 0; --index) {
-            const block = await this.getBlock(currHeight)
-            result.push(block)
-            currHeight = currHeight - 1
+        let maxHeight = Number(height)
+        let minHeight = maxHeight - count
+
+        try {
+
+            const response = await fetch(config.tendermintUrl.format(minHeight.toString(), maxHeight.toString()));
+            const json = await response.json()
+            const blockMetas = json.result.block_metas
+            const result = []
+
+            blockMetas.forEach(block => {
+                result.push(new LatestInfo(
+                    block.block_id.hash,
+                    block.header.height,
+                    block.header.time,
+                    "",
+                    block.header.num_txs,
+                    block
+                ))
+            })
+            return result
+        }catch (error) {
+            return []
         }
-        return result
+
+
+
     }
 
     /**
@@ -160,13 +180,10 @@ export class DataSource {
      * @param {number} page
      * @param {number} perPage
      */
-    async getLatestTransactions(page, perPage) {
+    async getLatestTransactions(page, perPage, height) {
         const pocket = await this.getPocketInstance()
         const result = []
-        const height = await this.getHeight()
-        if (height === undefined) {
-            return []
-        }
+
         const blockTxsResponseOrError = await pocket.rpc().query.getBlockTxs(
             height,
             false,

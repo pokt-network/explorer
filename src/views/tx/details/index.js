@@ -25,6 +25,7 @@ class TxDetails extends React.Component {
             <DetailsContent>
                 <div className="details">
                     <Details
+                        className={"tx"}
                         header={"TRANSACTION  DETAIL"}
                         line1Header={"TRANSACTION HASH"}
                         line2Header={"BLOCK #"}
