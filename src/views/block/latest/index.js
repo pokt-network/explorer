@@ -42,6 +42,7 @@ class BlockLatest extends React.Component {
                         className={"l-blocks"}
                         columnOne={"BLOCK #"}
                         columnTwo={"HASH"}
+                        link={"block"}
                         data={this.state.blocks}
                     />
                 </div>

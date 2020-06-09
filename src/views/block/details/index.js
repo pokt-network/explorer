@@ -2,22 +2,43 @@ import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
+import OneTable from "../../../components/one-table";
+import {LatestInfo} from "../../../models/latestInfo";
 
 class BlockDetails extends React.Component {
 
     constructor(props) {
         super(props)
 
-        this.state = { blockId: 0, blockHash: "", time: "", network: "", data: {block: { header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}}
+        this.state = { transactions: [], blockId: 0, blockHash: "", time: "", network: "", data: {block: { header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}}
         this.dataSource = DataSource.instance
         this.height = this.props.location.pathname.replace("/block/", "")
     }
 
     componentWillMount() {
-        console.log(this.height)
         this.dataSource.getBlock(this.height).then(block => {
             if(block !== undefined)
                 this.setState({ blockId: block.id, blockHash: block.number, time: block.timestamp, network: "POCKET TESTNET", data: block.data})
+        })
+
+        this.dataSource.getLatestTransactions(1, 100, 189).then(txs => {
+            if(txs.length !== 0) {
+                const latestArray = []
+                txs.forEach(tx => {
+                    console.log(tx)
+                    const latest = new LatestInfo(
+                        tx.height.toString(),
+                        tx.id,
+                        undefined,
+                        "POCKET TESTNET",
+                        tx.data.index,
+                        tx.data
+                    )
+
+                    latestArray.push(latest)
+                })
+                this.setState({transactions: latestArray})
+            }
         })
     }
 
@@ -26,6 +47,7 @@ class BlockDetails extends React.Component {
             <DetailsContent>
                 <div className="details">
                     <Details
+                        className={"bd"}
                         header={"BLOCK DETAIL"}
                         line1Header={"BLOCK #"}
                         line2Header={"BLOCK HASH"}
@@ -43,6 +65,18 @@ class BlockDetails extends React.Component {
                         data2={this.state.data.block.header.consensus_hash}
                         data3={this.state.data.block.header.num_txs}
                         data4={this.state.data.block.header.total_txs}
+                    />
+                </div>
+
+                <div className="one-table-container" style={{marginTop: "70px"}}>
+                    <OneTable
+                        header={"LATEST TRANSACTIONS"}
+                        className={"l-transactions"}
+                        columnOne={"TRANSACTION HASH"}
+                        columnTwo={"BLOCK #"}
+                        columnThree={"INDEX"}
+                        link={"tx"}
+                        data={this.state.transactions}
                     />
                 </div>
             </DetailsContent>

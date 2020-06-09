@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { colors } from '../../utils/colors';
 import blockW from '../../utils/images/block-w.png';
+import tx from '../../utils/images/transaction.png';
+import acc from '../../utils/images/account.png';
 
 const TTitle = styled.caption`
     font-family: 'Open Sans', sans-serif;
@@ -20,6 +22,24 @@ const TTitle = styled.caption`
     .details & {
         &.bd {
             background-image: url(${blockW}), linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+            background-repeat: no-repeat, no-repeat;
+            background-size: 20px, cover;
+            background-position: 20px 27px, center;
+            color: ${colors.white};
+            padding: 25px 20px 25px 50px;
+        }
+        
+        &.tx {
+            background-image: url(${tx}), linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+            background-repeat: no-repeat, no-repeat;
+            background-size: 20px, cover;
+            background-position: 20px 27px, center;
+            color: ${colors.white};
+            padding: 25px 20px 25px 50px;
+        }
+        
+        &.acc {
+            background-image: url(${acc}), linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
             background-repeat: no-repeat, no-repeat;
             background-size: 20px, cover;
             background-position: 20px 27px, center;
