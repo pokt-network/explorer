@@ -6,6 +6,7 @@ import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
 import {Alert} from "react-bootstrap";
 
+
 class BlockDetails extends React.Component {
 
     constructor(props) {
@@ -41,6 +42,26 @@ class BlockDetails extends React.Component {
                         tx.id,
                         undefined,
                         "TESTNET",
+                        tx.data.index,
+                        tx.data
+                    )
+
+                    latestArray.push(latest)
+                })
+                this.setState({transactions: latestArray})
+            }
+        })
+
+        this.dataSource.getLatestTransactions(1, 100, 189).then(txs => {
+            if(txs.length !== 0) {
+                const latestArray = []
+                txs.forEach(tx => {
+                    console.log(tx)
+                    const latest = new LatestInfo(
+                        tx.height.toString(),
+                        tx.id,
+                        undefined,
+                        "POCKET TESTNET",
                         tx.data.index,
                         tx.data
                     )
