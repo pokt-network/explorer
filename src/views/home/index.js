@@ -8,7 +8,6 @@ import { DataSource } from "../../datasource"
 import OneTable from "../../components/one-table";
 import {Alert} from "react-bootstrap";
 
-
 class Home extends React.Component {
     constructor(props) {
         super(props)
