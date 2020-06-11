@@ -144,7 +144,7 @@ export class DataSource {
         if (count === 0 || count === undefined) {
             return []
         }
-        const height = BigInt(100)//await this.getHeight()
+        const height = await this.getHeight()
         if (height === undefined) {
             return []
         }
@@ -152,12 +152,12 @@ export class DataSource {
         let minHeight = maxHeight - count
 
         try {
-
             const response = await fetch(config.tendermintUrl.format(minHeight.toString(), maxHeight.toString()));
             const json = await response.json()
             const blockMetas = json.result.block_metas
             const result = []
 
+            console.log(blockMetas)
             blockMetas.forEach(block => {
                 result.push(new LatestInfo(
                     block.block_id.hash,
