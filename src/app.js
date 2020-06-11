@@ -16,6 +16,7 @@ import history from './history';
 
 import './normalize.css';
 import {DataSource} from "./datasource";
+import './message-box.css';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -36,6 +37,10 @@ class App extends Component {
 
   }
 
+  componentDidMount(){
+    document.title = "Pocket Blockchain Block Explorer"
+  }
+  
   createStringUtil() {
     if (!String.prototype.format) {
       String.prototype.format = function() {
