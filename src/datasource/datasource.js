@@ -226,7 +226,7 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = "F7E8637E13033279095CFCC9E50548EC78E4C0FD";//config.address
+        const pocketAddress = config.address
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
             //OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
