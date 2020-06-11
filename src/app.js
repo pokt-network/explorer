@@ -41,7 +41,6 @@ class App extends Component {
     document.title = "Pocket Blockchain Block Explorer"
   }
 
-
   createStringUtil() {
     if (!String.prototype.format) {
       String.prototype.format = function() {
