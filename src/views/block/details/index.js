@@ -4,24 +4,34 @@ import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
 import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
+import {Alert} from "react-bootstrap";
 
 class BlockDetails extends React.Component {
 
     constructor(props) {
         super(props)
 
-        this.state = { transactions: [], blockId: 0, blockHash: "", time: "", network: "", data: {block: { header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}}
+        this.state = { transactions: [], blockId: 0, blockHash: "", time: "", network: "", data: {block: { header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}, showMessage: false }
         this.dataSource = DataSource.instance
         this.height = this.props.location.pathname.replace("/block/", "")
     }
 
     componentWillMount() {
         this.dataSource.getBlock(this.height).then(block => {
-            if(block !== undefined)
-                this.setState({ blockId: block.id, blockHash: block.number, time: block.timestamp, network: "POCKET TESTNET", data: block.data})
+            if(block !== undefined) {
+                this.setState({
+                    blockId: block.id,
+                    blockHash: block.number,
+                    time: block.timestamp,
+                    network: "POCKET TESTNET",
+                    data: block.data
+                })
+            } else {
+                this.setState({showMessage: true})
+            }
         })
 
-        this.dataSource.getLatestTransactions(1, 100, 189).then(txs => {
+        this.dataSource.getLatestTransactions(1, 100, this.height).then(txs => {
             if(txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
@@ -43,8 +53,30 @@ class BlockDetails extends React.Component {
     }
 
     render() {
+
+        function AlertMessage() {
+            return (
+                <Alert variant="danger" dismissible>
+                    <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
+                    <p>
+                        Try searching by Transaction hash, Block number or Account address
+                    </p>
+                </Alert>
+            );
+        }
+
+        let message = null;
+        if (this.state.showMessage) {
+            message = <AlertMessage />
+        } else {
+            message = null;
+        }
+
         return (
             <DetailsContent>
+
+                {message}
+
                 <div className="details">
                     <Details
                         className={"bd"}
@@ -70,7 +102,7 @@ class BlockDetails extends React.Component {
 
                 <div className="one-table-container" style={{marginTop: "70px"}}>
                     <OneTable
-                        header={"LATEST TRANSACTIONS"}
+                        header={"TRANSACTIONS"}
                         className={"l-transactions"}
                         columnOne={"TRANSACTION HASH"}
                         columnTwo={"BLOCK #"}

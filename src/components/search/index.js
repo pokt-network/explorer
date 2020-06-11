@@ -6,12 +6,14 @@ import SearchContent from './search-content';
 import {
   withRouter
 } from 'react-router-dom'
+import {DataSource} from "../../datasource";
 
 class Search extends Component {
 
   constructor(props) {
     super(props)
     this.state = { search: ""}
+    this.dataSource = DataSource.instance
 
     this.handleChange = this.handleChange.bind(this)
     this.showData = this.showData.bind(this)
@@ -21,11 +23,31 @@ class Search extends Component {
     const search = this.state.search
     if(search !== "") {
       if(!isNaN(this.state.search)){
-        this.props.history.push(`/block/${search}`);
+        this.dataSource.getBlock(search).then(block => {
+          if(block !== undefined) {
+            this.props.history.push(`/block/${search}`);
+          } else {
+            this.props.handler()
+          }
+        })
+
       } else if(search.length > 40){
-        this.props.history.push(`/tx/${search}`);
+        this.dataSource.getTransaction(search).then(tx => {
+          if(tx !== undefined) {
+            this.props.history.push(`/tx/${search}`);
+          } else {
+            this.props.handler()
+          }
+        })
+
       } else {
-        this.props.history.push(`/account/${search}`);
+        this.dataSource.getAccount(search).then(account => {
+          if(account !== undefined) {
+            this.props.history.push(`/account/${search}`);
+          } else {
+            this.props.handler()
+          }
+        })
       }
     }
   }
