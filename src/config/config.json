@@ -6,6 +6,6 @@
   "leifAppAATSignature": "b58dc84a02aabeab581c695bf28d54dd77521e52d83f08f2c7abb386e1dffc92425341859afe8bd0852ba12899441e9845a913687caeb9e85d45610f54195909",
   "chain": "0002",
   "address": "840be6ccafb736e96792327c77b1ff3105e92925",
-  "tendermintUrl": "https://node-1.nachonodes.com:26657/block?minHeight={0}&maxHeight={1}"
+  "tendermintUrl": "https://node-1.nachonodes.com:26657/blockchain?minHeight={0}&maxHeight={1}"
 }
 
