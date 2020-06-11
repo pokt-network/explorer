@@ -154,13 +154,9 @@ export class DataSource {
         try {
             const response = await fetch(config.tendermintUrl.format(minHeight.toString(), maxHeight.toString()));
             const json = await response.json()
-
-            console.log(json)
-            console.log(json.result)
             const blockMetas = json.result.block_metas
             const result = []
 
-            console.log(blockMetas)
             blockMetas.forEach(block => {
                 result.push(new LatestInfo(
                     block.block_id.hash,
