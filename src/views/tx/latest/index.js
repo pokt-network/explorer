@@ -22,7 +22,7 @@ class TxLatest extends React.Component {
                         tx.hash,
                         tx.height.toString(),
                         undefined,
-                        "POCKET TESTNET",
+                        "TESTNET",
                         tx.data
                     )
 

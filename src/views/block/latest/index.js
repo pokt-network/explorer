@@ -22,7 +22,7 @@ class BlockLatest extends React.Component {
                         block.id,
                         block.number,
                         block.timestamp,
-                        "POCKET TESTNET",
+                        "TESTNET",
                         block.data
                     )
 

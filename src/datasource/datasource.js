@@ -3,6 +3,7 @@
 import {
     Pocket,
     PocketRpcProvider,
+    HttpRpcProvider,
     typeGuard,
     RpcError,
     PocketAAT,
@@ -51,7 +52,8 @@ export class DataSource {
 
 			// Create Pocket RPC Provider
             const blockchain = config.chain
-            const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
+            //const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
+            const pocketRpcProvider = new HttpRpcProvider(this.dispatchers)
 
             // Set RPC Provider
             this.pocket.rpc(pocketRpcProvider)      
@@ -82,10 +84,11 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const accountOrError = await pocket.rpc().query.getAccount(id)
         if (typeGuard(accountOrError, RpcError)) {
-            OCAlert.alertError(accountOrError.message, { timeOut: 3000 });
+            //OCAlert.alertError(accountOrError.message, { timeOut: 3000 });
             return undefined
         } else {
-            return new Account(accountOrError.address, accountOrError.balance / 1000000, accountOrError.toJSON())
+            console.log(accountOrError.toJSON())
+            return new Account(accountOrError.address, (accountOrError.balance / 1000000) + " POKT", accountOrError.toJSON())
         }
     }
 
@@ -97,7 +100,7 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const txResponseOrError = await pocket.rpc().query.getTX(id)
         if (typeGuard(txResponseOrError, RpcError)) {
-            OCAlert.alertError(txResponseOrError.message, { timeOut: 3000 });
+            //OCAlert.alertError(txResponseOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             const pocketTx = txResponseOrError.transaction
@@ -223,11 +226,11 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = config.address
+        const pocketAddress = config.address;
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
-            OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
-            return 0
+            //OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
+            return 1000
         } else {
             const uPOKT = Number(queryBalanceResponseOrError.balance.toString())
             return uPOKT / 1000000

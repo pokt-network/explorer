@@ -2,27 +2,59 @@ import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
+import {Alert} from "react-bootstrap";
 
 class TxDetails extends React.Component {
 
     constructor(props) {
         super(props)
 
-        this.state = { txId: 0, txHash: "", time: "", network: "", data: { proof: {root_hash: "", proof: {index: 0, total: 0, leaf_hash: ""} } }}
+        this.state = { txId: 0, txHash: "", time: "", network: "", data: { proof: {root_hash: "", proof: {index: 0, total: 0, leaf_hash: ""} } }, showMessage: false}
         this.dataSource = DataSource.instance
         this.hash = this.props.location.pathname.replace("/tx/", "")
     }
 
     componentWillMount() {
         this.dataSource.getTransaction(this.hash).then(tx => {
-            if(tx !== undefined)
-                this.setState({ txId: tx.id, txHash: tx.height.toString(), time: tx.data.index, network: "POCKET TESTNET", data: tx.data})
+            if(tx !== undefined) {
+                this.setState({
+                    txId: tx.id,
+                    txHash: tx.height.toString(),
+                    time: tx.data.index,
+                    network: "TESTNET",
+                    data: tx.data
+                })
+            } else {
+                this.setState({showMessage: true})
+            }
         })
     }
 
     render() {
+
+        function AlertMessage() {
+            return (
+                <Alert variant="danger" dismissible>
+                    <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
+                    <p>
+                        Try searching by transaction hash, block number or account address
+                    </p>
+                </Alert>
+            );
+        }
+
+        let message = null;
+        if (this.state.showMessage) {
+            message = <AlertMessage />
+        } else {
+            message = null;
+        }
+
         return (
             <DetailsContent>
+
+                {message}
+
                 <div className="details">
                     <Details
                         className={"tx"}
