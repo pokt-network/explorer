@@ -57,8 +57,8 @@ class Footer extends Component {
                 <li className="mainli">
                   <div className="title-sm">RESOURCES</div>
                   <ul className="sub-menu">
-                    <li className="menu-item"><a href="https://pokt.network/wp-content/uploads/2020/03/POCKET-NETWORK-WHITEPAPER-V0.3.0.pdf">WhitePaper</a></li>
-                    <li className="menu-item"><a href="https://pokt.network/wp-content/uploads/2020/03/POCKET-NETWORK-WHITEPAPER-V0.3.0.pdf">Economic One Pager</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Whitepaper-v0.3.0.pdf">WhitePaper</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Economic-Paper-v1.0.2.pdf">Economic One Pager</a></li>
                     <li className="menu-item"><a href="https://github.com/pokt-network/pocket-js">JS SDK</a></li>
                   </ul>
                 </li>
