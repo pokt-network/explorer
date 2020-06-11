@@ -16,6 +16,7 @@ import history from './history';
 
 import './normalize.css';
 import {DataSource} from "./datasource";
+import './message-box.css';
 
 const GlobalStyles = createGlobalStyle`
   body {
@@ -35,6 +36,11 @@ class App extends Component {
     this.createStringUtil()
 
   }
+
+  componentDidMount(){
+    document.title = "Block Explorer"
+  }
+
 
   createStringUtil() {
     if (!String.prototype.format) {

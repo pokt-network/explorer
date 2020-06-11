@@ -12,6 +12,7 @@
     "libsodium-wrappers": "^0.7.6",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
     "react-s-alert": "^1.4.1",
