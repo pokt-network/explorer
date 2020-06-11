@@ -55,6 +55,7 @@ class Home extends React.Component {
                     totalStaked={this.state.totalTokens}
                     totalStakedApps={this.state.totalApps}
                 />
+
                 <div className="alert" style={this.state.showMessage ? {} : { display: 'none' }}>
                     <img src={altertT} alt="alert" />
                     <div className="cont-alert">

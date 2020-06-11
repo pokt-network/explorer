@@ -6,6 +6,7 @@ import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
 import {Alert} from "react-bootstrap";
 
+
 class BlockDetails extends React.Component {
 
     constructor(props) {
