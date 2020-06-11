@@ -50,30 +50,26 @@ class Footer extends Component {
                 <li className="mainli"> 
                   <div className="title-sm">PRODUCT</div>
                   <ul className="sub-menu">
-                    <li className="menu-item"><a href="http://example.com">Why use POKT</a></li>
-                    <li className="menu-item"><a href="http://example.com">Road Map?</a></li>
-                    <li className="menu-item"><a href="http://example.com">Tutorials</a></li>
+                    <li className="menu-item"><a href="https://docs.pokt.network/docs/what-is-pocket-network">Why use POKT</a></li>
+                    <li className="menu-item"><a href="https://www.pokt.network/">Road Map</a></li>
                   </ul>
                 </li>
                 <li className="mainli">
                   <div className="title-sm">RESOURCES</div>
                   <ul className="sub-menu">
-                    <li className="menu-item"><a href="http://example.com">WhitePaper</a></li>
-                    <li className="menu-item"><a href="http://example.com">Economic One Pager</a></li>
-                    <li className="menu-item"><a href="http://example.com">iOS SDK</a></li>
-                    <li className="menu-item"><a href="http://example.com">Android SDK</a></li>
-                    <li className="menu-item"><a href="http://example.com">JS SDK</a></li>
-                    <li className="menu-item"><a href="http://example.com">Press kit</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Whitepaper-v0.3.0.pdf">WhitePaper</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Economic-Paper-v1.0.2.pdf">Economic One Pager</a></li>
+                    <li className="menu-item"><a href="https://github.com/pokt-network/pocket-js">JS SDK</a></li>
                   </ul>
                 </li>
                 <li className="mainli">
                   <div className="title-sm">COMMUNITY</div>
                   <ul className="sub-menu">
-                    <li className="menu-item"><a href="http://example.com">Blog</a></li>
-                    <li className="menu-item"><a href="http://example.com">Forum</a></li>
-                    <li className="menu-item"><a href="http://example.com">Contact</a></li>
-                    <li className="menu-item"><a href="http://example.com">FAQ// DEV PORTAL</a></li>
-                    <li className="menu-item"><a href="http://example.com">Join Discord</a></li>
+                    <li className="menu-item"><a href="https://pokt.network/blog/">Blog</a></li>
+                    <li className="menu-item"><a href="https://research.pokt.network/">Forum</a></li>
+                    <li className="menu-item"><a href="https://pokt.network/contact/">Contact</a></li>
+                    <li className="menu-item"><a href="https://docs.pokt.network/">FAQ / Dev Portal</a></li>
+                    <li className="menu-item"><a href="https://discord.com/invite/WRh7fMJ">Join Discord</a></li>
                   </ul>
                 </li>
               </ul>				
