@@ -23,7 +23,7 @@ class BlockDetails extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "POCKET TESTNET",
+                    network: "TESTNET",
                     data: block.data
                 })
             } else {
@@ -40,7 +40,7 @@ class BlockDetails extends React.Component {
                         tx.height.toString(),
                         tx.id,
                         undefined,
-                        "POCKET TESTNET",
+                        "TESTNET",
                         tx.data.index,
                         tx.data
                     )
@@ -59,7 +59,7 @@ class BlockDetails extends React.Component {
                 <Alert variant="danger" dismissible>
                     <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
                     <p>
-                        Try searching by Transaction hash, Block number or Account address
+                        Try searching by transaction hash, block number or account address
                     </p>
                 </Alert>
             );

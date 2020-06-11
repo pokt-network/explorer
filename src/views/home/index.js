@@ -64,7 +64,7 @@ class Home extends React.Component {
                             <h3>NO RESULT FOR THIS SEARCH!</h3>
                         </div>
                         <p>
-                            Try searching by Transaction hash, Block number or Account address
+                            Try searching by transaction hash, block number or account address
                         </p>
                         <button onClick={this.hideMessage}>
                             <span id="close">X</span>

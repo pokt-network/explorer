@@ -31,7 +31,7 @@ class AccountDetails extends React.Component {
                 <Alert variant="danger" dismissible>
                     <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
                     <p>
-                        Try searching by Transaction hash, Block number or Account address
+                        Try searching by transaction hash, block number or account address
                     </p>
                 </Alert>
             );

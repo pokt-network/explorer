@@ -21,7 +21,7 @@ class TxDetails extends React.Component {
                     txId: tx.id,
                     txHash: tx.height.toString(),
                     time: tx.data.index,
-                    network: "POCKET TESTNET",
+                    network: "TESTNET",
                     data: tx.data
                 })
             } else {
@@ -37,7 +37,7 @@ class TxDetails extends React.Component {
                 <Alert variant="danger" dismissible>
                     <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
                     <p>
-                        Try searching by Transaction hash, Block number or Account address
+                        Try searching by transaction hash, block number or account address
                     </p>
                 </Alert>
             );

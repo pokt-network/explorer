@@ -38,7 +38,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    document.title = "Block Explorer"
+    document.title = "Pocket Blockchain Block Explorer"
   }
 
 
