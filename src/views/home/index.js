@@ -8,6 +8,7 @@ import { DataSource } from "../../datasource"
 import OneTable from "../../components/one-table";
 import {Alert} from "react-bootstrap";
 
+
 class Home extends React.Component {
     constructor(props) {
         super(props)
@@ -55,8 +56,6 @@ class Home extends React.Component {
                     totalStaked={this.state.totalTokens}
                     totalStakedApps={this.state.totalApps}
                 />
-
-
                 <div className="alert" style={this.state.showMessage ? {} : { display: 'none' }}>
                     <img src={altertT} alt="alert" />
                     <div className="cont-alert">
@@ -71,7 +70,6 @@ class Home extends React.Component {
                         </button>
                     </div>
                 </div>
-
                 <div className="one-table-container">
                     <OneTable
                         header={"LATEST BLOCKS"}
