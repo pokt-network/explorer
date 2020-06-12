@@ -36,7 +36,6 @@ class BlockDetails extends React.Component {
             if(txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
-                    console.log(tx)
                     const latest = new LatestInfo(
                         tx.height.toString(),
                         tx.id,
@@ -54,30 +53,8 @@ class BlockDetails extends React.Component {
     }
 
     render() {
-
-        function AlertMessage() {
-            return (
-                <Alert variant="danger" dismissible>
-                    <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
-                    <p>
-                        Try searching by transaction hash, block number or account address
-                    </p>
-                </Alert>
-            );
-        }
-
-        let message = null;
-        if (this.state.showMessage) {
-            message = <AlertMessage />
-        } else {
-            message = null;
-        }
-
         return (
             <DetailsContent>
-
-                {message}
-
                 <div className="details">
                     <Details
                         className={"bd"}

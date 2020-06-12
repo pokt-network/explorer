@@ -25,29 +25,8 @@ class AccountDetails extends React.Component {
     }
 
     render() {
-
-        function AlertMessage() {
-            return (
-                <Alert variant="danger" dismissible>
-                    <Alert.Heading>NO RESULT FOR THIS SEARCH!</Alert.Heading>
-                    <p>
-                        Try searching by transaction hash, block number or account address
-                    </p>
-                </Alert>
-            );
-        }
-
-        let message = null;
-        if (this.state.showMessage) {
-            message = <AlertMessage />
-        } else {
-            message = null;
-        }
-
         return (
             <DetailsContent>
-
-                {message}
 
                 <div className="details">
                     <Details
