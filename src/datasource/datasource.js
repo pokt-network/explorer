@@ -82,12 +82,11 @@ export class DataSource {
      */
     async getAccount(id) {
         const pocket = await this.getPocketInstance()
+        console.log(pocket.rpc())
         const accountOrError = await pocket.rpc().query.getAccount(id)
         if (typeGuard(accountOrError, RpcError)) {
-            //OCAlert.alertError(accountOrError.message, { timeOut: 3000 });
             return undefined
         } else {
-            console.log(accountOrError.toJSON())
             return new Account(accountOrError.address, (accountOrError.balance / 1000000) + " POKT", accountOrError.toJSON())
         }
     }
@@ -176,6 +175,30 @@ export class DataSource {
 
     }
 
+    async getLatestBlock() {
+        const height = await this.getHeight()
+        if (height === undefined) {
+            return undefined
+        }
+
+        const pocket = await this.getPocketInstance()
+        const blockResponseOrError = await pocket.rpc().query.getBlock(height)
+        if (typeGuard(blockResponseOrError, RpcError)) {
+            //OCAlert.alertError(blockResponseOrError.message, { timeOut: 3000 });
+            return undefined
+        } else {
+            const block = blockResponseOrError.block
+            const blockMeta = blockResponseOrError.blockMeta
+            return new Block(
+                blockMeta.blockID.hash,
+                block.header.height.toString(),
+                block.header.time,
+                blockResponseOrError.toJSON()
+            )
+        }
+
+    }
+
     /**
      *
      * @param {BigInt} height of the block to get the transactions from
@@ -228,8 +251,7 @@ export class DataSource {
         const pocketAddress = config.address;
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
-            //OCAlert.alertError(queryBalanceResponseOrError.message, { timeOut: 3000 });
-            return 1000
+            return 0
         } else {
             const uPOKT = Number(queryBalanceResponseOrError.balance.toString())
             return uPOKT / 1000000
