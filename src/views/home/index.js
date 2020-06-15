@@ -1,10 +1,12 @@
+/* global BigInt */
+
 import React, {useState} from "react"
 import HomeContent from "./home-content"
 import Search from "../../components/search"
 import Statistics from "../../components/statistics"
 import HomeTables from "../../components/home-tables"
 import altertT from '../../utils/images/alert.png'
-import { DataSource } from "../../datasource"
+import {DataSource} from "../../datasource"
 import OneTable from "../../components/one-table";
 import {Alert} from "react-bootstrap";
 import Details from "../../components/details";
@@ -15,10 +17,28 @@ class Home extends React.Component {
     constructor(props) {
         super(props)
 
-        this.state = { latestBlocks: [], latestTransactions: [], totalApps: 0, totalNodes: 0, totalTokens: 0, showMessage: false, transactions: [], blockId: 0, blockHash: "", time: "", network: "", data: {block: { header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}}
+        this.state = {
+            height: 0,
+            maxHeight: 0,
+            latestBlocks: [],
+            latestTransactions: [],
+            totalApps: 0,
+            totalNodes: 0,
+            totalTokens: 0,
+            showMessage: false,
+            transactions: [],
+            blockId: 0,
+            blockHash: "",
+            time: "",
+            network: "",
+            data: {block: {header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}
+        }
         this.dataSource = DataSource.instance
         this.hideMessage = this.hideMessage.bind(this)
         this.showMessage = this.showMessage.bind(this)
+        this.getPreviousBlock = this.getPreviousBlock.bind(this)
+        this.getNextBlock = this.getNextBlock.bind(this)
+        this.getTransactions = this.getTransactions.bind(this)
     }
 
     componentWillMount() {
@@ -30,8 +50,14 @@ class Home extends React.Component {
             this.setState({totalTokens: totalTokens})
         })
 
+        this.dataSource.getHeight().then(height => {
+            if (height !== undefined) {
+                this.setState({height: height, maxHeight: height})
+            }
+        })
+
         this.dataSource.getLatestBlock().then(block => {
-            if(block !== undefined) {
+            if (block !== undefined) {
                 this.setState({
                     blockId: block.id,
                     blockHash: block.number,
@@ -41,7 +67,7 @@ class Home extends React.Component {
                 })
 
                 this.dataSource.getLatestTransactions(1, 100, block.number).then(txs => {
-                    if(txs.length !== 0) {
+                    if (txs.length !== 0) {
                         const latestArray = []
                         txs.forEach(tx => {
                             const latest = new LatestInfo(
@@ -78,19 +104,85 @@ class Home extends React.Component {
         this.setState({showMessage: true})
     }
 
+    getPreviousBlock() {
+
+        let height = this.state.height - BigInt(1)
+        this.dataSource.getBlock(height).then(block => {
+            if (block !== undefined) {
+                this.setState({
+                    blockId: block.id,
+                    blockHash: block.number,
+                    time: block.timestamp,
+                    network: "TESTNET",
+                    data: block.data,
+                    height: height
+                })
+
+                this.getTransactions();
+
+            } else {
+                this.setState({showMessage: true})
+            }
+        })
+    }
+
+    getTransactions() {
+        this.dataSource.getLatestTransactions(1, 100, this.state.height).then(txs => {
+            if (txs.length !== 0) {
+                const latestArray = []
+                txs.forEach(tx => {
+                    const latest = new LatestInfo(
+                        tx.height.toString(),
+                        tx.id,
+                        undefined,
+                        "TESTNET",
+                        tx.data.index,
+                        tx.data
+                    )
+
+                    latestArray.push(latest)
+                })
+                this.setState({transactions: latestArray})
+            }
+        })
+    }
+
+    getNextBlock() {
+
+        let height = this.state.height + BigInt(1)
+        this.dataSource.getBlock(height).then(block => {
+            if (block !== undefined) {
+                this.setState({
+                    blockId: block.id,
+                    blockHash: block.number,
+                    time: block.timestamp,
+                    network: "TESTNET",
+                    data: block.data,
+                    height: height
+                })
+
+                this.getTransactions();
+
+            } else {
+                this.setState({showMessage: true})
+            }
+        })
+
+    }
+
     render() {
 
         return (
             <HomeContent>
-                <Search handler = {this.showMessage}/>
+                <Search handler={this.showMessage}/>
 
                 <Statistics
                     totalStakedNodes={this.state.totalNodes}
                     totalStaked={this.state.totalTokens}
                     totalStakedApps={this.state.totalApps}
                 />
-                <div className="alert" style={this.state.showMessage ? {} : { display: 'none' }}>
-                    <img src={altertT} alt="alert" />
+                <div className="alert" style={this.state.showMessage ? {} : {display: 'none'}}>
+                    <img src={altertT} alt="alert"/>
                     <div className="cont-alert">
                         <div className="title">
                             <h3>NO RESULT FOR THIS SEARCH!</h3>
@@ -129,6 +221,20 @@ class Home extends React.Component {
                             link={"tx"}
                             data={this.state.transactions}
                         />
+                    </div>
+
+                    <div className="container">
+                        <div className="center">
+                            <button className="right" style={this.state.height > 0 ? {} : {display: 'none'}}
+                                    onClick={this.getPreviousBlock}>
+                                Previous Block
+                            </button>
+                            <button className="left"
+                                    style={this.state.height < this.state.maxHeight ? {} : {display: 'none'}}
+                                    onClick={this.getNextBlock}>
+                                Next Block
+                            </button>
+                        </div>
                     </div>
                 </DetailsContent>
             </HomeContent>

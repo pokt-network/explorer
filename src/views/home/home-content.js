@@ -1,9 +1,52 @@
-import styled, { css } from "styled-components";
-import { maxPhone, tablet, desktop } from "../../utils/media";
+import styled, {css} from "styled-components";
+import {maxPhone, tablet, desktop} from "../../utils/media";
+import { colors } from '../../utils/colors';
 import close from "../../utils/images/close.png"
 
 const HomeContent = styled.main`
   position: relative;
+  
+    .container { 
+        position: relative; 
+        margin-top: 50px;
+    }
+
+    .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .right {
+            margin-right: 5px;
+        }
+        
+        .left {
+            margin-left: 5px;
+        }
+        
+        button {
+            width: 140px;
+            background-color: ${colors.darkGray};
+            color: ${colors.white};
+            margin: 0;
+            padding: 10px 27px;
+            position: relative;
+            border-radius: 25px;
+            display: inline-block;
+            text-transform: initial;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1;
+            height: auto;
+            overflow: visible;
+            text-decoration: none;
+            transition: all .3s ease-in-out;
+            border: none;
+            &:hover {
+                background-color: ${colors.blue};
+            }
+        }
+    }
   
   .alert {
       position: relative;
