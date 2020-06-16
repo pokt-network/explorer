@@ -10,7 +10,7 @@ const HomeContent = styled.main`
         position: relative; 
         margin-top: 50px;
     }
-
+    
     .center {
         display: flex;
         justify-content: center;
@@ -25,7 +25,7 @@ const HomeContent = styled.main`
         }
         
         button {
-            width: 140px;
+            width: 180px;
             background-color: ${colors.darkGray};
             color: ${colors.white};
             margin: 0;
@@ -47,6 +47,18 @@ const HomeContent = styled.main`
             }
         }
     }
+   
+   .next-image-button {
+        background-color: Transparent;
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        img {
+            max-width: 8px;
+        }
+   }
   
   .alert {
       position: relative;
@@ -56,7 +68,7 @@ const HomeContent = styled.main`
       border-radius: 10px;
       box-shadow: 0 6px 25px -8px rgba(6, 32, 46, 0.1);
       .cont-alert {
-        padding: 5px 20px 30px 60px;
+        padding: 0px 20px 30px 40px;
         text-align: left;
         .title {
           h3 {
@@ -82,7 +94,7 @@ const HomeContent = styled.main`
            cursor:pointer;
            overflow: hidden;
            outline:none;
-           top: 26px;
+           top: 10px;
            left: 96%;
            ${maxPhone(css`
               top: 34px;
@@ -90,6 +102,11 @@ const HomeContent = styled.main`
            
            span {
               color: #ffffff;
+           }
+           
+           img {
+                position: sticky;
+                max-width: 10px;
            }
         }
       }

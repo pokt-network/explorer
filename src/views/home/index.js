@@ -12,6 +12,14 @@ import {Alert} from "react-bootstrap";
 import Details from "../../components/details";
 import DetailsContent from "../block/details/details";
 import {LatestInfo} from "../../models/latestInfo";
+import moreThan from '../../utils/images/right-arrow.png';
+import lessThan from '../../utils/images/left-arrow.png';
+import exitBlue from '../../utils/images/exit-blue.png';
+import close from '../../utils/images/close.png';
+import {
+    withRouter
+} from 'react-router-dom'
+import Wrapper from "../../components/wrapper";
 
 class Home extends React.Component {
     constructor(props) {
@@ -31,6 +39,8 @@ class Home extends React.Component {
             blockHash: "",
             time: "",
             network: "",
+            blockTitle: "LATEST BLOCK",
+            showAdditionalBlock: false,
             data: {block: {header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}
         }
         this.dataSource = DataSource.instance
@@ -39,6 +49,8 @@ class Home extends React.Component {
         this.getPreviousBlock = this.getPreviousBlock.bind(this)
         this.getNextBlock = this.getNextBlock.bind(this)
         this.getTransactions = this.getTransactions.bind(this)
+        this.toggleAdditionalInformation = this.toggleAdditionalInformation.bind(this)
+        this.navigateToBlock = this.navigateToBlock.bind(this)
     }
 
     componentWillMount() {
@@ -104,8 +116,12 @@ class Home extends React.Component {
         this.setState({showMessage: true})
     }
 
-    getPreviousBlock() {
+    toggleAdditionalInformation() {
+        let value = !this.state.showAdditionalBlock
+        this.setState({showAdditionalBlock: value})
+    }
 
+    getPreviousBlock() {
         let height = this.state.height - BigInt(1)
         this.dataSource.getBlock(height).then(block => {
             if (block !== undefined) {
@@ -115,7 +131,8 @@ class Home extends React.Component {
                     time: block.timestamp,
                     network: "TESTNET",
                     data: block.data,
-                    height: height
+                    height: height,
+                    blockTitle: `BLOCK ${height.toString()}`
                 })
 
                 this.getTransactions();
@@ -143,12 +160,13 @@ class Home extends React.Component {
                     latestArray.push(latest)
                 })
                 this.setState({transactions: latestArray})
+            } else {
+                this.setState({transactions: []})
             }
         })
     }
 
     getNextBlock() {
-
         let height = this.state.height + BigInt(1)
         this.dataSource.getBlock(height).then(block => {
             if (block !== undefined) {
@@ -158,7 +176,8 @@ class Home extends React.Component {
                     time: block.timestamp,
                     network: "TESTNET",
                     data: block.data,
-                    height: height
+                    height: height,
+                    blockTitle: height === this.state.maxHeight ? "LASTEST BLOCK" : `BLOCK ${height.toString()}`
                 })
 
                 this.getTransactions();
@@ -167,7 +186,10 @@ class Home extends React.Component {
                 this.setState({showMessage: true})
             }
         })
+    }
 
+    navigateToBlock() {
+        this.props.history.push(`/block/${this.state.height}`);
     }
 
     render() {
@@ -191,7 +213,7 @@ class Home extends React.Component {
                             Try searching by transaction hash, block number or account address
                         </p>
                         <button onClick={this.hideMessage}>
-                            <span id="close">X</span>
+                            <img id="close" src={close}/>
                         </button>
                     </div>
                 </div>
@@ -199,7 +221,7 @@ class Home extends React.Component {
                     <div className="details">
                         <Details
                             className={"bd"}
-                            header={"BLOCK DETAIL"}
+                            header={this.state.blockTitle}
                             line1Header={"BLOCK #"}
                             line2Header={"BLOCK HASH"}
                             line3Header={"TIMESTAMP"}
@@ -208,7 +230,34 @@ class Home extends React.Component {
                             line2Data={this.state.blockHash}
                             line3Data={this.state.time}
                             line4Data={this.state.network}
+                            renderAdditional={this.state.showAdditionalBlock}
+                            data1Header={"CHAIN ID"}
+                            data2Header={"CONSENSUS HASH"}
+                            data3Header={"TX NUMBER"}
+                            data4Header={"TOTAL TXS"}
+                            data1={this.state.data.block.header.chain_id}
+                            data2={this.state.data.block.header.consensus_hash}
+                            data3={this.state.data.block.header.num_txs}
+                            data4={this.state.data.block.header.total_txs}
+                            rightComponent={
+                                <button className="right-container next-image-button" onClick={this.navigateToBlock}>
+                                    <img src={moreThan} alt="greater than"/></button>
+                            }
+                            additionalRightComponent={
+                                <button className="right-container next-image-button"
+                                        onClick={this.toggleAdditionalInformation}>
+                                    <img src={exitBlue} alt="exit"/></button>
+                            }
                         />
+                    </div>
+
+                    <div className="container">
+                        <div className="center">
+                            <button style={this.state.showAdditionalBlock === false ? {} : {display: 'none'}}
+                                    onClick={this.toggleAdditionalInformation}>
+                                Additional Information
+                            </button>
+                        </div>
                     </div>
 
                     <div className="one-table-container" style={{marginTop: "70px"}}>
@@ -220,21 +269,30 @@ class Home extends React.Component {
                             columnThree={"INDEX"}
                             link={"tx"}
                             data={this.state.transactions}
+                            rightComponent={
+                                <span className="right-container">{this.state.transactions.length}</span>
+                            }
                         />
                     </div>
 
-                    <div className="container">
-                        <div className="center">
-                            <button className="right" style={this.state.height > 0 ? {} : {display: 'none'}}
-                                    onClick={this.getPreviousBlock}>
-                                Previous Block
-                            </button>
-                            <button className="left"
+                    <div className="one-table-container" style={{marginTop: "70px"}}>
+                        <Wrapper className="t-wrapper">
+                            <button className="no-background-button"
                                     style={this.state.height < this.state.maxHeight ? {} : {display: 'none'}}
                                     onClick={this.getNextBlock}>
-                                Next Block
+                                <div className="center">
+                                    <img src={lessThan} alt="greater than"/> <span style={{marginLeft: '5px'}}>Next Block</span>
+                                </div>
                             </button>
-                        </div>
+
+                            <button className="no-background-button right" style={this.state.height > 0 ? {} : {display: 'none'}}
+                                    onClick={this.getPreviousBlock}>
+                                <div className="center">
+                                    <span style={{marginRight: '5px'}}>Previous Block</span> <img src={moreThan} alt="greater than"/>
+                                </div>
+                            </button>
+
+                        </Wrapper>
                     </div>
                 </DetailsContent>
             </HomeContent>
@@ -242,4 +300,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home
+export default withRouter(Home)

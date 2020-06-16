@@ -36,6 +36,7 @@ class AccountDetails extends React.Component {
                         line2Header={"BALANCE"}
                         line3Header={"PUBLIC KEY"}
                         line4Header={"COINS"}
+                        renderAdditional={false}
                         line1Data={this.state.id}
                         line2Data={this.state.balance}
                         line3Data={this.state.data.public_key}

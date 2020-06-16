@@ -17,7 +17,10 @@ class OneTable extends Component {
     return (
       <Wrapper className="t-wrapper">
         <T>
-          <TTitle>{this.props.header}</TTitle>
+          <TTitle>
+            {this.props.header}
+            {this.props.rightComponent}
+          </TTitle>
           <THead className="latest-blks">
             <Tr>
               <Th>{this.props.columnOne}</Th>

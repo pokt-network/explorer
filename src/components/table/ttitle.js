@@ -13,11 +13,16 @@ const TTitle = styled.caption`
     background-image: linear-gradient(to bottom, #fbfbfb, #f5f5f5);
     padding: 25px 20px;
     text-align: left;
+    position: relative;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
     .one-table-container & {
         color: ${colors.white};
         background-image: linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+    }
+    .right-container {
+        position: sticky;
+        left: 100%;
     }
     .details & {
         &.bd {
