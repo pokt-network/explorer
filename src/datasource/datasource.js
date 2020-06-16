@@ -86,7 +86,6 @@ export class DataSource {
      */
     async getAccount(id) {
         const pocket = await this.getPocketInstance()
-        console.log(pocket.rpc())
         const accountOrError = await pocket.rpc().query.getAccount(id)
         if (typeGuard(accountOrError, RpcError)) {
             return undefined

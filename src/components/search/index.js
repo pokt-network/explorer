@@ -58,7 +58,6 @@ class Search extends Component {
     this.setState({search: value})
   }
   handleKeyDown = (e) => {
-    console.log(e.key)
     if (e.key === 'Enter') {
       this.showData()
     }

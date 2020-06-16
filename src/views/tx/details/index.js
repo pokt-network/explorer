@@ -26,8 +26,6 @@ class TxDetails extends React.Component {
                     network: "TESTNET",
                     data: tx.data
                 })
-
-                console.log(this.state.data.tx_result.events)
             } else {
                 this.setState({showMessage: true})
             }
