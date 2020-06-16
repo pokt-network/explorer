@@ -3,13 +3,15 @@ import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
 import {Alert} from "react-bootstrap";
+import OneTable from "../../../components/one-table";
+import EventTable from "../../../components/events";
 
 class TxDetails extends React.Component {
 
     constructor(props) {
         super(props)
 
-        this.state = { txId: 0, txHash: "", time: "", network: "", data: { proof: {root_hash: "", proof: {index: 0, total: 0, leaf_hash: ""} } }, showMessage: false}
+        this.state = { txId: 0, txHash: "", time: "", network: "", data: { tx_result: {events: [] } }, showMessage: false}
         this.dataSource = DataSource.instance
         this.hash = this.props.location.pathname.replace("/tx/", "")
     }
@@ -24,6 +26,8 @@ class TxDetails extends React.Component {
                     network: "TESTNET",
                     data: tx.data
                 })
+
+                console.log(this.state.data.tx_result.events)
             } else {
                 this.setState({showMessage: true})
             }
@@ -34,8 +38,6 @@ class TxDetails extends React.Component {
 
         return (
             <DetailsContent>
-
-
                 <div className="details">
                     <Details
                         className={"tx"}
@@ -48,15 +50,13 @@ class TxDetails extends React.Component {
                         line2Data={this.state.txHash}
                         line3Data={this.state.time}
                         line4Data={this.state.network}
-                        renderAdditional={true}
-                        data1Header={"ROOT HASH"}
-                        data2Header={"INDEX"}
-                        data3Header={"LEAF HASH"}
-                        data4Header={"TOTAL"}
-                        data1={this.state.data.proof.root_hash}
-                        data2={this.state.data.proof.proof.index}
-                        data3={this.state.data.proof.proof.leaf_hash}
-                        data4={this.state.data.proof.proof.total}
+                        renderAdditional={false}
+                    />
+                </div>
+
+                <div className="one-table-container white" style={{marginTop: "70px"}}>
+                    <EventTable
+                        events={this.state.data.tx_result.events}
                     />
                 </div>
             </DetailsContent>

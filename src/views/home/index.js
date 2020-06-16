@@ -157,6 +157,8 @@ class Home extends React.Component {
                         tx.data
                     )
 
+                    console.log(tx.data)
+
                     latestArray.push(latest)
                 })
                 this.setState({transactions: latestArray})
@@ -260,7 +262,7 @@ class Home extends React.Component {
                         </div>
                     </div>
 
-                    <div className="one-table-container" style={{marginTop: "70px"}}>
+                    <div className="one-table-container white" style={{marginTop: "70px"}}>
                         <OneTable
                             header={"TRANSACTIONS"}
                             className={"l-transactions"}
