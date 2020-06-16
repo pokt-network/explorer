@@ -1,11 +1,10 @@
 {
-  "baseUrl": "https://node1.testnet.pokt.network",
+  "baseUrl": "https://node2.testnet.pokt.network",
   "clientPassphrase": "pocketnetwork",
   "clientPrivateKey": "14e83883b88c54a56420ef4af0a6cfcf7ec992735341bbf0a70dcdd7444e5a675ad3c2acb46626b1c5e1283e26a966177b7c6f1e04a63e0350567529b42187c5",
-  "leifAppPublicKey": "5ad3c2acb46626b1c5e1283e26a966177b7c6f1e04a63e0350567529b42187c5",
-  "leifAppAATSignature": "b58dc84a02aabeab581c695bf28d54dd77521e52d83f08f2c7abb386e1dffc92425341859afe8bd0852ba12899441e9845a913687caeb9e85d45610f54195909",
+  "leifAppPublicKey": "8d88978729be80cd64d68c3655f307673bcd217316a439ed01fb1dbbdc58605b",
+  "leifAppAATSignature": "4ad23f3ac84cdc6b3f1a546712df987ce0c2cea8c7879fe85617bc3918ed556f6c3e37a7f5584e8ae0080687a5e44fc228dbccefcc1872cca7f816d5ebd31003",
   "chain": "0002",
-  "address": "840be6ccafb736e96792327c77b1ff3105e92925",
+  "address": "0594a790e92d423e565652ae16678f3329ec9985",
   "tendermintUrl": "https://node-1.nachonodes.com:26657/blockchain?minHeight={0}&maxHeight={1}"
 }
-
