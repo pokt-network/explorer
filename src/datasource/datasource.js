@@ -52,8 +52,8 @@ export class DataSource {
 
 			// Create Pocket RPC Provider
             const blockchain = config.chain
-            //const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
-            const pocketRpcProvider = new HttpRpcProvider(this.dispatchers)
+            const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
+            //const pocketRpcProvider = new HttpRpcProvider(this.dispatchers)
 
             // Set RPC Provider
             this.pocket.rpc(pocketRpcProvider)      
