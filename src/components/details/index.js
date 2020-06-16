@@ -13,7 +13,10 @@ class Details extends Component {
     return (
       <Wrapper className="details-wr">
         <T>
-          <TTitle className={this.props.className}>{this.props.header}</TTitle>
+          <TTitle className={this.props.className}>
+            {this.props.header}
+            {this.props.rightComponent}
+          </TTitle>
           <TBody className="details-t">
             <Tr>
               <Th>{this.props.line1Header}</Th>
@@ -33,9 +36,12 @@ class Details extends Component {
             </Tr>
           </TBody>
         </T>
-        {this.props.data1Header !== undefined ?
+        {this.props.renderAdditional === true ?
           <T>
-            <TTitle>ADDITIONAL INFORMATION</TTitle>
+            <TTitle>
+              ADDITIONAL INFORMATION
+              {this.props.additionalRightComponent}
+            </TTitle>
             <TBody className="additional-i">
               <Tr>
                 <Th>{this.props.data1Header}</Th>

@@ -48,6 +48,7 @@ class TxDetails extends React.Component {
                         line2Data={this.state.txHash}
                         line3Data={this.state.time}
                         line4Data={this.state.network}
+                        renderAdditional={true}
                         data1Header={"ROOT HASH"}
                         data2Header={"INDEX"}
                         data3Header={"LEAF HASH"}

@@ -1,5 +1,7 @@
-import styled, { css } from "styled-components";
-import { maxPhone, maxTablet, maxTabletLandscape } from "../utils/media";
+import styled, {css} from "styled-components";
+import {maxPhone, maxTablet, maxTabletLandscape} from "../utils/media";
+import { colors } from '../utils/colors';
+import rightArrow from '../utils/images/right-arrow.png';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -19,6 +21,32 @@ const Wrapper = styled.div`
       display: block;
    }
   `)};
+  
+  .no-background-button {
+      background-color: ${colors.white};
+      color: ${colors.blue};
+      margin: 0;
+      padding: 10px 27px;
+      display: inline-block;
+      text-transform: initial;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1;
+      height: auto;
+      overflow: visible;
+      text-decoration: none;
+      transition: all .3s ease-in-out;
+      border: none;
+      img {
+            max-width: 8px;
+       }
+  }
+      
+  }
+  .right {
+    left: 100%;
+    position: sticky;
+  }
   @media (min-width: 900px) {
     max-width: 870px;
   }
