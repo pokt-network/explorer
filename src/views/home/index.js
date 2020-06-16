@@ -241,10 +241,7 @@ class Home extends React.Component {
                             data2={this.state.data.block.header.consensus_hash}
                             data3={this.state.data.block.header.num_txs}
                             data4={this.state.data.block.header.total_txs}
-                            rightComponent={
-                                <button className="right-container next-image-button" onClick={this.navigateToBlock}>
-                                    <img src={moreThan} alt="greater than"/></button>
-                            }
+                            
                             additionalRightComponent={
                                 <button className="right-container next-image-button"
                                         onClick={this.toggleAdditionalInformation}>
