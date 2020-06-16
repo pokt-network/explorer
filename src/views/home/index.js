@@ -156,9 +156,6 @@ class Home extends React.Component {
                         tx.data.index,
                         tx.data
                     )
-
-                    console.log(tx.data)
-
                     latestArray.push(latest)
                 })
                 this.setState({transactions: latestArray})
