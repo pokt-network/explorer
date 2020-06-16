@@ -67,6 +67,7 @@ class BlockDetails extends React.Component {
                         line2Data={this.state.blockHash}
                         line3Data={this.state.time}
                         line4Data={this.state.network}
+                        renderAdditional={true}
                         data1Header={"CHAIN ID"}
                         data2Header={"CONSENSUS HASH"}
                         data3Header={"TX NUMBER"}
