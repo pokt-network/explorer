@@ -20,6 +20,10 @@ const TTitle = styled.caption`
         color: ${colors.white};
         background-image: linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
     }
+    .white & {
+        color: ${colors.blue} !important;
+        background-image: linear-gradient(to bottom, #fbfbfb, #f5f5f5) !important;
+    }
     .right-container {
         position: sticky;
         left: 100%;
@@ -45,6 +49,15 @@ const TTitle = styled.caption`
         
         &.acc {
             background-image: url(${acc}), linear-gradient(95deg, ${colors.blue} 28%, ${colors.darkBlue} 113%);
+            background-repeat: no-repeat, no-repeat;
+            background-size: 20px, cover;
+            background-position: 20px 27px, center;
+            color: ${colors.white};
+            padding: 25px 20px 25px 50px;
+        }
+        
+        &.events {
+            background-image: linear-gradient(95deg, ${colors.gray} 28%, ${colors.darkGray} 113%);
             background-repeat: no-repeat, no-repeat;
             background-size: 20px, cover;
             background-position: 20px 27px, center;
