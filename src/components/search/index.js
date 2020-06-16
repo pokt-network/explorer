@@ -17,6 +17,7 @@ class Search extends Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.showData = this.showData.bind(this)
+    this.handleKeyDown = this.handleKeyDown.bind(this)
   }
 
   showData() {
@@ -56,13 +57,19 @@ class Search extends Component {
     const value = event.target.value
     this.setState({search: value})
   }
+  handleKeyDown = (e) => {
+    console.log(e.key)
+    if (e.key === 'Enter') {
+      this.showData()
+    }
+  }
 
   render () {
     return (
       <SearchContent className="search">
           <Wrapper>
-            <form>
-              <input type="text" name="block" placeholder="Search by Transaction Hash, Block #" onChange={this.handleChange} />
+            <form onSubmit={e => { e.preventDefault(); }}>
+              <input type="text" name="block" placeholder="Search by Transaction Hash, Block #" onChange={this.handleChange} onKeyDown={this.handleKeyDown}/>
               <input type="button" value="Search" onClick={() => {this.showData()}}/>
             </form>
           </Wrapper>
