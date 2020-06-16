@@ -4,6 +4,7 @@ import {
     Pocket,
     PocketRpcProvider,
     HttpRpcProvider,
+    Configuration,
     typeGuard,
     RpcError,
     PocketAAT,
@@ -31,16 +32,18 @@ export class DataSource {
             const leifAppPublicKey = config.leifAppPublicKey
             const leifAppAATSignature = config.leifAppAATSignature
 
+            const configuration = new Configuration(undefined, undefined, 5, 0, undefined, undefined, undefined, undefined, undefined, false)
+
             // Create pocket instance
-            this.pocket = new Pocket(this.dispatchers)
+            const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
 
             // Import client account
-            const clientAccountOrError = await this.pocket.keybase.importAccount(Buffer.from(clientPrivateKey, "hex"), clientPassphrase)
+            const clientAccountOrError = await pocketLocal.keybase.importAccount(Buffer.from(clientPrivateKey, "hex"), clientPassphrase)
             if (typeGuard(clientAccountOrError, Error)) {
                 throw clientAccountOrError
             }
             const clientAccount = clientAccountOrError
-            await this.pocket.keybase.unlockAccount(clientAccount.addressHex, clientPassphrase, 0)
+            await pocketLocal.keybase.unlockAccount(clientAccount.addressHex, clientPassphrase, 0)
 
             // Create AAT
             const aat = new PocketAAT(
@@ -52,11 +55,12 @@ export class DataSource {
 
 			// Create Pocket RPC Provider
             const blockchain = config.chain
-            const pocketRpcProvider = new PocketRpcProvider(this.pocket, aat, blockchain)
+            const pocketRpcProvider = new PocketRpcProvider(pocketLocal, aat, blockchain, true)
             //const pocketRpcProvider = new HttpRpcProvider(this.dispatchers)
 
             // Set RPC Provider
-            this.pocket.rpc(pocketRpcProvider)      
+            //this.pocket.rpc(pocketRpcProvider)
+            this.pocket = new Pocket(this.dispatchers, pocketRpcProvider)
         }
         return this.pocket
     }
