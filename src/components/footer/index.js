@@ -17,7 +17,7 @@ class Footer extends Component {
         <Wrapper className="footer-w"> 
             
           <HalfColumn>
-            <div className="social-ch">
+            <div className="social-ch" style={{marginTop: "-15px"}}>
               <div className="title">
                 <h3>POCKET NETWORK</h3>
               </div>
