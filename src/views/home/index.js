@@ -260,7 +260,7 @@ class Home extends React.Component {
 
                     <div className="one-table-container black" style={{marginTop: "70px"}}>
                         <OneTable
-                            header={"TRANSACTIONS ON THIS BLOCK"}
+                            header={"TRANSACTIONS IN THIS BLOCK"}
                             className={"l-transactions"}
                             columnOne={"TRANSACTION HASH"}
                             columnTwo={"BLOCK #"}
