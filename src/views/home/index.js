@@ -1,19 +1,15 @@
 /* global BigInt */
 
-import React, {useState} from "react"
+import React from "react"
 import HomeContent from "./home-content"
 import Search from "../../components/search"
 import Statistics from "../../components/statistics"
-import HomeTables from "../../components/home-tables"
 import altertT from '../../utils/images/alert.png'
 import {DataSource} from "../../datasource"
 import OneTable from "../../components/one-table";
-import {Alert} from "react-bootstrap";
 import Details from "../../components/details";
 import DetailsContent from "../block/details/details";
 import {LatestInfo} from "../../models/latestInfo";
-import moreThan from '../../utils/images/right-arrow.png';
-import lessThan from '../../utils/images/left-arrow.png';
 import exitBlue from '../../utils/images/exit-blue.png';
 import close from '../../utils/images/close.png';
 import {
@@ -214,7 +210,7 @@ class Home extends React.Component {
                             Try searching by transaction hash, block number or account address
                         </p>
                         <button onClick={this.hideMessage}>
-                            <img id="close" src={close}/>
+                            <img id="close" src={close} alt="close"/>
                         </button>
                     </div>
                 </div>
