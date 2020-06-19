@@ -122,6 +122,7 @@ class Home extends React.Component {
     }
 
     getPreviousBlock() {
+        window.scrollTo(0, 0)
         let height = this.state.height - BigInt(1)
         this.dataSource.getBlock(height).then(block => {
             if (block !== undefined) {
@@ -166,6 +167,7 @@ class Home extends React.Component {
     }
 
     getNextBlock() {
+        window.scrollTo(0, 0)
         let height = this.state.height + BigInt(1)
         this.dataSource.getBlock(height).then(block => {
             if (block !== undefined) {
@@ -225,8 +227,8 @@ class Home extends React.Component {
                             line2Header={"BLOCK HASH"}
                             line3Header={"TIMESTAMP"}
                             line4Header={"NETWORK"}
-                            line1Data={this.state.blockId}
-                            line2Data={this.state.blockHash}
+                            line1Data={this.state.blockHash}
+                            line2Data={this.state.blockId}
                             line3Data={this.state.time}
                             line4Data={this.state.network}
                             renderAdditional={this.state.showAdditionalBlock}
@@ -256,9 +258,9 @@ class Home extends React.Component {
                         </div>
                     </div>
 
-                    <div className="one-table-container white" style={{marginTop: "70px"}}>
+                    <div className="one-table-container black" style={{marginTop: "70px"}}>
                         <OneTable
-                            header={"TRANSACTIONS"}
+                            header={"TRANSACTIONS ON THIS BLOCK"}
                             className={"l-transactions"}
                             columnOne={"TRANSACTION HASH"}
                             columnTwo={"BLOCK #"}
@@ -277,14 +279,16 @@ class Home extends React.Component {
                                     style={this.state.height < this.state.maxHeight ? {} : {display: 'none'}}
                                     onClick={this.getNextBlock}>
                                 <div className="center">
-                                    <img src={lessThan} alt="greater than"/> <span style={{marginLeft: '5px'}}>Next Block</span>
+                                    <div className="left-img"/>
+                                    <span style={{marginLeft: '5px'}}>Next Block</span>
                                 </div>
                             </button>
 
                             <button className="no-background-button right" style={this.state.height > 0 ? {} : {display: 'none'}}
                                     onClick={this.getPreviousBlock}>
                                 <div className="center">
-                                    <span style={{marginRight: '5px'}}>Previous Block</span> <img src={moreThan} alt="greater than"/>
+                                    <span style={{marginRight: '5px'}}>Previous Block</span>
+                                    <div className="right-img"/>
                                 </div>
                             </button>
 

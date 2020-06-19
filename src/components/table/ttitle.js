@@ -24,6 +24,10 @@ const TTitle = styled.caption`
         color: ${colors.blue} !important;
         background-image: linear-gradient(to bottom, #fbfbfb, #f5f5f5) !important;
     }
+    .black & {
+        color: ${colors.black} !important;
+        background-image: linear-gradient(to bottom, #fbfbfb, #f5f5f5) !important;
+    }
     .right-container {
         position: sticky;
         left: 100%;
