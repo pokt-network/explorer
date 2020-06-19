@@ -25,7 +25,7 @@ const HomeContent = styled.main`
         }
         
         button {
-            width: 180px;
+            width: 190px;
             background-color: ${colors.darkGray};
             color: ${colors.white};
             margin: 0;

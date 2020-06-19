@@ -30,16 +30,36 @@ const Wrapper = styled.div`
       display: inline-block;
       text-transform: initial;
       font-size: 15px;
-      font-weight: 500;
+      font-family: Lato;
+      font-weight: lighter;
       line-height: 1;
       height: auto;
       overflow: visible;
       text-decoration: none;
-      transition: all .3s ease-in-out;
       border: none;
-      img {
-            max-width: 8px;
-       }
+      &:hover {
+        background-color: ${colors.white};
+        color: ${colors.darkGray};
+        .right-img {
+          background: white url("right-arrow-hover.png") no-repeat;
+        }
+        .left-img {
+          background: white url("left-arrow-hover.png") no-repeat;
+        }
+      }
+      .right-img {
+          background: white url("right-arrow.png") no-repeat;
+          background-repeat: no-repeat;
+          width: 8px;
+          height: 14px;
+      }
+      
+      .left-img {
+          background: white url("left-arrow.png") no-repeat;
+          background-repeat: no-repeat;
+          width: 8px;
+          height: 14px;
+      }
   }
       
   }
