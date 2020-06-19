@@ -1,7 +1,6 @@
 import styled, {css} from "styled-components";
 import {maxPhone, maxTablet, maxTabletLandscape} from "../utils/media";
 import { colors } from '../utils/colors';
-import rightArrow from '../utils/images/right-arrow.png';
 
 const Wrapper = styled.div`
   width: 100%;

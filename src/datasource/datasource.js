@@ -3,7 +3,6 @@
 import {
     Pocket,
     PocketRpcProvider,
-    HttpRpcProvider,
     Configuration,
     typeGuard,
     RpcError,

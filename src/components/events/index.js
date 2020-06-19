@@ -8,9 +8,6 @@ import Td from '../table/td';
 import Tr from '../table/tr';
 import THead from '../table/thead';
 import TBody from '../table/tbody';
-import TFooter from '../table/tfooter';
-import moreThan from '../../utils/images/right-arrow.png';
-import {Link} from "react-router-dom";
 
 class EventTable extends Component {
     render () {
