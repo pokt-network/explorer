@@ -1,7 +1,6 @@
 import styled, {css} from "styled-components";
-import {maxPhone, tablet, desktop} from "../../utils/media";
+import {maxPhone} from "../../utils/media";
 import { colors } from '../../utils/colors';
-import close from "../../utils/images/close.png"
 
 const HomeContent = styled.main`
   position: relative;

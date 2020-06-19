@@ -2,7 +2,6 @@ import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
-import { Alert } from "react-bootstrap";
 
 class AccountDetails extends React.Component {
 

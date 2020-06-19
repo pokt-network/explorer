@@ -2,8 +2,6 @@ import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
-import {Alert} from "react-bootstrap";
-import OneTable from "../../../components/one-table";
 import EventTable from "../../../components/events";
 
 class TxDetails extends React.Component {

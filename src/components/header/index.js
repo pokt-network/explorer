@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import Wrapper from '../wrapper';
 import Menu from "./menu";
@@ -9,16 +9,11 @@ import StyledUl from "./ui";
 import StyledLi from "./li";
 import HeaderContainer from "./header";
 import logo from '../../utils/images/pocket-logo.png';
-import arrow from '../../utils/images/right-arrow.png';
 
 class Header extends Component {
   state = {
     isMenuHidden: true
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   onToggleMenu = () => {
     this.setState((prevState) => {
@@ -27,7 +22,6 @@ class Header extends Component {
   };
 
   render() {
-    let hrefLink = '#';
     return (
       <HeaderContainer>
         <Wrapper className="header">

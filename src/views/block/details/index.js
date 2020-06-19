@@ -4,8 +4,6 @@ import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
 import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
-import {Alert} from "react-bootstrap";
-
 
 class BlockDetails extends React.Component {
 
