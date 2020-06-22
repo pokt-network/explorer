@@ -33,27 +33,12 @@ class App extends Component {
     this.dataSource = DataSource.instance
     this.dataSource.getPocketInstance()
 
-    this.createStringUtil()
-
   }
 
   componentDidMount(){
     document.title = "Pocket Blockchain Block Explorer"
   }
-  
-  createStringUtil() {
-    if (!String.prototype.format) {
-      String.prototype.format = function() {
-        let args = arguments;
-        return this.replace(/{(\d+)}/g, function(match, number) {
-          return typeof args[number] != 'undefined'
-              ? args[number]
-              : match
-              ;
-        });
-      };
-    }
-  }
+
 
   render() {
     return (

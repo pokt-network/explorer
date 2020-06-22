@@ -123,7 +123,6 @@ export class DataSource {
         const pocket = await this.getPocketInstance()
         const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
         if (typeGuard(blockResponseOrError, RpcError)) {
-            //OCAlert.alertError(blockResponseOrError.message, { timeOut: 3000 });
             return undefined
         } else {
             const block = blockResponseOrError.block
@@ -153,7 +152,8 @@ export class DataSource {
         let minHeight = maxHeight - count
 
         try {
-            const response = await fetch(config.tendermintUrl.format(minHeight.toString(), maxHeight.toString()));
+            const url = config.tendermintUrl.replace("{0}", minHeight.toString()).replace("{1}", maxHeight.toString());
+            const response = await fetch(url);
             const json = await response.json()
             const blockMetas = json.result.block_metas
             const result = []
