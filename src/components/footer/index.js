@@ -50,25 +50,29 @@ class Footer extends Component {
                 <li className="mainli"> 
                   <div className="title-sm">PRODUCT</div>
                   <ul className="sub-menu">
-                    <li className="menu-item"><a href="https://docs.pokt.network/docs/what-is-pocket-network">Why use POKT</a></li>
-                    <li className="menu-item"><a href="https://www.pokt.network/">Road Map</a></li>
+                    <li className="menu-item"><a href="https://docs.pokt.network/docs/what-is-pocket-network">What is Pocket Network?</a></li>
+                    <li className="menu-item"><a href="https://www.pokt.network/">Website</a></li>
+                    <li className="menu-item"><a href="https://www.pokt.network/">Dashboard</a></li>
+                    <li className="menu-item"><a href="https://www.pokt.network/">Wallet</a></li>
+                    <li className="menu-item"><a href="https://www.pokt.network/">Gateway</a></li>
                   </ul>
                 </li>
                 <li className="mainli">
                   <div className="title-sm">RESOURCES</div>
                   <ul className="sub-menu">
-                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Whitepaper-v0.3.0.pdf">WhitePaper</a></li>
-                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Economic-Paper-v1.0.2.pdf">Economic One Pager</a></li>
-                    <li className="menu-item"><a href="https://github.com/pokt-network/pocket-js">JS SDK</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Whitepaper-v0.3.0.pdf">White Paper</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Economic-Paper-v1.0.2.pdf">Economic Paper</a></li>
+                    <li className="menu-item"><a href="https://docs.pokt.network/">Dev portal</a></li>
+                    <li className="menu-item"><a href="https://pokt.network/site-terms-of-use/">Site Terms Of Use</a></li>
+                    <li className="menu-item"><a href="https://pokt.network/privacy-policy/">Privacy Policy</a></li>
                   </ul>
                 </li>
                 <li className="mainli">
                   <div className="title-sm">COMMUNITY</div>
                   <ul className="sub-menu">
+                    <li className="menu-item"><a href="https://pokt.network/contact/">Contact Us</a></li>
                     <li className="menu-item"><a href="https://pokt.network/blog/">Blog</a></li>
                     <li className="menu-item"><a href="https://research.pokt.network/">Forum</a></li>
-                    <li className="menu-item"><a href="https://pokt.network/contact/">Contact</a></li>
-                    <li className="menu-item"><a href="https://docs.pokt.network/">FAQ / Dev Portal</a></li>
                     <li className="menu-item"><a href="https://discord.com/invite/WRh7fMJ">Join Discord</a></li>
                   </ul>
                 </li>
