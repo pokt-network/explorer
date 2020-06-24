@@ -93,8 +93,6 @@ class Home extends React.Component {
                     }
                 })
 
-            } else {
-                this.setState({showMessage: true})
             }
         })
 
@@ -134,8 +132,6 @@ class Home extends React.Component {
 
                 this.getTransactions();
 
-            } else {
-                this.setState({showMessage: true})
             }
         })
     }
@@ -179,8 +175,6 @@ class Home extends React.Component {
 
                 this.getTransactions();
 
-            } else {
-                this.setState({showMessage: true})
             }
         })
     }

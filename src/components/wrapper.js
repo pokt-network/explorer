@@ -30,12 +30,13 @@ const Wrapper = styled.div`
       text-transform: initial;
       font-size: 15px;
       font-family: Lato;
-      font-weight: lighter;
+      font-weight: normal;
       line-height: 1;
       height: auto;
       overflow: visible;
       text-decoration: none;
       border: none;
+      outline:none;
       &:hover {
         background-color: ${colors.white};
         color: ${colors.darkGray};
