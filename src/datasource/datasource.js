@@ -120,7 +120,7 @@ export class DataSource {
      */
     async getBlock(height) {
         const pocket = await this.getPocketInstance()
-        const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height.toString()))
+        const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
         if (typeGuard(blockResponseOrError, RpcError)) {
             return undefined
         } else {
