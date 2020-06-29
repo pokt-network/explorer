@@ -13,6 +13,7 @@ import Footer from "./components/footer";
 import AccountDetails from "./views/account/details";
 import { OCAlertsProvider } from '@opuscapita/react-alerts';
 import history from './history';
+import JSBI from 'jsbi';
 
 import './normalize.css';
 import {DataSource} from "./datasource";
@@ -29,6 +30,8 @@ const GlobalStyles = createGlobalStyle`
 class App extends Component {
   constructor(props) {
     super(props)
+
+    window.BigInt = JSBI.BigInt
 
     this.dataSource = DataSource.instance
     this.dataSource.getPocketInstance()
