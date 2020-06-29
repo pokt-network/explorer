@@ -14,7 +14,6 @@ import { OCAlert } from '@opuscapita/react-alerts';
 import config from "../config/config.json"
 import {LatestInfo} from "../models/latestInfo";
 
-
 export class DataSource {
     static instance = DataSource.instance || new DataSource([new URL(config.baseUrl)])
     static AATVersion = "0.0.1"
@@ -121,7 +120,7 @@ export class DataSource {
      */
     async getBlock(height) {
         const pocket = await this.getPocketInstance()
-        const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
+        const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height.toString()))
         if (typeGuard(blockResponseOrError, RpcError)) {
             return undefined
         } else {
