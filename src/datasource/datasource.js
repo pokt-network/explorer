@@ -134,48 +134,7 @@ export class DataSource {
             )
         }
     }
-
-    /**
-     *
-     * @param {number} count How many blocks to fetch
-     */
-    async getLatestBlocks(count) {
-        if (count === 0 || count === undefined) {
-            return []
-        }
-        const height = await this.getHeight()
-        if (height === undefined) {
-            return []
-        }
-        let maxHeight = Number(height)
-        let minHeight = maxHeight - count
-
-        try {
-            const url = config.tendermintUrl.replace("{0}", minHeight.toString()).replace("{1}", maxHeight.toString());
-            const response = await fetch(url);
-            const json = await response.json()
-            const blockMetas = json.result.block_metas
-            const result = []
-
-            blockMetas.forEach(block => {
-                result.push(new LatestInfo(
-                    block.block_id.hash,
-                    block.header.height,
-                    block.header.time,
-                    "",
-                    block.header.num_txs,
-                    block
-                ))
-            })
-            return result
-        }catch (error) {
-            return []
-        }
-
-
-
-    }
-
+    
     async getLatestBlock() {
         const height = await this.getHeight()
         if (height === undefined) {
