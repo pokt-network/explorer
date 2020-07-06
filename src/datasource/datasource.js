@@ -30,7 +30,7 @@ export class DataSource {
             const leifAppPublicKey = config.leifAppPublicKey
             const leifAppAATSignature = config.leifAppAATSignature
 
-            const configuration = new Configuration(undefined, undefined, 5, 0, undefined, undefined, undefined, undefined, undefined, false)
+            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.blockTime, undefined, undefined, false)
 
             // Create pocket instance
             const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
