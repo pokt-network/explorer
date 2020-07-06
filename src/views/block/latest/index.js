@@ -13,26 +13,6 @@ class BlockLatest extends React.Component {
         this.dataSource = DataSource.instance
     }
 
-    componentWillMount() {
-        this.dataSource.getLatestBlocks(10).then(blocks => {
-            if(blocks.length !== 0) {
-                const latestArray = []
-                blocks.forEach(block => {
-                    const latest = new LatestInfo(
-                        block.id,
-                        block.number,
-                        block.timestamp,
-                        "TESTNET",
-                        block.data
-                    )
-
-                    latestArray.push(latest)
-                })
-                this.setState({blocks: latestArray})
-            }
-        })
-    }
-
     render() {
         return (
             <LatestContent>
