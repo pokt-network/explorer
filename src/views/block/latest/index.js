@@ -2,7 +2,6 @@ import React from 'react';
 import LatestContent from './latest';
 import OneTable from '../../../components/one-table';
 import {DataSource} from "../../../datasource";
-import {LatestInfo} from "../../../models/latestInfo";
 
 class BlockLatest extends React.Component {
 
