@@ -12,7 +12,6 @@ import {
 import { Account, Transaction, Block } from "../models"
 import { OCAlert } from '@opuscapita/react-alerts';
 import config from "../config/config.json"
-import {LatestInfo} from "../models/latestInfo";
 
 export class DataSource {
     static instance = DataSource.instance || new DataSource([new URL(config.baseUrl)])
