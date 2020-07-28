@@ -1,8 +1,8 @@
-name: Production Deployment
+name: Testnet Deployment
 
 on:
   push:
-    branches: [ master ]
+    branches: [ staging ]
 
 jobs:
   build:
@@ -20,12 +20,12 @@ jobs:
       uses: schdck/create-env-json@v1
       with:
         file-name: 'src/config/config.json'
-        clientPassphrase: ${{ secrets.LEIF_PRODUCTION_CLIENT_PASSPHRASE }}
-        clientPrivateKey: ${{ secrets.LEIF_PRODUCTION_CLIENT_PRIVATE_KEY }}
-        leifAppPublicKey: ${{ secrets.LEIF_PRODUCTION_APP_PUBLIC_KEY }}
-        leifAppAATSignature: ${{ secrets.LEIF_PRODUCTION_APP_AAT_SIGNATURE }}
-        baseUrl: "https://node1.pokt.network"
-        chain: "0001"
+        clientPassphrase: ${{ secrets.LEIF_TESTNET_CLIENT_PASSPHRASE }}
+        clientPrivateKey: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
+        leifAppPublicKey: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
+        leifAppAATSignature: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
+        baseUrl: "https://node1.testnet.pokt.network"
+        chain: "0002"
         address: "0594a790e92d423e565652ae16678f3329ec9985"
         blockTime: "90000"
     - name: NPM install
@@ -37,7 +37,7 @@ jobs:
       with:
         args: --acl public-read --delete
       env:
-        AWS_S3_BUCKET: ${{ secrets.AWS_PRODUCTION_BUCKET_NAME }}
+        AWS_S3_BUCKET: ${{ secrets.AWS_TESTNET_BUCKET_NAME }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
@@ -48,5 +48,5 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
-        DISTRIBUTION_ID: ${{ secrets.AWS_PRODUCTION_DISTRIBUTION_ID }}
+        DISTRIBUTION_ID: ${{ secrets.AWS_TESTNET_DISTRIBUTION_ID }}
     
