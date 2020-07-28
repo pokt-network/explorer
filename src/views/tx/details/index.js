@@ -3,6 +3,7 @@ import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
 import EventTable from "../../../components/events";
+import config from "../../../config/config.json";
 
 class TxDetails extends React.Component {
 
@@ -21,7 +22,7 @@ class TxDetails extends React.Component {
                     txId: tx.id,
                     txHash: tx.height.toString(),
                     time: tx.data.index,
-                    network: "TESTNET",
+                    network: config.CHAINID.toUpperCase(),
                     data: tx.data
                 })
             } else {

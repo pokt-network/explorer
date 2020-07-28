@@ -26,6 +26,7 @@ jobs:
         leifAppAATSignature: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
         baseUrl: "https://node1.testnet.pokt.network"
         chain: "0002"
+        chainID: "testnet-r2"
         address: "0594a790e92d423e565652ae16678f3329ec9985"
         blockTime: "90000"
     - name: NPM install
