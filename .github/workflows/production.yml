@@ -24,7 +24,7 @@ jobs:
         clientPrivateKey: ${{ secrets.LEIF_PRODUCTION_CLIENT_PRIVATE_KEY }}
         leifAppPublicKey: ${{ secrets.LEIF_PRODUCTION_APP_PUBLIC_KEY }}
         leifAppAATSignature: ${{ secrets.LEIF_PRODUCTION_APP_AAT_SIGNATURE }}
-        baseUrl: "https://node1.pokt.network"
+        baseUrl: "https://node1.mainnet.pokt.network"
         chain: "0001"
         address: "0594a790e92d423e565652ae16678f3329ec9985"
         blockTime: "90000"
