@@ -16,6 +16,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Write config
+      uses: schdck/create-env-json@v1
+      with:
+        file-name: 'src/config/config.json'
+        clientPassphrase: ${{ secrets.LEIF_PRODUCTION_CLIENT_PASSPHRASE }}
+        clientPrivateKey: ${{ secrets.LEIF_PRODUCTION_CLIENT_PRIVATE_KEY }}
+        leifAppPublicKey: ${{ secrets.LEIF_PRODUCTION_APP_PUBLIC_KEY }}
+        leifAppAATSignature: ${{ secrets.LEIF_PRODUCTION_APP_AAT_SIGNATURE }}
+        baseUrl: "https://node1.pokt.network"
+        chain: "0001"
+        address: "0594a790e92d423e565652ae16678f3329ec9985"
+        blockTime: "90000"
     - name: NPM install
       run: npm install
     - name: Production build
