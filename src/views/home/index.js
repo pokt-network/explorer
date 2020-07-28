@@ -16,6 +16,7 @@ import {
     withRouter
 } from 'react-router-dom'
 import Wrapper from "../../components/wrapper";
+import config from "../../config/config.json";
 
 class Home extends React.Component {
     constructor(props) {
@@ -70,7 +71,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAINID.toUpperCase(),
                     data: block.data
                 })
 
@@ -82,7 +83,7 @@ class Home extends React.Component {
                                 tx.height.toString(),
                                 tx.id,
                                 undefined,
-                                "TESTNET",
+                                config.CHAINID.toUpperCase(),
                                 tx.data.index,
                                 tx.data
                             )
@@ -124,7 +125,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAINID.toUpperCase(),
                     data: block.data,
                     height: height,
                     blockTitle: `BLOCK ${height.toString()}`
@@ -145,7 +146,7 @@ class Home extends React.Component {
                         tx.height.toString(),
                         tx.id,
                         undefined,
-                        "TESTNET",
+                        config.CHAINID.toUpperCase(),
                         tx.data.index,
                         tx.data
                     )
@@ -167,7 +168,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAINID.toUpperCase(),
                     data: block.data,
                     height: height,
                     blockTitle: height === this.state.maxHeight ? "LASTEST BLOCK" : `BLOCK ${height.toString()}`

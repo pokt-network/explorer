@@ -4,6 +4,7 @@ import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
 import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
+import config from "../../../config/config.json";
 
 class BlockDetails extends React.Component {
 
@@ -22,7 +23,7 @@ class BlockDetails extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAINID.toUpperCase(),
                     data: block.data
                 })
             } else {
@@ -38,7 +39,7 @@ class BlockDetails extends React.Component {
                         tx.height.toString(),
                         tx.id,
                         undefined,
-                        "TESTNET",
+                        config.CHAINID.toUpperCase(),
                         tx.data.index,
                         tx.data
                     )
