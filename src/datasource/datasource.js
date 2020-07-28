@@ -14,7 +14,7 @@ import { OCAlert } from '@opuscapita/react-alerts';
 import config from "../config/config.json"
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(config.baseUrl)])
+    static instance = DataSource.instance || new DataSource([new URL(config.BASEURL)])
     static AATVersion = "0.0.1"
 
     constructor(dispatchers) {
@@ -24,12 +24,12 @@ export class DataSource {
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
             // Load AAT constants
-            const clientPassphrase = config.clientPassphrase
-            const clientPrivateKey = config.clientPrivateKey
-            const leifAppPublicKey = config.leifAppPublicKey
-            const leifAppAATSignature = config.leifAppAATSignature
+            const clientPassphrase = config.CLIENTPASSPHRASE
+            const clientPrivateKey = config.CLIENTPRIVATEKEY
+            const leifAppPublicKey = config.LEIFAPPPUBLICKEY
+            const leifAppAATSignature = config.LEIFAPPAATSIGNATURE
 
-            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.blockTime, undefined, undefined, false)
+            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCKTIME, undefined, undefined, false)
 
             // Create pocket instance
             const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
@@ -51,7 +51,7 @@ export class DataSource {
             )
 
 			// Create Pocket RPC Provider
-            const blockchain = config.chain
+            const blockchain = config.CHAIN
             const pocketRpcProvider = new PocketRpcProvider(pocketLocal, aat, blockchain, false)
             //const pocketRpcProvider = new HttpRpcProvider(this.dispatchers)
 
@@ -207,7 +207,7 @@ export class DataSource {
 
     async getBalance() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = config.address;
+        const pocketAddress = config.ADDRESS;
         const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
         if (typeGuard(queryBalanceResponseOrError, RpcError)) {
             return 0
