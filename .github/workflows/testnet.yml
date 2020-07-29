@@ -25,6 +25,8 @@ jobs:
         LEIF_APP_PUBLIC_KEY: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
         LEIF_APP_AAT_SIGNATURE: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
         BASE_URL: "https://node1.testnet.pokt.network"
+        WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
+        DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
         CHAIN: "0002"
         CHAIN_ID: "testnet-r2"
         ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
