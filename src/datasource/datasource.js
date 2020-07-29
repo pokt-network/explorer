@@ -10,8 +10,10 @@ import {
     StakingStatus
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
-import { OCAlert } from '@opuscapita/react-alerts';
+import { OCAlert } from '@opuscapita/react-alerts'
 import config from "../config/config.json"
+import JSBI from 'jsbi'
+import numeral from 'numeral'
 
 export class DataSource {
     static instance = DataSource.instance || new DataSource([new URL(config.BASE_URL)])
@@ -205,15 +207,16 @@ export class DataSource {
         }
     }
 
-    async getBalance() {
+    async getStakedSupply() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = config.ADDRESS;
-        const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
-        if (typeGuard(queryBalanceResponseOrError, RpcError)) {
+        const totalSupplyOrError = await pocket.rpc().query.getSupply()
+        if (typeGuard(totalSupplyOrError, RpcError)) {
+            OCAlert.alertError(totalSupplyOrError.message, { timeOut: 3000 });
             return 0
         } else {
-            const uPOKT = Number(queryBalanceResponseOrError.balance.toString())
-            return uPOKT / 1000000
+            const totalSupply = totalSupplyOrError
+            const totalSupplyPOKT = JSBI.divide(totalSupply.totalStaked, new BigInt(10000000))
+            return numeral(totalSupplyPOKT.toString()).format('(0.00 a)');
         }
     }
 
