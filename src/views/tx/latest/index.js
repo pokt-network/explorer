@@ -23,7 +23,7 @@ class TxLatest extends React.Component {
                         tx.hash,
                         tx.height.toString(),
                         undefined,
-                        config.CHAINID.toUpperCase(),
+                        config.CHAIN_ID.toUpperCase(),
                         tx.data
                     )
 
