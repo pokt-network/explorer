@@ -55,8 +55,8 @@ class Home extends React.Component {
             this.setState({totalApps: totalApps})
         })
 
-        this.dataSource.getBalance().then(totalTokens => {
-            this.setState({totalTokens: totalTokens})
+        this.dataSource.getStakedSupply().then(totalStakedTokens => {
+            this.setState({ totalTokens: totalStakedTokens })
         })
 
         this.dataSource.getHeight().then(height => {
