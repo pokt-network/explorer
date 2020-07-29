@@ -14,7 +14,7 @@ import { OCAlert } from '@opuscapita/react-alerts';
 import config from "../config/config.json"
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(config.BASEURL)])
+    static instance = DataSource.instance || new DataSource([new URL(config.BASE_URL)])
     static AATVersion = "0.0.1"
 
     constructor(dispatchers) {
@@ -24,12 +24,12 @@ export class DataSource {
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
             // Load AAT constants
-            const clientPassphrase = config.CLIENTPASSPHRASE
-            const clientPrivateKey = config.CLIENTPRIVATEKEY
-            const leifAppPublicKey = config.LEIFAPPPUBLICKEY
-            const leifAppAATSignature = config.LEIFAPPAATSIGNATURE
+            const clientPassphrase = config.CLIENT_PASSPHRASE
+            const clientPrivateKey = config.CLIENT_PRIVATE_KEY
+            const leifAppPublicKey = config.LEIF_APP_PUBLIC_KEY
+            const leifAppAATSignature = config.LEIF_APP_AAT_SIGNATURE
 
-            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCKTIME, undefined, undefined, false)
+            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCK_TIME, undefined, undefined, false)
 
             // Create pocket instance
             const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)

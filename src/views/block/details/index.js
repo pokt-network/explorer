@@ -23,7 +23,7 @@ class BlockDetails extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: config.CHAINID.toUpperCase(),
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data
                 })
             } else {
@@ -39,7 +39,7 @@ class BlockDetails extends React.Component {
                         tx.height.toString(),
                         tx.id,
                         undefined,
-                        config.CHAINID.toUpperCase(),
+                        config.CHAIN_ID.toUpperCase(),
                         tx.data.index,
                         tx.data
                     )

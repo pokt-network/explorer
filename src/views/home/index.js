@@ -71,7 +71,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: config.CHAINID.toUpperCase(),
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data
                 })
 
@@ -83,7 +83,7 @@ class Home extends React.Component {
                                 tx.height.toString(),
                                 tx.id,
                                 undefined,
-                                config.CHAINID.toUpperCase(),
+                                config.CHAIN_ID.toUpperCase(),
                                 tx.data.index,
                                 tx.data
                             )
@@ -125,7 +125,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: config.CHAINID.toUpperCase(),
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data,
                     height: height,
                     blockTitle: `BLOCK ${height.toString()}`
@@ -146,7 +146,7 @@ class Home extends React.Component {
                         tx.height.toString(),
                         tx.id,
                         undefined,
-                        config.CHAINID.toUpperCase(),
+                        config.CHAIN_ID.toUpperCase(),
                         tx.data.index,
                         tx.data
                     )
@@ -168,7 +168,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: config.CHAINID.toUpperCase(),
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data,
                     height: height,
                     blockTitle: height === this.state.maxHeight ? "LASTEST BLOCK" : `BLOCK ${height.toString()}`
@@ -202,7 +202,7 @@ class Home extends React.Component {
                             <h3>NO RESULT FOR THIS SEARCH!</h3>
                         </div>
                         <p>
-                            Try searching by transaction hash, block number or account address
+                            Try searching by transaction hash, block number, or account address
                         </p>
                         <button onClick={this.hideMessage}>
                             <img id="close" src={close} alt="close"/>
