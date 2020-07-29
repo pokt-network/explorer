@@ -22,7 +22,7 @@ class TxDetails extends React.Component {
                     txId: tx.id,
                     txHash: tx.height.toString(),
                     time: tx.data.index,
-                    network: config.CHAINID.toUpperCase(),
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: tx.data
                 })
             } else {
