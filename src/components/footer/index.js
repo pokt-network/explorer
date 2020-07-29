@@ -8,6 +8,7 @@ import github from '../../utils/images/github.png';
 import discord from '../../utils/images/discord.png';
 import telegram from '../../utils/images/telegram.png';
 import cent from '../../utils/images/cent.png';
+import config from "../../config/config.json";
 
 class Footer extends Component {
   
@@ -52,14 +53,15 @@ class Footer extends Component {
                   <ul className="sub-menu">
                     <li className="menu-item"><a href="https://docs.pokt.network/docs/what-is-pocket-network">What is Pocket Network?</a></li>
                     <li className="menu-item"><a href="https://www.pokt.network/">Website</a></li>
-                    <li className="menu-item"><a href="https://wallet.testnet.pokt.network/">Wallet</a></li>
+                    <li className="menu-item"><a href={config.WALLET_BASE_URL}>Wallet</a></li>
+                    <li className="menu-item"><a href={config.DASHBOARD_BASE_URL}>Dashboard</a></li>
                   </ul>
                 </li>
                 <li className="mainli">
                   <div className="title-sm">RESOURCES</div>
                   <ul className="sub-menu">
                     <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Whitepaper-v0.3.0.pdf">White Paper</a></li>
-                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Economic-Paper-v1.0.2.pdf">Economic Paper</a></li>
+                    <li className="menu-item"><a href="https://pocket-network-assets.s3-us-west-2.amazonaws.com/pdfs/Pocket-Network-Economic-Paper-v1.0.2.pdf">Economic One Pager</a></li>
                     <li className="menu-item"><a href="https://docs.pokt.network/">Dev portal</a></li>
                     <li className="menu-item"><a href="https://pokt.network/site-terms-of-use/">Site Terms Of Use</a></li>
                     <li className="menu-item"><a href="https://pokt.network/privacy-policy/">Privacy Policy</a></li>
@@ -70,7 +72,7 @@ class Footer extends Component {
                   <ul className="sub-menu">
                     <li className="menu-item"><a href="https://pokt.network/contact/">Contact Us</a></li>
                     <li className="menu-item"><a href="https://pokt.network/blog/">Blog</a></li>
-                    <li className="menu-item"><a href="https://research.pokt.network/">Forum</a></li>
+                    <li className="menu-item"><a href="https://forum.pokt.network/">Forum</a></li>
                     <li className="menu-item"><a href="https://discord.com/invite/WRh7fMJ">Join Discord</a></li>
                   </ul>
                 </li>
