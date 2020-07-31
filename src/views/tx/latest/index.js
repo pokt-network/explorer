@@ -3,6 +3,7 @@ import LatestContent from './latest';
 import OneTable from '../../../components/one-table';
 import {DataSource} from "../../../datasource";
 import {LatestInfo} from "../../../models/latestInfo";
+import config from "../../../config/config.json";
 
 class TxLatest extends React.Component {
 
@@ -22,7 +23,7 @@ class TxLatest extends React.Component {
                         tx.hash,
                         tx.height.toString(),
                         undefined,
-                        "TESTNET",
+                        config.CHAIN_ID.toUpperCase(),
                         tx.data
                     )
 

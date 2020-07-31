@@ -16,6 +16,7 @@ import {
     withRouter
 } from 'react-router-dom'
 import Wrapper from "../../components/wrapper";
+import config from "../../config/config.json";
 
 class Home extends React.Component {
     constructor(props) {
@@ -54,8 +55,8 @@ class Home extends React.Component {
             this.setState({totalApps: totalApps})
         })
 
-        this.dataSource.getBalance().then(totalTokens => {
-            this.setState({totalTokens: totalTokens})
+        this.dataSource.getStakedSupply().then(totalStakedTokens => {
+            this.setState({ totalTokens: totalStakedTokens })
         })
 
         this.dataSource.getHeight().then(height => {
@@ -70,7 +71,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data
                 })
 
@@ -82,7 +83,7 @@ class Home extends React.Component {
                                 tx.height.toString(),
                                 tx.id,
                                 undefined,
-                                "TESTNET",
+                                config.CHAIN_ID.toUpperCase(),
                                 tx.data.index,
                                 tx.data
                             )
@@ -124,7 +125,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data,
                     height: height,
                     blockTitle: `BLOCK ${height.toString()}`
@@ -145,7 +146,7 @@ class Home extends React.Component {
                         tx.height.toString(),
                         tx.id,
                         undefined,
-                        "TESTNET",
+                        config.CHAIN_ID.toUpperCase(),
                         tx.data.index,
                         tx.data
                     )
@@ -167,7 +168,7 @@ class Home extends React.Component {
                     blockId: block.id,
                     blockHash: block.number,
                     time: block.timestamp,
-                    network: "TESTNET",
+                    network: config.CHAIN_ID.toUpperCase(),
                     data: block.data,
                     height: height,
                     blockTitle: height === this.state.maxHeight ? "LASTEST BLOCK" : `BLOCK ${height.toString()}`
@@ -201,7 +202,7 @@ class Home extends React.Component {
                             <h3>NO RESULT FOR THIS SEARCH!</h3>
                         </div>
                         <p>
-                            Try searching by transaction hash, block number or account address
+                            Try searching by transaction hash, block number, or account address
                         </p>
                         <button onClick={this.hideMessage}>
                             <img id="close" src={close} alt="close"/>

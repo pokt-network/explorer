@@ -10,11 +10,13 @@ import {
     StakingStatus
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
-import { OCAlert } from '@opuscapita/react-alerts';
+import { OCAlert } from '@opuscapita/react-alerts'
 import config from "../config/config.json"
+import JSBI from 'jsbi'
+import numeral from 'numeral'
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(config.BASEURL)])
+    static instance = DataSource.instance || new DataSource([new URL(config.BASE_URL)])
     static AATVersion = "0.0.1"
 
     constructor(dispatchers) {
@@ -24,12 +26,12 @@ export class DataSource {
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
             // Load AAT constants
-            const clientPassphrase = config.CLIENTPASSPHRASE
-            const clientPrivateKey = config.CLIENTPRIVATEKEY
-            const leifAppPublicKey = config.LEIFAPPPUBLICKEY
-            const leifAppAATSignature = config.LEIFAPPAATSIGNATURE
+            const clientPassphrase = config.CLIENT_PASSPHRASE
+            const clientPrivateKey = config.CLIENT_PRIVATE_KEY
+            const leifAppPublicKey = config.LEIF_APP_PUBLIC_KEY
+            const leifAppAATSignature = config.LEIF_APP_AAT_SIGNATURE
 
-            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCKTIME, undefined, undefined, false)
+            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCK_TIME, undefined, undefined, false)
 
             // Create pocket instance
             const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
@@ -205,15 +207,16 @@ export class DataSource {
         }
     }
 
-    async getBalance() {
+    async getStakedSupply() {
         const pocket = await this.getPocketInstance()
-        const pocketAddress = config.ADDRESS;
-        const queryBalanceResponseOrError = await pocket.rpc().query.getBalance(pocketAddress)
-        if (typeGuard(queryBalanceResponseOrError, RpcError)) {
+        const totalSupplyOrError = await pocket.rpc().query.getSupply()
+        if (typeGuard(totalSupplyOrError, RpcError)) {
+            OCAlert.alertError(totalSupplyOrError.message, { timeOut: 3000 });
             return 0
         } else {
-            const uPOKT = Number(queryBalanceResponseOrError.balance.toString())
-            return uPOKT / 1000000
+            const totalSupply = totalSupplyOrError
+            const totalSupplyPOKT = JSBI.divide(totalSupply.totalStaked, new BigInt(10000000))
+            return numeral(totalSupplyPOKT.toString()).format('(0.00 a)');
         }
     }
 
