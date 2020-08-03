@@ -7,7 +7,8 @@ import {
     typeGuard,
     RpcError,
     PocketAAT,
-    StakingStatus
+    StakingStatus,
+    JailedStatus
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
 import { OCAlert } from '@opuscapita/react-alerts'
@@ -194,16 +195,12 @@ export class DataSource {
 
     async getTotalStakedApps() {
         const pocket = await this.getPocketInstance()
-        const height = await this.getHeight()
-        if (height === undefined) {
-            return []
-        }
-        const appsResponseOrError = await pocket.rpc().query.getApps(StakingStatus.Staked, height, this.blockchain, 1, 10)
-        if (typeGuard(appsResponseOrError, RpcError)) {
-            OCAlert.alertError(appsResponseOrError.message, { timeOut: 3000 });
+        const firstPageAppsResponseOrError = await pocket.rpc().query.getApps(StakingStatus.Staked, undefined, undefined, 1, 1)
+        if (typeGuard(firstPageAppsResponseOrError, RpcError)) {
+            OCAlert.alertError(firstPageAppsResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
-            return appsResponseOrError.applications.length
+            return firstPageAppsResponseOrError.totalPages
         }
     }
 
@@ -215,19 +212,21 @@ export class DataSource {
             return 0
         } else {
             const totalSupply = totalSupplyOrError
-            const totalSupplyPOKT = JSBI.divide(totalSupply.totalStaked, new BigInt(10000000))
+            debugger
+            const totalstaked = JSBI.add(totalSupply.appStaked, totalSupply.nodeStaked)
+            const totalSupplyPOKT = JSBI.divide(totalstaked, new BigInt(1000000))
             return numeral(totalSupplyPOKT.toString()).format('(0.00 a)');
         }
     }
 
     async getNodes() {
         const pocket = await this.getPocketInstance()
-        const validatorsResponseOrError = await pocket.rpc().query.getNodes(StakingStatus.Staked)
+        const validatorsResponseOrError = await pocket.rpc().query.getNodes(StakingStatus.Staked, JailedStatus.Unjailed, undefined, undefined, 1, 1)
         if (typeGuard(validatorsResponseOrError, RpcError)) {
             OCAlert.alertError(validatorsResponseOrError.message, { timeOut: 3000 });
             return 0
         } else {
-            return validatorsResponseOrError.nodes.length
+            return validatorsResponseOrError.totalPages
         }
     }
 }
