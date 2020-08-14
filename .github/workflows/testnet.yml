@@ -28,7 +28,7 @@ jobs:
         WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
         DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
         CHAIN: "0002"
-        CHAIN_ID: "testnet-r2"
+        CHAIN_ID: "testnet"
         ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
         BLOCK_TIME: "900000"
     - name: NPM install
