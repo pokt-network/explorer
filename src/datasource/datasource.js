@@ -17,50 +17,61 @@ import JSBI from 'jsbi'
 import numeral from 'numeral'
 
 export class DataSource {
-    static instance = DataSource.instance || new DataSource([new URL(config.BASE_URL)])
+    static instance = DataSource.instance || new DataSource(config.DISPATCHERS);
     static AATVersion = "0.0.1"
 
     constructor(dispatchers) {
-        this.dispatchers = dispatchers
+        let dispatchersURL = [];
+        const dispatchersList = dispatchers.split(",");
+
+        if (dispatchersList.length > 0) {
+            dispatchersList.forEach(dispatcher => {
+                dispatchersURL.push(new URL(dispatcher));
+            });
+        }
+        
+        this.dispatchers = dispatchersURL;
     }
 
     async getPocketInstance() {
         if (!this.pocket || !this.pocket.rpc()) {
+            // Configuration
+            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCK_TIME, undefined, undefined, false);
             // Load AAT constants
-            const clientPassphrase = config.CLIENT_PASSPHRASE
-            const clientPrivateKey = config.CLIENT_PRIVATE_KEY
-            const leifAppPublicKey = config.LEIF_APP_PUBLIC_KEY
-            const leifAppAATSignature = config.LEIF_APP_AAT_SIGNATURE
+            const clientPassphrase = config.CLIENT_PASSPHRASE;
+            const clientPrivateKey = config.CLIENT_PRIVATE_KEY;
+            const leifAppPublicKey = config.LEIF_APP_PUBLIC_KEY;
+            const leifAppAATSignature = config.LEIF_APP_AAT_SIGNATURE;
 
-            const configuration = new Configuration(5, 1000, 5, 40000, true, undefined, config.BLOCK_TIME, undefined, undefined, false)
+            if (clientPassphrase && clientPrivateKey && leifAppPublicKey && leifAppAATSignature) {
+                // Create pocket instance
+                const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
 
-            // Create pocket instance
-            const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
+                // Import client account
+                const clientAccountOrError = await pocketLocal.keybase.importAccount(Buffer.from(clientPrivateKey, "hex"), clientPassphrase)
+                if (typeGuard(clientAccountOrError, Error)) {
+                    throw clientAccountOrError
+                }
+                const clientAccount = clientAccountOrError
+                await pocketLocal.keybase.unlockAccount(clientAccount.addressHex, clientPassphrase, 0)
 
-            // Import client account
-            const clientAccountOrError = await pocketLocal.keybase.importAccount(Buffer.from(clientPrivateKey, "hex"), clientPassphrase)
-            if (typeGuard(clientAccountOrError, Error)) {
-                throw clientAccountOrError
+                // Create AAT
+                const aat = new PocketAAT(
+                    DataSource.AATVersion,
+                    clientAccount.publicKey.toString("hex"),
+                    leifAppPublicKey,
+                    leifAppAATSignature
+                )
+
+                // Create Pocket RPC Provider
+                const blockchain = config.CHAIN
+                const pocketRpcProvider = new PocketRpcProvider(pocketLocal, aat, blockchain, false)
+
+                // Set RPC Provider
+                this.pocket = new Pocket(this.dispatchers, pocketRpcProvider)
+            } else {
+                throw new Error(`One of the environment variables are missing: CLIENT_PASSPHRASE=${config.CLIENT_PASSPHRASE}, CLIENT_PRIVATE_KEY=${config.CLIENT_PRIVATE_KEY}, LEIF_APP_PUBLIC_KEY=${config.LEIF_APP_PUBLIC_KEY}, LEIF_APP_AAT_SIGNATURE=${config.LEIF_APP_AAT_SIGNATURE}`);
             }
-            const clientAccount = clientAccountOrError
-            await pocketLocal.keybase.unlockAccount(clientAccount.addressHex, clientPassphrase, 0)
-
-            // Create AAT
-            const aat = new PocketAAT(
-                DataSource.AATVersion,
-                clientAccount.publicKey.toString("hex"),
-                leifAppPublicKey,
-                leifAppAATSignature
-            )
-
-			// Create Pocket RPC Provider
-            const blockchain = config.CHAIN
-            const pocketRpcProvider = new PocketRpcProvider(pocketLocal, aat, blockchain, false)
-            //const pocketRpcProvider = new HttpRpcProvider(this.dispatchers)
-
-            // Set RPC Provider
-            //this.pocket.rpc(pocketRpcProvider)
-            this.pocket = new Pocket(this.dispatchers, pocketRpcProvider)
         }
         return this.pocket
     }
