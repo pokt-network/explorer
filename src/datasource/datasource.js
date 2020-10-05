@@ -37,6 +37,7 @@ export class DataSource {
         if (!this.pocket || !this.pocket.rpc()) {
             // Configuration
             const configuration = new Configuration(0, 1000, 5, 40000, true, undefined, config.BLOCK_TIME, undefined, undefined, false);
+
             // Load AAT constants
             const clientPassphrase = config.CLIENT_PASSPHRASE;
             const clientPrivateKey = config.CLIENT_PRIVATE_KEY;
