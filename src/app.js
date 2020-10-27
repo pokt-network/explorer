@@ -14,9 +14,7 @@ import AccountDetails from "./views/account/details";
 import { OCAlertsProvider } from '@opuscapita/react-alerts';
 import history from './history';
 import JSBI from 'jsbi';
-
 import './normalize.css';
-import {DataSource} from "./datasource";
 import './message-box.css';
 
 const GlobalStyles = createGlobalStyle`
@@ -28,20 +26,15 @@ const GlobalStyles = createGlobalStyle`
 `
 
 class App extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
 
-    window.BigInt = JSBI.BigInt
-
-    this.dataSource = DataSource.instance
-    this.dataSource.getPocketInstance()
-
+    window.BigInt = JSBI.BigInt;
   }
 
   componentDidMount(){
-    document.title = "Pocket Blockchain Block Explorer"
+    document.title = "Pocket Blockchain Block Explorer";
   }
-
 
   render() {
     return (

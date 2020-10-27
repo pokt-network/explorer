@@ -1,5 +1,4 @@
 import React from 'react';
-import EmptyWrapper from '../../components/empty-wrapper';
 import LatestContent from './latest';
 import OneTable from '../../components/one-table';
 

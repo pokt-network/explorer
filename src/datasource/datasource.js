@@ -3,6 +3,7 @@
 import {
     Pocket,
     PocketRpcProvider,
+    HttpRpcProvider,
     Configuration,
     typeGuard,
     RpcError,
@@ -16,73 +17,158 @@ import config from "../config/config.json"
 import JSBI from 'jsbi'
 import numeral from 'numeral'
 
-export class DataSource {
-    static instance = DataSource.instance || new DataSource(config.DISPATCHERS);
-    static AATVersion = "0.0.1"
+const CONFIGURATION = new Configuration(
+    config.MAX_DISPATCHERS,
+    1000,
+    0,
+    20000,
+    undefined,
+    undefined,
+    Number(config.BLOCK_TIME),
+    undefined,
+    false,
+    false
+);
 
-    constructor(dispatchers) {
-        let dispatchersURL = [];
-        const dispatchersList = dispatchers.split(",");
+/**
+ * Retrieve a list of URL's from the configuration for the dispatchers
+ *
+ * @returns {URL[]} Dispatcher urls.
+ */
+function getPocketDispatchers() {
+    const dispatchersStr = config.DISPATCHERS || "";
 
-        if (dispatchersList.length > 0) {
-            dispatchersList.forEach(dispatcher => {
-                dispatchersURL.push(new URL(dispatcher));
-            });
-        }
-        
-        this.dispatchers = dispatchersURL;
+    if (dispatchersStr === "") {
+        return [];
     }
 
-    async getPocketInstance() {
-        if (!this.pocket || !this.pocket.rpc()) {
-            // Configuration
-            const configuration = new Configuration(0, 1000, 5, 40000, true, undefined, config.BLOCK_TIME, undefined, undefined, false);
+    return dispatchersStr.split(",").map(function (dispatcherURLStr) {
+        return new URL(dispatcherURLStr);
+    });
+}
 
-            // Load AAT constants
-            const clientPassphrase = config.CLIENT_PASSPHRASE;
-            const clientPrivateKey = config.CLIENT_PRIVATE_KEY;
-            const leifAppPublicKey = config.LEIF_APP_PUBLIC_KEY;
-            const leifAppAATSignature = config.LEIF_APP_AAT_SIGNATURE;
+/**
+ * @returns {HttpRpcProvider | PocketRpcProvider} RPC Provider.
+ */
+async function getRPCProvider() {
+    const providerType = config.PROVIDER_TYPE;
 
-            if (clientPassphrase && clientPrivateKey && leifAppPublicKey && leifAppAATSignature) {
-                // Create pocket instance
-                const pocketLocal = new Pocket(this.dispatchers, undefined, configuration)
+    if (providerType.toLowerCase() === "http") {
+        return getHttpRPCProvider();
+    } else if (providerType.toLowerCase() === "pocket") {
+        return await getPocketRPCProvider();
+    } else {
+        // Default to HTTP RPC Provider
+        return getHttpRPCProvider();
+    }
+}
 
-                // Import client account
-                const clientAccountOrError = await pocketLocal.keybase.importAccount(Buffer.from(clientPrivateKey, "hex"), clientPassphrase)
-                if (typeGuard(clientAccountOrError, Error)) {
-                    throw clientAccountOrError
-                }
-                const clientAccount = clientAccountOrError
-                await pocketLocal.keybase.unlockAccount(clientAccount.addressHex, clientPassphrase, 0)
+/**
+ * @returns {HttpRpcProvider} HTTP RPC Provider.
+ */
+function getHttpRPCProvider() {
+    const node = config.HTTP_PROVIDER;
 
-                // Create AAT
-                const aat = new PocketAAT(
-                    DataSource.AATVersion,
-                    clientAccount.publicKey.toString("hex"),
-                    leifAppPublicKey,
-                    leifAppAATSignature
-                )
+    if (!node || node === "") {
+        throw new Error(`Invalid HTTP Provider node: ${node}`);
+    }
 
-                // Create Pocket RPC Provider
-                const blockchain = config.CHAIN
-                const pocketRpcProvider = new PocketRpcProvider(pocketLocal, aat, blockchain, false)
+    return new HttpRpcProvider(new URL(node));
+}
 
-                // Set RPC Provider
-                this.pocket = new Pocket(this.dispatchers, pocketRpcProvider)
-            } else {
-                throw new Error(`One of the environment variables are missing: CLIENT_PASSPHRASE=${config.CLIENT_PASSPHRASE}, CLIENT_PRIVATE_KEY=${config.CLIENT_PRIVATE_KEY}, LEIF_APP_PUBLIC_KEY=${config.LEIF_APP_PUBLIC_KEY}, LEIF_APP_AAT_SIGNATURE=${config.LEIF_APP_AAT_SIGNATURE}`);
-            }
+/**
+ * @returns {PocketRpcProvider} Pocket RPC Provider.
+ */
+async function getPocketRPCProvider() {    
+    const clientPrivateKey = config.CLIENT_PRIVATE_KEY;
+    const clientPassphrase = config.CLIENT_PASSPHRASE;
+    const leifAppPublicKey = config.WALLET_APP_PUBLIC_KEY;
+    const leifAppAATSignature = config.WALLET_APP_AAT_SIGNATURE;
+    const blockchain = config.CHAIN;
+
+    if (
+        clientPrivateKey &&
+        clientPassphrase &&
+        leifAppPublicKey &&
+        leifAppAATSignature &&
+        blockchain
+    ) {
+        // Dispatcher
+        const dispatchers = getPocketDispatchers();
+
+        if (!dispatchers || dispatchers.length === 0) {
+            throw new Error(`Failed to retrieve a list of dispatcher for the PocketRpcProvider: ${dispatchers}`);
         }
-        return this.pocket
+
+        // Pocket instance
+        const pocket = new Pocket(dispatchers, undefined, CONFIGURATION);
+
+        // Import client Account
+        const clientAccountOrError = await pocket.keybase.importAccount(
+            Buffer.from(clientPrivateKey, "hex"),
+            clientPassphrase
+        );
+
+        if (typeGuard(clientAccountOrError, Error)) {
+            throw clientAccountOrError;
+        };
+        
+        const clientPubKeyHex = clientAccountOrError.publicKey.toString("hex");
+
+        // Unlock the client account
+        const unlockOrError = await pocket.keybase.unlockAccount(
+            clientAccountOrError.addressHex,
+            clientPassphrase,
+            0
+        );
+
+        if (typeGuard(unlockOrError, Error)) {
+            throw clientAccountOrError;
+        };
+        
+        // Generate the AAT
+        const aat = new PocketAAT(
+            config.AAT_VERSION,
+            clientPubKeyHex,
+            leifAppPublicKey,
+            leifAppAATSignature
+        );
+
+        // Pocket Rpc Instance
+        return new PocketRpcProvider(
+            pocket,
+            aat,
+            blockchain,
+            true
+        );
+    } else {
+        throw new Error(
+            `One of the environment variables are missing: CLIENT_PRIVATE_KEY=${config.CLIENT_PRIVATE_KEY}, CLIENT_PASSPHRASE=${config.CLIENT_PASSPHRASE}, WALLET_APP_PUBLIC_KEY=${config.WALLET_APP_PUBLIC_KEY}, WALLET_APP_AAT_SIGNATURE=${config.WALLET_APP_AAT_SIGNATURE}, CHAIN=${config.CHAIN}`
+        );
+    }
+}
+
+export class DataSource {
+
+    constructor() {
+        this.dispatchers = getPocketDispatchers();
+
+        if (!this.dispatchers || this.dispatchers.length === 0) {
+            throw new Error(
+                `Failed to retrieve a list of dispatchers to instantiate Pocket: ${this.dispatchers}`
+            );
+        }
+
+        this.__pocket = new Pocket(this.dispatchers, undefined, CONFIGURATION);
     }
 
     /**
      * @returns {BigInt}
      */
     async getHeight() {
-        const pocket = await this.getPocketInstance()
-        const heightResponseOrError = await pocket.rpc().query.getHeight()
+        const provider = await getRPCProvider();
+
+        const heightResponseOrError = await this.__pocket.rpc(provider).query.getHeight()
         if (typeGuard(heightResponseOrError, RpcError)) {
             OCAlert.alertError(heightResponseOrError.message, { timeOut: 3000 });
             return undefined
@@ -97,8 +183,9 @@ export class DataSource {
      * @returns {Account}
      */
     async getAccount(id) {
-        const pocket = await this.getPocketInstance()
-        const accountOrError = await pocket.rpc().query.getAccount(id)
+        const provider = await getRPCProvider();
+
+        const accountOrError = await this.__pocket.rpc(provider).query.getAccount(id)
         if (typeGuard(accountOrError, RpcError)) {
             return undefined
         } else {
@@ -111,8 +198,8 @@ export class DataSource {
      * @param {string} id
      */
     async getTransaction(id) {
-        const pocket = await this.getPocketInstance()
-        const txResponseOrError = await pocket.rpc().query.getTX(id)
+        const provider = await getRPCProvider();
+        const txResponseOrError = await this.__pocket.rpc(provider).query.getTX(id)
         if (typeGuard(txResponseOrError, RpcError)) {
             //OCAlert.alertError(txResponseOrError.message, { timeOut: 3000 });
             return undefined
@@ -133,8 +220,8 @@ export class DataSource {
      * @returns {Block}
      */
     async getBlock(height) {
-        const pocket = await this.getPocketInstance()
-        const blockResponseOrError = await pocket.rpc().query.getBlock(BigInt(height))
+        const provider = await getRPCProvider();
+        const blockResponseOrError = await this.__pocket.rpc(provider).query.getBlock(BigInt(height))
         if (typeGuard(blockResponseOrError, RpcError)) {
             return undefined
         } else {
@@ -155,8 +242,8 @@ export class DataSource {
             return undefined
         }
 
-        const pocket = await this.getPocketInstance()
-        const blockResponseOrError = await pocket.rpc().query.getBlock(height)
+        const provider = await getRPCProvider();
+        const blockResponseOrError = await this.__pocket.rpc(provider).query.getBlock(height)
         if (typeGuard(blockResponseOrError, RpcError)) {
             //OCAlert.alertError(blockResponseOrError.message, { timeOut: 3000 });
             return undefined
@@ -180,10 +267,10 @@ export class DataSource {
      * @param {number} perPage
      */
     async getLatestTransactions(page, perPage, height) {
-        const pocket = await this.getPocketInstance()
+        const provider = await getRPCProvider();
         const result = []
 
-        const blockTxsResponseOrError = await pocket.rpc().query.getBlockTxs(
+        const blockTxsResponseOrError = await this.__pocket.rpc(provider).query.getBlockTxs(
             height,
             false,
             page,
@@ -206,8 +293,8 @@ export class DataSource {
     }
 
     async getTotalStakedApps() {
-        const pocket = await this.getPocketInstance()
-        const firstPageAppsResponseOrError = await pocket.rpc().query.getApps(StakingStatus.Staked, undefined, undefined, 1, 1)
+        const provider = await getRPCProvider();
+        const firstPageAppsResponseOrError = await this.__pocket.rpc(provider).query.getApps(StakingStatus.Staked, undefined, undefined, 1, 1)
         if (typeGuard(firstPageAppsResponseOrError, RpcError)) {
             OCAlert.alertError(firstPageAppsResponseOrError.message, { timeOut: 3000 });
             return 0
@@ -217,8 +304,8 @@ export class DataSource {
     }
 
     async getStakedSupply() {
-        const pocket = await this.getPocketInstance()
-        const totalSupplyOrError = await pocket.rpc().query.getSupply()
+        const provider = await getRPCProvider();
+        const totalSupplyOrError = await this.__pocket.rpc(provider).query.getSupply()
         if (typeGuard(totalSupplyOrError, RpcError)) {
             OCAlert.alertError(totalSupplyOrError.message, { timeOut: 3000 });
             return 0
@@ -232,8 +319,8 @@ export class DataSource {
     }
 
     async getNodes() {
-        const pocket = await this.getPocketInstance()
-        const validatorsResponseOrError = await pocket.rpc().query.getNodes(StakingStatus.Staked, JailedStatus.Unjailed, undefined, undefined, 1, 1)
+        const provider = await getRPCProvider();
+        const validatorsResponseOrError = await this.__pocket.rpc(provider).query.getNodes(StakingStatus.Staked, JailedStatus.Unjailed, undefined, undefined, 1, 1)
         if (typeGuard(validatorsResponseOrError, RpcError)) {
             OCAlert.alertError(validatorsResponseOrError.message, { timeOut: 3000 });
             return 0

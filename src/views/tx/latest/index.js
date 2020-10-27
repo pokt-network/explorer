@@ -5,17 +5,18 @@ import {DataSource} from "../../../datasource";
 import {LatestInfo} from "../../../models/latestInfo";
 import config from "../../../config/config.json";
 
+const dataSource = new DataSource();
+
 class TxLatest extends React.Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super();
 
-        this.state.transactions = []
-        this.dataSource = DataSource.instance
+        this.state.transactions = [];
     }
 
     componentWillMount() {
-        this.dataSource.getLatestTransactions(1, 100).then(txs => {
+        dataSource.getLatestTransactions(1, 100).then(txs => {
             if(txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
@@ -29,12 +30,14 @@ class TxLatest extends React.Component {
 
                     latestArray.push(latest)
                 })
-                this.setState({transactions: latestArray})
+                this.setState({transactions: latestArray});
             }
         })
     }
 
     render() {
+        const {transactions} = this.state;
+
         return (
             <LatestContent>
                 <div className="one-table-container">
@@ -44,7 +47,7 @@ class TxLatest extends React.Component {
                         columnOne={"TRANSACTION HASH"}
                         columnTwo={"BLOCK #"}
                         link={"tx"}
-                        data={this.state.transactions}
+                        data={transactions}
                     />
                 </div>
             </LatestContent>
