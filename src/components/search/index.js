@@ -1,30 +1,30 @@
 import React, { Component } from "react";
-
 import Wrapper from '../wrapper';
 import SearchContent from './search-content';
-
 import {
   withRouter
 } from 'react-router-dom'
 import {DataSource} from "../../datasource";
 
+const dataSource = new DataSource();
+
 class Search extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = { search: ""}
-    this.dataSource = DataSource.instance
+  constructor() {
+    super();
+    this.state = { search: ""};
 
-    this.handleChange = this.handleChange.bind(this)
-    this.showData = this.showData.bind(this)
-    this.handleKeyDown = this.handleKeyDown.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.showData = this.showData.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
   showData() {
-    const search = this.state.search
+    const { search }  = this.state;
+
     if(search !== "") {
       if(!isNaN(this.state.search)){
-        this.dataSource.getBlock(search).then(block => {
+        dataSource.getBlock(search).then(block => {
           if(block !== undefined) {
             this.props.history.push(`/block/${search}`);
           } else {
@@ -32,8 +32,8 @@ class Search extends Component {
           }
         })
 
-      } else if(search.length > 40){
-        this.dataSource.getTransaction(search).then(tx => {
+      } else if (search.length > 40){
+        dataSource.getTransaction(search).then(tx => {
           if(tx !== undefined) {
             this.props.history.push(`/tx/${search}`);
           } else {
@@ -42,7 +42,7 @@ class Search extends Component {
         })
 
       } else {
-        this.dataSource.getAccount(search).then(account => {
+        dataSource.getAccount(search).then(account => {
           if(account !== undefined) {
             this.props.history.push(`/account/${search}`);
           } else {

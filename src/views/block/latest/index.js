@@ -1,18 +1,20 @@
 import React from 'react';
 import LatestContent from './latest';
 import OneTable from '../../../components/one-table';
-import {DataSource} from "../../../datasource";
 
 class BlockLatest extends React.Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super();
 
-        this.state = { blocks: [] }
-        this.dataSource = DataSource.instance
+        this.state = { 
+            blocks: [] 
+        };
     }
 
     render() {
+        const { blocks } = this.state;
+
         return (
             <LatestContent>
                 <div className="one-table-container">
@@ -22,7 +24,7 @@ class BlockLatest extends React.Component {
                         columnOne={"BLOCK #"}
                         columnTwo={"HASH"}
                         link={"block"}
-                        data={this.state.blocks}
+                        data={blocks}
                     />
                 </div>
             </LatestContent>

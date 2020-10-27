@@ -5,18 +5,31 @@ import {DataSource} from "../../../datasource";
 import EventTable from "../../../components/events";
 import config from "../../../config/config.json";
 
+const dataSource = new DataSource();
+
 class TxDetails extends React.Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super();
 
-        this.state = { txId: 0, txHash: "", time: "", network: "", data: { tx_result: {events: [] } }, showMessage: false}
-        this.dataSource = DataSource.instance
-        this.hash = this.props.location.pathname.replace("/tx/", "")
+        this.state = { 
+            txId: 0, 
+            txHash: "", 
+            time: "", 
+            network: "",
+            data: { 
+                tx_result: { 
+                    events: [] 
+                } 
+            }, 
+            showMessage: false
+        };
+
+        this.hash = this.props.location.pathname.replace("/tx/", "");
     }
 
     componentWillMount() {
-        this.dataSource.getTransaction(this.hash).then(tx => {
+        dataSource.getTransaction(this.hash).then(tx => {
             if(tx !== undefined) {
                 this.setState({
                     txId: tx.id,
@@ -32,6 +45,7 @@ class TxDetails extends React.Component {
     }
 
     render() {
+        const { txId, txHash, time, network, data } = this.state;
 
         return (
             <DetailsContent>
@@ -43,17 +57,17 @@ class TxDetails extends React.Component {
                         line2Header={"BLOCK #"}
                         line3Header={"INDEX"}
                         line4Header={"NETWORK"}
-                        line1Data={this.state.txId}
-                        line2Data={this.state.txHash}
-                        line3Data={this.state.time}
-                        line4Data={this.state.network}
+                        line1Data={txId}
+                        line2Data={txHash}
+                        line3Data={time}
+                        line4Data={network}
                         renderAdditional={false}
                     />
                 </div>
 
                 <div className="one-table-container white" style={{marginTop: "70px"}}>
                     <EventTable
-                        events={this.state.data.tx_result.events}
+                        events={data.tx_result.events}
                     />
                 </div>
             </DetailsContent>

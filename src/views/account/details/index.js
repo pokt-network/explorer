@@ -3,24 +3,25 @@ import DetailsContent from './details';
 import Details from '../../../components/details';
 import {DataSource} from "../../../datasource";
 
+const dataSource = new DataSource();
+
 class AccountDetails extends React.Component {
 
-    constructor(props) {
-        super(props)
+    constructor() {
+        super();
 
-        this.state = { id: 0, balance: 0, data: { public_key: "", coins: []}, showMessage: false}
-        this.dataSource = DataSource.instance
-        this.idAccount = this.props.location.pathname.replace("/account/", "")
+        this.state = { id: 0, balance: 0, data: { public_key: "", coins: []}, showMessage: false};
+        this.idAccount = this.props.location.pathname.replace("/account/", "");
     }
 
     componentWillMount() {
-        this.dataSource.getAccount(this.idAccount).then(account => {
+        dataSource.getAccount(this.idAccount).then(account => {
             if(account !== undefined) {
-                this.setState({id: account.id, balance: account.balance, data: account.data})
+                this.setState({id: account.id, balance: account.balance, data: account.data});
             } else {
                 this.setState({showMessage: true})
-            }
-        })
+            };
+        });
     }
 
     render() {

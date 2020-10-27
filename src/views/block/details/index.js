@@ -6,18 +6,37 @@ import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
 import config from "../../../config/config.json";
 
+const dataSource = new DataSource();
+
 class BlockDetails extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
-        this.state = { transactions: [], blockId: 0, blockHash: "", time: "", network: "", data: {block: { header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}, showMessage: false }
-        this.dataSource = DataSource.instance
-        this.height = this.props.location.pathname.replace("/block/", "")
+        this.state = {
+            transactions: [],
+            blockId: 0,
+            blockHash: "",
+            time: "",
+            network: "",
+            data: {
+                block: {
+                    header: {
+                        chain_id: "",
+                        consensus_hash: "",
+                        num_txs: 0,
+                        total_txs: 0
+                    }
+                }
+            },
+            showMessage: false
+        };
+
+        this.height = this.props.location.pathname.replace("/block/", "");
     }
 
     componentWillMount() {
-        this.dataSource.getBlock(this.height).then(block => {
+        dataSource.getBlock(this.height).then(block => {
             if(block !== undefined) {
                 this.setState({
                     blockId: block.id,
@@ -31,7 +50,7 @@ class BlockDetails extends React.Component {
             }
         })
 
-        this.dataSource.getLatestTransactions(1, 100, this.height).then(txs => {
+        dataSource.getLatestTransactions(1, 100, this.height).then(txs => {
             if(txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
@@ -52,6 +71,8 @@ class BlockDetails extends React.Component {
     }
 
     render() {
+        const { blockHash, blockId, time, network, data, transactions } = this.state;
+
         return (
             <DetailsContent>
                 <div className="details">
@@ -62,19 +83,19 @@ class BlockDetails extends React.Component {
                         line2Header={"BLOCK HASH"}
                         line3Header={"TIMESTAMP"}
                         line4Header={"NETWORK"}
-                        line1Data={this.state.blockHash}
-                        line2Data={this.state.blockId}
-                        line3Data={this.state.time}
-                        line4Data={this.state.network}
+                        line1Data={blockHash}
+                        line2Data={blockId}
+                        line3Data={time}
+                        line4Data={network}
                         renderAdditional={true}
                         data1Header={"CHAIN ID"}
                         data2Header={"CONSENSUS HASH"}
                         data3Header={"TX NUMBER"}
                         data4Header={"TOTAL TXS"}
-                        data1={this.state.data.block.header.chain_id}
-                        data2={this.state.data.block.header.consensus_hash}
-                        data3={this.state.data.block.header.num_txs}
-                        data4={this.state.data.block.header.total_txs}
+                        data1={data.block.header.chain_id}
+                        data2={data.block.header.consensus_hash}
+                        data3={data.block.header.num_txs}
+                        data4={data.block.header.total_txs}
                     />
                 </div>
 
@@ -86,7 +107,7 @@ class BlockDetails extends React.Component {
                         columnTwo={"BLOCK #"}
                         columnThree={"INDEX"}
                         link={"tx"}
-                        data={this.state.transactions}
+                        data={transactions}
                     />
                 </div>
             </DetailsContent>

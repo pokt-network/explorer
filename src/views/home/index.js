@@ -18,9 +18,11 @@ import {
 import Wrapper from "../../components/wrapper";
 import config from "../../config/config.json";
 
+const dataSource = new DataSource();
+
 class Home extends React.Component {
-    constructor(props) {
-        super(props)
+    constructor() {
+        super();
 
         this.state = {
             height: 0,
@@ -39,33 +41,33 @@ class Home extends React.Component {
             blockTitle: "LATEST BLOCK",
             showAdditionalBlock: false,
             data: {block: {header: {chain_id: "", consensus_hash: "", num_txs: 0, total_txs: 0}}}
-        }
-        this.dataSource = DataSource.instance
-        this.hideMessage = this.hideMessage.bind(this)
-        this.showMessage = this.showMessage.bind(this)
-        this.getPreviousBlock = this.getPreviousBlock.bind(this)
-        this.getNextBlock = this.getNextBlock.bind(this)
-        this.getTransactions = this.getTransactions.bind(this)
-        this.toggleAdditionalInformation = this.toggleAdditionalInformation.bind(this)
-        this.navigateToBlock = this.navigateToBlock.bind(this)
+        };
+
+        this.hideMessage = this.hideMessage.bind(this);
+        this.showMessage = this.showMessage.bind(this);
+        this.getPreviousBlock = this.getPreviousBlock.bind(this);
+        this.getNextBlock = this.getNextBlock.bind(this);
+        this.getTransactions = this.getTransactions.bind(this);
+        this.toggleAdditionalInformation = this.toggleAdditionalInformation.bind(this);
+        this.navigateToBlock = this.navigateToBlock.bind(this);
     }
 
     componentWillMount() {
-        this.dataSource.getTotalStakedApps().then(totalApps => {
-            this.setState({totalApps: totalApps})
+        dataSource.getTotalStakedApps().then(totalApps => {
+            this.setState({totalApps: totalApps});
         })
 
-        this.dataSource.getStakedSupply().then(totalStakedTokens => {
+        dataSource.getStakedSupply().then(totalStakedTokens => {
             this.setState({ totalTokens: totalStakedTokens })
         })
 
-        this.dataSource.getHeight().then(height => {
+        dataSource.getHeight().then(height => {
             if (height !== undefined) {
-                this.setState({height: height, maxHeight: height})
+                this.setState({height: height, maxHeight: height});
             }
         })
 
-        this.dataSource.getLatestBlock().then(block => {
+        dataSource.getLatestBlock().then(block => {
             if (block !== undefined) {
                 this.setState({
                     blockId: block.id,
@@ -73,9 +75,9 @@ class Home extends React.Component {
                     time: block.timestamp,
                     network: config.CHAIN_ID.toUpperCase(),
                     data: block.data
-                })
+                });
 
-                this.dataSource.getLatestTransactions(1, 100, block.number).then(txs => {
+                dataSource.getLatestTransactions(1, 100, block.number).then(txs => {
                     if (txs.length !== 0) {
                         const latestArray = []
                         txs.forEach(tx => {
@@ -97,7 +99,7 @@ class Home extends React.Component {
             }
         })
 
-        this.dataSource.getNodes().then(nodes => {
+        dataSource.getNodes().then(nodes => {
             this.setState({totalNodes: nodes})
         })
 
@@ -119,7 +121,7 @@ class Home extends React.Component {
     getPreviousBlock() {
         window.scrollTo(0, 0)
         let height = this.state.height - BigInt(1)
-        this.dataSource.getBlock(height).then(block => {
+        dataSource.getBlock(height).then(block => {
             if (block !== undefined) {
                 this.setState({
                     blockId: block.id,
@@ -138,7 +140,7 @@ class Home extends React.Component {
     }
 
     getTransactions() {
-        this.dataSource.getLatestTransactions(1, 100, this.state.height).then(txs => {
+        dataSource.getLatestTransactions(1, 100, this.state.height).then(txs => {
             if (txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
@@ -162,7 +164,7 @@ class Home extends React.Component {
     getNextBlock() {
         window.scrollTo(0, 0)
         let height = this.state.height + BigInt(1)
-        this.dataSource.getBlock(height).then(block => {
+        dataSource.getBlock(height).then(block => {
             if (block !== undefined) {
                 this.setState({
                     blockId: block.id,
