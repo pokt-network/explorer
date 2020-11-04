@@ -9,8 +9,8 @@ const dataSource = new DataSource();
 
 class TxDetails extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = { 
             txId: 0, 
