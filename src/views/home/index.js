@@ -273,14 +273,14 @@ class Home extends React.Component {
                                     onClick={this.getNextBlock}>
                                 <div className="center">
                                     <div className="left-img"/>
-                                    <span style={{marginLeft: '5px'}}>Next Block</span>
+                                    <span style={{marginLeft: '5px'}}>Previous Block</span>
                                 </div>
                             </button>
 
                             <button className="no-background-button right" style={this.state.height > 0 ? {} : {display: 'none'}}
                                     onClick={this.getPreviousBlock}>
                                 <div className="center">
-                                    <span style={{marginRight: '5px'}}>Previous Block</span>
+                                    <span style={{marginRight: '5px'}}>Next Block</span>
                                     <div className="right-img"/>
                                 </div>
                             </button>
