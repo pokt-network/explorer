@@ -311,7 +311,7 @@ export class DataSource {
             return 0
         } else {
             const totalSupply = totalSupplyOrError
-            debugger
+
             const totalstaked = JSBI.add(totalSupply.appStaked, totalSupply.nodeStaked)
             const totalSupplyPOKT = JSBI.divide(totalstaked, new BigInt(1000000))
             return numeral(totalSupplyPOKT.toString()).format('(0.00 a)');

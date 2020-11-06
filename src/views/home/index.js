@@ -118,27 +118,6 @@ class Home extends React.Component {
         this.setState({showAdditionalBlock: value})
     }
 
-    getPreviousBlock() {
-        window.scrollTo(0, 0)
-        let height = this.state.height - BigInt(1)
-        dataSource.getBlock(height).then(block => {
-            if (block !== undefined) {
-                this.setState({
-                    blockId: block.id,
-                    blockHash: block.number,
-                    time: block.timestamp,
-                    network: config.CHAIN_ID.toUpperCase(),
-                    data: block.data,
-                    height: height,
-                    blockTitle: `BLOCK ${height.toString()}`
-                })
-
-                this.getTransactions();
-
-            }
-        })
-    }
-
     getTransactions() {
         dataSource.getLatestTransactions(1, 100, this.state.height).then(txs => {
             if (txs.length !== 0) {
@@ -161,25 +140,52 @@ class Home extends React.Component {
         })
     }
 
-    getNextBlock() {
-        window.scrollTo(0, 0)
-        let height = this.state.height + BigInt(1)
-        dataSource.getBlock(height).then(block => {
-            if (block !== undefined) {
-                this.setState({
-                    blockId: block.id,
-                    blockHash: block.number,
-                    time: block.timestamp,
-                    network: config.CHAIN_ID.toUpperCase(),
-                    data: block.data,
-                    height: height,
-                    blockTitle: height === this.state.maxHeight ? "LASTEST BLOCK" : `BLOCK ${height.toString()}`
-                })
+    async getPreviousBlock() {
+        // Scroll to top
+        window.scrollTo(0, 0);
+        const {height} = this.state;
+        const targetHeight = height - BigInt(1);
 
-                this.getTransactions();
+        const block = await dataSource.getBlock(targetHeight);
 
-            }
-        })
+        if (block !== undefined) {
+            this.setState({
+                blockId: block.id,
+                blockHash: block.number,
+                time: block.timestamp,
+                network: config.CHAIN_ID.toUpperCase(),
+                data: block.data,
+                height: BigInt(targetHeight),
+                blockTitle: `BLOCK ${targetHeight.toString()}`
+            })
+
+            // Retrive the block transactions
+            this.getTransactions();
+        }
+    }
+
+    async getNextBlock() {
+        // Scroll to top
+        window.scrollTo(0, 0);
+        const {height, maxHeight} = this.state;
+        const targetHeight = BigInt(Number(height.toString()) + 1);
+
+        const block = await dataSource.getBlock(targetHeight);
+
+        if (block !== undefined) {
+            this.setState({
+                blockId: block.id,
+                blockHash: block.number,
+                time: block.timestamp,
+                network: config.CHAIN_ID.toUpperCase(),
+                data: block.data,
+                height: BigInt(targetHeight),
+                blockTitle: targetHeight === maxHeight ? "LASTEST BLOCK" : `BLOCK ${targetHeight.toString()}`
+            })
+
+            this.getTransactions();
+
+        }
     }
 
     navigateToBlock() {
@@ -269,16 +275,17 @@ class Home extends React.Component {
                     <div className="one-table-container" style={{marginTop: "70px"}}>
                         <Wrapper className="t-wrapper">
                             <button className="no-background-button"
-                                    style={this.state.height < this.state.maxHeight ? {} : {display: 'none'}}
-                                    onClick={this.getNextBlock}>
+                                    style={this.state.height > 0 ? {} : {display: 'none'}}
+                                    onClick={this.getPreviousBlock}>
                                 <div className="center">
                                     <div className="left-img"/>
                                     <span style={{marginLeft: '5px'}}>Previous Block</span>
                                 </div>
                             </button>
 
-                            <button className="no-background-button right" style={this.state.height > 0 ? {} : {display: 'none'}}
-                                    onClick={this.getPreviousBlock}>
+                            <button className="no-background-button right" 
+                                    style={this.state.height < this.state.maxHeight ? {} : {display: 'none'}}
+                                    onClick={this.getNextBlock}>
                                 <div className="center">
                                     <span style={{marginRight: '5px'}}>Next Block</span>
                                     <div className="right-img"/>
