@@ -7,8 +7,8 @@ const dataSource = new DataSource();
 
 class AccountDetails extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = { id: 0, balance: 0, data: { public_key: "", coins: []}, showMessage: false};
         this.idAccount = this.props.location.pathname.replace("/account/", "");
