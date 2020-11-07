@@ -149,7 +149,6 @@ async function getPocketRPCProvider() {
 }
 
 export class DataSource {
-
     constructor() {
         this.dispatchers = getPocketDispatchers();
 
