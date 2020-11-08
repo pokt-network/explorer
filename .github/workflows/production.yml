@@ -31,7 +31,7 @@ jobs:
         CHAIN_ID: "mainnet"
         ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
         BLOCK_TIME: "900000"
-        HTTP_PROVIDER: "https://node1.mainnet.pokt.network:443"
+        HTTP_PROVIDER: "https://node1.dashboard.mainnet.pokt.network:443"
         PROVIDER_TYPE: "http"
         AAT_VERSION: "0.0.1"
         MAX_DISPATCHERS: "0"
