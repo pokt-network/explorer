@@ -34,7 +34,7 @@ jobs:
         HTTP_PROVIDER: "https://node1.mainnet.pokt.network:443"
         PROVIDER_TYPE: "http"
         AAT_VERSION: "0.0.1"
-        MAX_DISPATCHERS: "5"
+        MAX_DISPATCHERS: "0"
     - name: NPM install
       run: npm install
     - name: Production build
