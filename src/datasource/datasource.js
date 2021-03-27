@@ -1,5 +1,8 @@
 /* global BigInt */
 
+import config from "../config/config.json"
+import JSBI from 'jsbi'
+import numeral from 'numeral'
 import {
     Pocket,
     PocketRpcProvider,
@@ -13,9 +16,7 @@ import {
 } from "@pokt-network/pocket-js/dist/web.js"
 import { Account, Transaction, Block } from "../models"
 import { OCAlert } from '@opuscapita/react-alerts'
-import config from "../config/config.json"
-import JSBI from 'jsbi'
-import numeral from 'numeral'
+import { getGatewayClient } from "./gateway";
 
 const CONFIGURATION = new Configuration(
     config.MAX_DISPATCHERS,
@@ -149,7 +150,7 @@ async function getPocketRPCProvider() {
 }
 
 export class DataSource {
-    constructor() {
+    constructor(config) {
         this.dispatchers = getPocketDispatchers();
 
         if (!this.dispatchers || this.dispatchers.length === 0) {
@@ -159,21 +160,23 @@ export class DataSource {
         }
 
         this.__pocket = new Pocket(this.dispatchers, undefined, CONFIGURATION);
+        this.gatewayUrl = config.gatewayUrl || "";
     }
 
     /**
      * @returns {BigInt}
      */
     async getHeight() {
-        const provider = await getRPCProvider();
+        const client = getGatewayClient(this.gatewayUrl);
 
-        const heightResponseOrError = await this.__pocket.rpc(provider).query.getHeight()
-        if (typeGuard(heightResponseOrError, RpcError)) {
+        try {
+            const heightResponseOrError = await client.getHeight();
+        } catch (err) {
             OCAlert.alertError(heightResponseOrError.message, { timeOut: 3000 });
             return undefined
-        } else {
-            return heightResponseOrError.height
         }
+        
+        return heightResponseOrError.height
     }
 
     /**

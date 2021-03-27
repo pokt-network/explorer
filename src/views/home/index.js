@@ -16,7 +16,9 @@ import { withRouter } from "react-router-dom";
 import Wrapper from "../../components/wrapper";
 import config from "../../config/config.json";
 
-const dataSource = new DataSource();
+const dataSource = new DataSource({
+  gatewayUrl: config.gatewayUrl,
+});
 
 class Home extends React.Component {
   constructor() {
