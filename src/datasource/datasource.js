@@ -151,6 +151,7 @@ async function getPocketRPCProvider() {
 
 export class DataSource {
     constructor(config) {
+        console.log({ config })
         this.dispatchers = getPocketDispatchers();
 
         if (!this.dispatchers || this.dispatchers.length === 0) {
@@ -160,22 +161,25 @@ export class DataSource {
         }
 
         this.__pocket = new Pocket(this.dispatchers, undefined, CONFIGURATION);
-        this.gatewayUrl = config.gatewayUrl || "";
+        this.gatewayUrl = config ? (config.gatewayUrl || "") : "";
+        this.httpConfig = config ? (config.http || {}) : {};
     }
 
     /**
      * @returns {BigInt}
      */
     async getHeight() {
-        const client = getGatewayClient(this.gatewayUrl);
+        const client = getGatewayClient(this.gatewayUrl, this.httpConfig);
+
+        let heightResponseOrError;
 
         try {
-            const heightResponseOrError = await client.getHeight();
+            heightResponseOrError = await client.getHeight();
         } catch (err) {
             OCAlert.alertError(heightResponseOrError.message, { timeOut: 3000 });
             return undefined
         }
-        
+
         return heightResponseOrError.height
     }
 

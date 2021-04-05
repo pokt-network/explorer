@@ -5,7 +5,7 @@ import HomeContent from "./home-content";
 import Search from "../../components/search";
 import Statistics from "../../components/statistics";
 import altertT from "../../utils/images/alert.png";
-import { DataSource } from "../../datasource";
+import { getDataSource } from "../../datasource";
 import OneTable from "../../components/one-table";
 import Details from "../../components/details";
 import DetailsContent from "../block/details/details";
@@ -14,11 +14,10 @@ import exitBlue from "../../utils/images/exit-blue.png";
 import close from "../../utils/images/close.png";
 import { withRouter } from "react-router-dom";
 import Wrapper from "../../components/wrapper";
+
 import config from "../../config/config.json";
 
-const dataSource = new DataSource({
-  gatewayUrl: config.gatewayUrl,
-});
+const dataSource = getDataSource();
 
 class Home extends React.Component {
   constructor() {

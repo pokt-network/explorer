@@ -1,71 +1,86 @@
 import Axios from "axios";
 
 class AxiosProvider {
-     constructor(baseUrl) {
-          this.caller = Axios.create({
-               baseURL,
-               timeout: 20000,
-          });
-     }
+  constructor(baseURL, config) {
+    this.http = Axios.create({
+      baseURL,
+      timeout: config.timeout || 100000,
+      headers: config.headers,
+    });
+  }
 }
 
 class PocketNetworkCtrl {
-     provider = null;
+  provider = null;
 
-     queries = {
-               getHeight: {
-                    url: '/v1/query/height',
-                    method: "POST",
-               }
-          },
+  requests = {
+    getHeight: {
+      url: '/v1/query/height',
+      method: "post",
+      data: {},
+    }
+  }
 
-          query = {
-               getHeight: this.getHeight;
-          }
+  use(provider) {
+    this.provider = provider;
+    return this;
+  }
 
-     use(provider) {
-          this.provider = provider;
-          return this;
-     }
+  parseSuccessfulResponse = (response) => response.data;
 
-     getHeight = () => this
-          .provider
-          .request(
-               this.queries.getHeight,
-          )
+  parseErrorResponse = (error) => {
+    throw error.response.data;
+  }
+
+  perform = async (requestName) => {
+    const config = this.requests[requestName];
+
+    const response = await this
+      .provider
+      .http
+      .request(config)
+      .then(this.parseSuccessfulResponse)
+      .catch(this.parseErrorResponse);
+
+    return response;
+  }
+
+  getHeight = this.perform.bind(this, 'getHeight');
+
+  query = {
+    getHeight: this.getHeight,
+  }
 }
 
 class GatewayClient {
-     constructor(httpProvider, requestsController) {
-          this.http = httpProvider;
-          this.controller = requestsController;
-     }
+  constructor(httpProvider, requestsController) {
+    this.controller = requestsController.use(httpProvider)
+  }
 
-     /**
-      * @returns {BigInt}
-      */
-     async getHeight() {
-          const heightResponseOrError = await this
-               .controller
-               .use(this.provider)
-               .query
-               .getHeight();
+  /**
+   * @returns {BigInt}
+   */
+  async getHeight() {
+    const heightResponse = await this
+      .controller
+      .query
+      .getHeight();
 
-          return heightResponseOrError.data;
-     }
+    return heightResponse;
+  }
 }
 
-const getGatewayClient = (baseUrl) => {
-     const httpProvider = new AxiosProvider(baseUrl);
-     const requestsCtrl = new PocketNetworkCtrl();
-     const gwClient = new GatewayClient(httpProvider, requestsCtrl);
+const getGatewayClient = (baseUrl, config) => {
+  const httpProvider = new AxiosProvider(baseUrl, config);
+  const requestsCtrl = new PocketNetworkCtrl();
+  const gwClient = new GatewayClient(httpProvider, requestsCtrl);
 
-     return gwClient;
+  return gwClient;
 }
 
 export {
-     AxiosProvider,
-     PocketNetworkCtrl,
-     GatewayClient,
-     getGatewayClient,
+  AxiosProvider,
+  PocketNetworkCtrl,
+  GatewayClient,
+  getGatewayClient,
 }

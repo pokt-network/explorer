@@ -1,9 +1,9 @@
 import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
-import {DataSource} from "../../../datasource";
+import { getDataSource } from "../../../datasource";
 
-const dataSource = new DataSource();
+const dataSource = getDataSource();
 
 class AccountDetails extends React.Component {
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import LatestContent from './latest';
 import OneTable from '../../../components/one-table';
-import {DataSource} from "../../../datasource";
-import {LatestInfo} from "../../../models/latestInfo";
+
+import { getDataSource } from "../../../datasource";
+import { LatestInfo } from "../../../models/latestInfo";
+
 import config from "../../../config/config.json";
 
-const dataSource = new DataSource();
+const dataSource = getDataSource();
 
 class TxLatest extends React.Component {
 
