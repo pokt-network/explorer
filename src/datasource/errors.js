@@ -5,6 +5,6 @@ const ConfigErrors = {
 const GatewayClientErrors = {
   UnregistredQuery: (queryName) => `GatewayClientError: ${queryName} query is not registered`,
 }
-export default Errors = {
+export default {
   ConfigErrors,
 }
