@@ -123,7 +123,8 @@ describe("GatewayClient", () => {
           'page',
           // this means that we are expecting
           // an object like this: { result: [ { address, chains, jailed, ..}] }
-          ['result', 'address', 'chains', 'jailed', 'max_relays', 'public_key', 'staked_tokens', 'status', 'unstaking_time']
+          ['result', 'address', 'chains', 'jailed', 'max_relays', 'public_key', 'staked_tokens', 'status', 'unstaking_time'],
+          'total_pages',
         ],
         onFailure: [],
       },
@@ -149,7 +150,8 @@ describe("GatewayClient", () => {
       responseProperties: {
         onSuccess: [
           'page',
-          ['result', 'address', 'chains', 'jailed', 'public_key', 'service_url', 'status', 'tokens', 'unstaking_time']
+          ['result', 'address', 'chains', 'jailed', 'public_key', 'service_url', 'status', 'tokens', 'unstaking_time'],
+          'total_pages',
         ],
         onFailure: [],
       },

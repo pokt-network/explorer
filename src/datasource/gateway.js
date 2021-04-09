@@ -111,7 +111,6 @@ class PocketQueriesController {
       this.requests[requestName](...args) :
       this.requests[requestName];
 
-    console.log({ reqConfig })
     const response = await this
       .provider
       .http
