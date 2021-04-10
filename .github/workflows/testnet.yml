@@ -24,17 +24,12 @@ jobs:
         CLIENT_PRIVATE_KEY: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
         LEIF_APP_PUBLIC_KEY: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
         LEIF_APP_AAT_SIGNATURE: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
-        DISPATCHERS: "https://node1.testnet.pokt.network,https://node2.testnet.pokt.network,https://node3.testnet.pokt.network,https://node4.testnet.pokt.network,https://node5.testnet.pokt.network"
         WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
         DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
+        GATEWAY_BASE_URL: "https://gateway.pokt.network"
         CHAIN: "0002"
         CHAIN_ID: "testnet"
         ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
-        BLOCK_TIME: "900000"
-        HTTP_PROVIDER: "https://node1.testnet.pokt.network:443"
-        PROVIDER_TYPE: "http"
-        AAT_VERSION: "0.0.1"
-        MAX_DISPATCHERS: "5"
     - name: NPM install
       run: npm install
     - name: Production build

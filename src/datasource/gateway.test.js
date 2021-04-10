@@ -3,8 +3,8 @@ import {
 } from "./gateway";
 
 const testConfig = {
-  // "gatewayUrl": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
-  "gatewayUrl": "https://mainnet.gateway.pokt.network/v1/60676c9f7cbbfe002f0b9cbe",
+  "gatewayUrl": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
+  // "gatewayUrl": "https://mainnet.gateway.pokt.network/v1/60676c9f7cbbfe002f0b9cbe",
   "http": {
     "timeout": 0,
     "headers": {
@@ -128,7 +128,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [2, 22788, 0, 1, 1]
+      args: [2, 22788, "", 1, 1]
     },
     {
       queryName: 'getSupply',
@@ -155,7 +155,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [2, 2, 22788, "0001", 1, 1]
+      args: [2, 2, 22788, "", 1, 1]
     },
   ]
   .filter(

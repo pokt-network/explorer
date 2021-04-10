@@ -1,6 +1,6 @@
 {
-  "gatewayUrl": "https://mainnet.gateway.pokt.network/v1/60676c9f7cbbfe002f0b9cbe",
-  "http": {
+  "GATEWAY_BASE_URL": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
+  "HTTP_CONFIG": {
     "timeout": 0,
     "headers": {
       "Content-Type": "application/json",
