@@ -160,18 +160,19 @@ export class DataSource {
    * @param {number} page
    * @param {number} perPage
    */
-  async getLatestTransactions(page, perPage, height) {
+  async getLatestTransactions(page, perPage, height=0) {
     const txs = [];
     let bTxsResponse;
 
     try {
       bTxsResponse = await this.gwClient.getBlockTxs(
-        height,
+        Number(height),
         false,
         page,
         perPage
       );
     } catch (error) {
+      OCAlert.alertError(error.message, { timeOut: 3000 });
       return [];
     }
 
@@ -223,10 +224,10 @@ export class DataSource {
       });
       return 0;
     }
-
-    const totalstaked = JSBI.add(totalSupply.app_staked, totalSupply.node_staked);
-    const totalSupplyPOKT = JSBI.divide(BigInt(totalstaked), BigInt(1000000));
-
+   
+    const totalstaked = Number(totalSupply.app_staked) + Number(totalSupply.node_staked);
+    const totalSupplyPOKT = totalstaked/1000000;
+    
     return numeral(totalSupplyPOKT.toString()).format('(0.00 a)');
   }
 

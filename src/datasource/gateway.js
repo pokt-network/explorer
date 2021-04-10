@@ -1,5 +1,6 @@
 import {
-  JailedStatus
+  JailedStatus,
+  StakingStatus,
 } from "@pokt-network/pocket-js";
 import Axios from "axios";
 import Errors from "./errors";
@@ -67,11 +68,13 @@ class PocketQueriesController {
       url: '/v1/query/apps',
       method: 'post',
       data: {
-        staking_status,
         height,
-        blockchain,
-        page,
-        per_page,
+        opts: {
+          staking_status,
+          blockchain,
+          page,
+          per_page,
+        }
       }
     }),
     getSupply: (height) => ({
@@ -86,11 +89,13 @@ class PocketQueriesController {
       method: 'post',
       data: {
         height,
-        staking_status,
-        jailed_status,
-        blockchain,
-        page,
-        per_page,
+        opts: {
+          staking_status,
+          jailed_status,
+          blockchain,
+          page,
+          per_page,
+        }
       }
     }),
   }
@@ -100,10 +105,38 @@ class PocketQueriesController {
     return this;
   }
 
-  parseSuccessfulResponse = (response) => response.data;
+  // looks ugly with the ifs
+  // but the gateway constantly responds with 200
+  // and responds with errors in response.data
+  // in a non-consistent form.
+  parseSuccessfulResponse = (response) => {
+    
+    if (typeof response.data === 'string' && response.data.indexOf('Method Not Allowed') > -1) {
+      throw {
+        message: 'Method Not Allowed',
+      }
+    }
+
+    if (response.data.code && response.data.code !== 200) {
+      throw response.data;
+    }
+
+    return response.data;
+  }
 
   parseErrorResponse = (error) => {
-    throw error.response.data;
+    if (error.response && error.response.data && error.response.data.error) {
+      throw error.response.data.error;
+    }
+
+    if (typeof error === 'string') {
+      throw {
+        message: error,
+      }
+    }
+
+    throw error;
+
   }
 
   perform = async (requestName, ...args) => {

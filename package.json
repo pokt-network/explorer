@@ -21,7 +21,7 @@
     "styled-components": "^5.1.0"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=8192 start",
+    "start": "react-app-rewired start",
     "build": "react-scripts --max_old_space_size=8192 build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
