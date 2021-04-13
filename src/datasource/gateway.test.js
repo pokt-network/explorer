@@ -4,7 +4,6 @@ import {
 
 const testConfig = {
   "gatewayUrl": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
-  // "gatewayUrl": "https://mainnet.gateway.pokt.network/v1/60676c9f7cbbfe002f0b9cbe",
   "http": {
     "timeout": 0,
     "headers": {
@@ -18,6 +17,18 @@ describe("GatewayClient", () => {
   const context = {
     client: null,
   };
+
+  const variables = {
+    height: 22788,
+    address: "04c56dfc51c3ec68d90a08a2efaa4b9d3db32b3b",
+    txHash: "E4A3EDE68171473996E68549C5CFC3C06B4865C35D194B8BDDA08908B4D394A6",
+    page: 1,
+    per_page: 1,
+    prove: false,
+    blockchain: "",
+    stakingStatus: 2,
+    jailingStatus: 2,
+  }
 
   beforeAll(
     () => {
@@ -58,7 +69,7 @@ describe("GatewayClient", () => {
       );
   });
 
-  [
+  const testCases = [
     {
       queryName: 'getHeight',
       responseProperties: {
@@ -77,7 +88,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: ["04c56dfc51c3ec68d90a08a2efaa4b9d3db32b3b"]
+      args: [variables.address]
     },
     {
       queryName: 'getTransaction',
@@ -92,7 +103,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: ["E4A3EDE68171473996E68549C5CFC3C06B4865C35D194B8BDDA08908B4D394A6"]
+      args: [variables.txHash]
     },
     {
       queryName: 'getBlock',
@@ -103,7 +114,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [22788]
+      args: [variables.height]
     },
     {
       queryName: 'getBlockTxs',
@@ -114,7 +125,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [22788, false, 1, 1] 
+      args: [variables.height, variables.prove, variables.page, variables.per_page] 
     },
     {
       queryName: 'getApps',
@@ -128,7 +139,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [2, 22788, "", 1, 1]
+      args: [variables.stakingStatus, variables.height, variables.blockchain, variables.page, variables.per_page]
     },
     {
       queryName: 'getSupply',
@@ -143,7 +154,7 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [22788]
+      args: [variables.height]
     },
     {
       queryName: 'getNodes',
@@ -155,24 +166,30 @@ describe("GatewayClient", () => {
         ],
         onFailure: [],
       },
-      args: [2, 2, 22788, "", 1, 1]
+      args: [variables.stakingStatus, variables.jailingStatus, variables.height, variables.blockchain, variables.page, variables.per_page]
     },
   ]
-  .filter(
-    (queryAnnotation) => [
-      'getHeight',
-      'getAccount',
-      'getTransaction',
-      'getBlock',
-      'getBlockTxs',
-      'getApps',
-      'getSupply',
-      'getNodes',
-    ].includes(queryAnnotation.queryName)
-  )
+
+  const whitelistedTestCases = [
+    'getHeight',
+    'getAccount',
+    'getTransaction',
+    'getBlock',
+    'getBlockTxs',
+    'getApps',
+    'getSupply',
+    'getNodes',
+  ];
+
+  const runWhitelistedOnly = (queryAnnotation) => whitelistedTestCases.includes(queryAnnotation.queryName)
+  
+  testCases
+  .filter(runWhitelistedOnly)
   .forEach(
     ({ queryName, responseProperties, args }) => {
+
       describe(`GatewayClient.${queryName}`, () => {
+
         test('is functional', async () => {
           await expect(context.client[queryName](...args)).resolves.not.toThrow();
         })
@@ -203,14 +220,14 @@ describe("GatewayClient", () => {
           )
         })
     
-        // test('returns proper response format on error', async () => {
-        //   const response = await context.client[queryName]();
-        //   responseProperties.onFailure.forEach(
-        //     (prop) => {
-        //       expect(response).toHaveProperty(prop);
-        //     }
-        //   )
-        // })
+        test.skip('returns proper response format on error', async () => {
+          const response = await context.client[queryName]();
+          responseProperties.onFailure.forEach(
+            (prop) => {
+              expect(response).toHaveProperty(prop);
+            }
+          )
+        })
       })
     }
   )
