@@ -245,7 +245,7 @@ class GatewayClient {
     );
 
   getStakedSupply = () => this.getSupply();
-  
+
   getGreenNodes = () => this
     .getNodes(
       StakingStatus.Staked,
