@@ -41,7 +41,7 @@ export class DataSource {
     let hReponse;
 
     try {
-      hReponse = await this.gwClient.getHeight();
+      hReponse = await this.gwClient.makeQuery('getHeight');
     } catch (error) {
       OCAlert.alertError(error.message, {
         timeOut: 3000
@@ -61,7 +61,7 @@ export class DataSource {
     let accResponse;
     
     try {
-      accResponse = await this.gwClient.getAccount(id)
+      accResponse = await this.gwClient.makeQuery('getAccount', id)
       
       if (accResponse !== null) {
         return new Account(
@@ -85,7 +85,7 @@ export class DataSource {
     let txResponse;
     
     try {
-      txResponse = await this.gwClient.getTransaction(id)
+      txResponse = await this.gwClient.makeQuery('getTransaction', id)
     } catch (error) {
       OCAlert.alertError(error.message, { timeOut: 3000 });
       return undefined
@@ -108,7 +108,7 @@ export class DataSource {
     let blockResponse;
     
     try {
-      blockResponse = await this.gwClient.getBlock(height);
+      blockResponse = await this.gwClient.makeQuery('getBlock', height);
     } catch (error) {
       return undefined;
     }
@@ -129,7 +129,7 @@ export class DataSource {
    * @returns 
    */
   async getLatestBlock() {
-    const { height } = await this.gwClient.getHeight();
+    const { height } = await this.gwClient.makeQuery('getHeight');
 
     if (height === undefined) {
       return undefined
@@ -137,7 +137,7 @@ export class DataSource {
 
     let blockResponse;
     try {
-      blockResponse = await this.gwClient.getBlock(height);
+      blockResponse = await this.gwClient.makeQuery('getBlock', height);
     } catch (error) {
       OCAlert.alertError(error.message, { timeOut: 3000 });
       return undefined
@@ -165,12 +165,9 @@ export class DataSource {
     let bTxsResponse;
 
     try {
-      bTxsResponse = await this.gwClient.getBlockTxs(
-        Number(height),
-        false,
-        page,
-        perPage
-      );
+      bTxsResponse = await this
+        .gwClient
+        .makeQuery( 'getBlockTxs', Number(height), false, page, perPage );
     } catch (error) {
       OCAlert.alertError(error.message, { timeOut: 3000 });
       return [];
@@ -198,7 +195,9 @@ export class DataSource {
     let firstPageAppsResponse;
 
     try {
-      firstPageAppsResponse = await this.gwClient.getApps(StakingStatus.Staked, undefined, undefined, 1, 1);
+      firstPageAppsResponse = await this
+        .gwClient
+        .makeQuery('getApps', StakingStatus.Staked, undefined, undefined, 1, 1);
     } catch (error) {
       OCAlert.alertError(error.message, {
         timeOut: 3000
@@ -217,7 +216,7 @@ export class DataSource {
     let totalSupply;
 
     try {
-      totalSupply = await this.gwClient.getSupply(0);
+      totalSupply = await this.gwClient.makeQuery('getSupply', 0);
     } catch (error) {
       OCAlert.alertError(error.message, {
         timeOut: 3000
@@ -239,7 +238,9 @@ export class DataSource {
     let validatorsResponse;
     
     try {
-      validatorsResponse = await this.gwClient.getNodes(StakingStatus.Staked, JailedStatus.Unjailed, undefined, undefined, 1, 1);
+      validatorsResponse = await this
+        .gwClient
+        .makeQuery('getNodes', StakingStatus.Staked, JailedStatus.Unjailed, undefined, undefined, 1, 1);
     } catch (error) {
       OCAlert.alertError(error.message, {
         timeOut: 3000

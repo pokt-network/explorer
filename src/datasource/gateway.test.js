@@ -191,11 +191,11 @@ describe("GatewayClient", () => {
       describe(`GatewayClient.${queryName}`, () => {
 
         test('is functional', async () => {
-          await expect(context.client[queryName](...args)).resolves.not.toThrow();
+          await expect(context.client.makeQuery(queryName, ...args)).resolves.not.toThrow();
         })
     
         test('returns proper response format on success', async () => {
-          const response = await context.client[queryName](...args);
+          const response = await context.client.makeQuery(queryName, ...args);
 
           responseProperties.onSuccess.forEach(
             (prop) => {
@@ -221,7 +221,7 @@ describe("GatewayClient", () => {
         })
     
         test.skip('returns proper response format on error', async () => {
-          const response = await context.client[queryName]();
+          const response = await context.client.makeQuery(queryName);
           responseProperties.onFailure.forEach(
             (prop) => {
               expect(response).toHaveProperty(prop);

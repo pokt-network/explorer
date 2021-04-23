@@ -14,7 +14,7 @@ class AxiosProvider {
   constructor(baseURL, config) {
     this.http = Axios.create({
       baseURL,
-      timeout: config.timeout || 100000,
+      timeout: config.timeout,
       headers: config.headers,
     });
   }
@@ -110,7 +110,7 @@ class PocketQueriesController {
   // and responds with errors in response.data
   // in a non-consistent form.
   parseSuccessfulResponse = (response) => {
-    
+
     if (typeof response.data === 'string' && response.data.indexOf('Method Not Allowed') > -1) {
       throw {
         message: 'Method Not Allowed',
@@ -188,6 +188,9 @@ class GatewayClient {
     this.config     = config;
   }
 
+  /**
+   * Http Gateway Queries
+   */
   queries = [
     'getHeight',
     'getAccount',
@@ -200,25 +203,16 @@ class GatewayClient {
   ]
 
   /**
-   * @returns {BigInt}
-   */
-  async makeQuery(queryName, ...args) {
-    if (!(this.queries.includes(queryName) > -1)) {
-      throw Errors
-    }
-    return await this
-      .controller
-      .query[queryName](...args);
-  }
-
-  getHeight = this.makeQuery.bind(this, 'getHeight');
-  getAccount = this.makeQuery.bind(this, 'getAccount');
-  getTransaction = this.makeQuery.bind(this, 'getTransaction');
-  getBlock = this.makeQuery.bind(this, 'getBlock');
-  getBlockTxs = this.makeQuery.bind(this, 'getBlockTxs');
-  getApps = this.makeQuery.bind(this, 'getApps');
-  getSupply = this.makeQuery.bind(this, 'getSupply');
-  getNodes = this.makeQuery.bind(this, 'getNodes');
+   *  This concerns the calls that are aliased with names but used
+   *  queries with specific params.
+   * */
+  aliasedQueries = [
+    'getLatestBlock',
+    'getLatestTransactions',
+    'getTotalStakedApps',
+    'getStakedSupply',
+    'getGreenNodes',
+  ];
 
   getLatestBlock = async () => {
     const height = await this.getHeight();
@@ -255,6 +249,23 @@ class GatewayClient {
       1,
       1
     );
+
+  /**
+   * Execute an HTTP Gateway Query
+   */
+   async makeQuery(queryName, ...args) {
+    if (this.aliasedQueries.includes(queryName)) {
+      return this[queryName](...args);
+    }
+
+    if (this.queries.includes(queryName)) {
+      return await this
+          .controller
+          .query[queryName](...args);
+    }
+
+    throw Errors.GatewayClientErrors.UnregistredQuery(queryName);
+  }
 }
 
 const getGatewayClient = (baseUrl, config) => {

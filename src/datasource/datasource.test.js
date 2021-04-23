@@ -2,7 +2,6 @@ import { DataSource } from "./datasource";
 
 const testConfig = {
   "gatewayUrl": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
-  // "gatewayUrl": "https://mainnet.gateway.pokt.network/v1/60676c9f7cbbfe002f0b9cbe",
   "http": {
     "timeout": 0,
     "headers": {
@@ -12,19 +11,21 @@ const testConfig = {
   },
 }
 
+const POKT_ACCOUNT = "04c56dfc51c3ec68d90a08a2efaa4b9d3db32b3b";
+const POKT_TRANSACTION = "E4A3EDE68171473996E68549C5CFC3C06B4865C35D194B8BDDA08908B4D394A6";
+const POKT_BLOCKHEIGHT = 22788;
+const POKT_PAGE = 1;
+const POKT_PAGECOUNT = 1;
+
 describe('DataSource', () => {
   const context = {
     datasource: null,
     args: {
-      getAccount: [
-        "04c56dfc51c3ec68d90a08a2efaa4b9d3db32b3b",
-      ],
-      getTransaction: [
-        "E4A3EDE68171473996E68549C5CFC3C06B4865C35D194B8BDDA08908B4D394A6",
-      ],
-      getBlock: [22788],
+      getAccount: [POKT_ACCOUNT],
+      getTransaction: [POKT_TRANSACTION],
+      getBlock: [POKT_BLOCKHEIGHT],
       getLatestBlock: [],
-      getLatestTransactions: [1, 1, 22788],
+      getLatestTransactions: [POKT_PAGE, POKT_PAGECOUNT, POKT_BLOCKHEIGHT],
       getTotalStakedApps: [],
       getStakedSupply: [],
       getNodes: []
