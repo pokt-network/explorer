@@ -1,9 +1,10 @@
 import {
   getGatewayClient
 } from "./gateway";
+import config from '../config/config';
 
 const testConfig = {
-  "gatewayUrl": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
+  "gatewayUrl": config.NODE_ENV === 'test' ? config.GATEWAY_BASE_URL : "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
   "http": {
     "timeout": 0,
     "headers": {
@@ -35,14 +36,14 @@ describe("GatewayClient", () => {
       jest.setTimeout(100000);
     }
   )
-  
+
   test('instantiates properly', () => {
     expect(
       () => {
         context.client = getGatewayClient(
           testConfig.gatewayUrl,
           testConfig.http
-        );    
+        );
       }
     ).not.toThrow();
 
@@ -182,7 +183,7 @@ describe("GatewayClient", () => {
   ];
 
   const runWhitelistedOnly = (queryAnnotation) => whitelistedTestCases.includes(queryAnnotation.queryName)
-  
+
   testCases
   .filter(runWhitelistedOnly)
   .forEach(
@@ -193,7 +194,7 @@ describe("GatewayClient", () => {
         test('is functional', async () => {
           await expect(context.client.makeQuery(queryName, ...args)).resolves.not.toThrow();
         })
-    
+
         test('returns proper response format on success', async () => {
           const response = await context.client.makeQuery(queryName, ...args);
 
@@ -208,7 +209,7 @@ describe("GatewayClient", () => {
 
                 expect(response)
                   .toHaveProperty(parentProp)
-                
+
                 nestedProps.forEach(
                   (nestedProp) => {
                     expect(response[parentProp][0]).toHaveProperty(nestedProp)
@@ -219,7 +220,7 @@ describe("GatewayClient", () => {
             }
           )
         })
-    
+
         test.skip('returns proper response format on error', async () => {
           const response = await context.client.makeQuery(queryName);
           responseProperties.onFailure.forEach(

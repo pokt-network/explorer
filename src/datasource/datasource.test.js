@@ -1,7 +1,8 @@
 import { DataSource } from "./datasource";
+import config from "../config/config";
 
 const testConfig = {
-  "gatewayUrl": "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
+  "gatewayUrl": config.NODE_ENV === 'test' ? config.GATEWAY_BASE_URL : "http://localhost:3000/v1/60676c9f7cbbfe002f0b9cbe",
   "http": {
     "timeout": 0,
     "headers": {

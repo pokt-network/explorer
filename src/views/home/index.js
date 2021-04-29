@@ -15,7 +15,7 @@ import close from "../../utils/images/close.png";
 import { withRouter } from "react-router-dom";
 import Wrapper from "../../components/wrapper";
 
-import config from "../../config/config.json";
+import config from "../../config/config";
 
 const dataSource = getDataSource();
 

@@ -5,7 +5,7 @@ import OneTable from '../../../components/one-table';
 import { getDataSource } from "../../../datasource";
 import { LatestInfo } from "../../../models/latestInfo";
 
-import config from "../../../config/config.json";
+import config from "../../../config/config";
 
 const dataSource = getDataSource();
 

@@ -16,10 +16,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Write config
-      uses: schdck/create-env-json@v1
-      with:
-        file-name: 'src/config/config.json'
+    - name: NPM install
+      run: npm install
+    - name: Production build
+      run: npm run build
+      env:
         CLIENT_PASSPHRASE: ${{ secrets.LEIF_TESTNET_CLIENT_PASSPHRASE }}
         CLIENT_PRIVATE_KEY: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
         LEIF_APP_PUBLIC_KEY: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
@@ -31,10 +32,6 @@ jobs:
         CHAIN_ID: "testnet"
         ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
         HTTP_CONFIG: '{ "timeout": 0, "headers": { "Content-Type": "application/json" } }'
-    - name: NPM install
-      run: npm install
-    - name: Production build
-      run: npm run build
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:

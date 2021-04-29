@@ -2,7 +2,7 @@ import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
 import EventTable from "../../../components/events";
-import config from "../../../config/config.json";
+import config from "../../../config/config";
 
 import { getDataSource } from "../../../datasource";
 

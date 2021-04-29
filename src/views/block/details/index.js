@@ -4,7 +4,7 @@ import Details from '../../../components/details';
 import {getDataSource} from "../../../datasource";
 import OneTable from "../../../components/one-table";
 import {LatestInfo} from "../../../models/latestInfo";
-import config from "../../../config/config.json";
+import config from "../../../config/config";
 
 const dataSource = getDataSource();
 
