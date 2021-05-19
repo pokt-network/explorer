@@ -34,4 +34,8 @@ packages/react-devtools-extensions/shared/build
 packages/react-devtools-inline/dist
 packages/react-devtools-shell/dist
 
-src/config/config.json
+# environmnet
+.env
+.env.test
+.env.development
+.env.production

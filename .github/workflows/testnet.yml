@@ -16,29 +16,22 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Write config
-      uses: schdck/create-env-json@v1
-      with:
-        file-name: 'src/config/config.json'
-        CLIENT_PASSPHRASE: ${{ secrets.LEIF_TESTNET_CLIENT_PASSPHRASE }}
-        CLIENT_PRIVATE_KEY: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
-        LEIF_APP_PUBLIC_KEY: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
-        LEIF_APP_AAT_SIGNATURE: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
-        DISPATCHERS: "https://node1.testnet.pokt.network,https://node2.testnet.pokt.network,https://node3.testnet.pokt.network,https://node4.testnet.pokt.network,https://node5.testnet.pokt.network"
-        WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
-        DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
-        CHAIN: "0002"
-        CHAIN_ID: "testnet"
-        ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
-        BLOCK_TIME: "900000"
-        HTTP_PROVIDER: "https://node1.testnet.pokt.network:443"
-        PROVIDER_TYPE: "http"
-        AAT_VERSION: "0.0.1"
-        MAX_DISPATCHERS: "5"
     - name: NPM install
       run: npm install
     - name: Production build
       run: npm run build
+      env:
+        CLIENT_PASSPHRASE: ${{ secrets.LEIF_TESTNET_CLIENT_PASSPHRASE }}
+        CLIENT_PRIVATE_KEY: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
+        LEIF_APP_PUBLIC_KEY: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
+        LEIF_APP_AAT_SIGNATURE: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
+        WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
+        DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
+        GATEWAY_BASE_URL: "https://gateway.pokt.network/v1/lb/60a2ac11b1747c6552385c61"
+        CHAIN: "0002"
+        CHAIN_ID: "testnet"
+        ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
+        HTTP_CONFIG: '{ "timeout": 0, "headers": { "Content-Type": "application/json" } }'
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
@@ -56,4 +49,4 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.AWS_REGION }}
         DISTRIBUTION_ID: ${{ secrets.AWS_TESTNET_DISTRIBUTION_ID }}
-    
+
