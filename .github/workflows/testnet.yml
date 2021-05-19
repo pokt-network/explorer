@@ -27,7 +27,7 @@ jobs:
         LEIF_APP_AAT_SIGNATURE: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
         WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
         DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
-        GATEWAY_BASE_URL: "https://gateway.pokt.network/v1/60676c9f7cbbfe002f0b9cbe"
+        GATEWAY_BASE_URL: "https://gateway.pokt.network/v1/lb/60a2ac11b1747c6552385c61"
         CHAIN: "0002"
         CHAIN_ID: "testnet"
         ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
