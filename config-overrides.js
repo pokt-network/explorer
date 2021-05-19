@@ -13,7 +13,7 @@ module.exports = {
       .rules[2]
       .oneOf
       .filter(
-        (rule) => rule.loader.indexOf('babel-loader') > -1
+        (rule) => rule.loader ? rule.loader.indexOf('babel-loader') > -1 : false
       )
       .filter(
         (rule) => rule.options.plugins !== undefined
