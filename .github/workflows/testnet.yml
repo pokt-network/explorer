@@ -21,6 +21,7 @@ jobs:
     - name: create production env file
       uses: SpicyPizza/create-envfile@v1
       with:
+        envkey_ENV: "production" 
         envkey_CLIENT_PASSPHRASE: ${{ secrets.LEIF_TESTNET_CLIENT_PASSPHRASE }}
         envkey_CLIENT_PRIVATE_KEY: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
         envkey_LEIF_APP_PUBLIC_KEY: ${{ secrets.LEIF_TESTNET_APP_PUBLIC_KEY }}
