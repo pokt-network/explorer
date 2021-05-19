@@ -20,10 +20,7 @@ const validators = {
       console.warn("Constructing proper URL...");
 
       const gatewayDomainUrl = value.split("://")[1];
-      console.log(gatewayDomainUrl);
       const constructedGatewayUrl = `https://${process.env.CHAIN_ID}.${gatewayDomainUrl}`;
-
-      console.log("constructed:", constructedGatewayUrl);
 
       return constructedGatewayUrl;
     }

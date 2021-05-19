@@ -29,7 +29,6 @@ class App extends Component {
   constructor() {
     super()
 
-    console.log(process.env)
     window.BigInt = JSBI.BigInt;
   }
 
