@@ -1,6 +1,3 @@
-/* global BigInt */
-
-import JSBI from 'jsbi'
 import numeral from 'numeral'
 import { StakingStatus, JailedStatus } from "@pokt-network/pocket-js"
 import {
@@ -20,7 +17,7 @@ export class DataSource {
   constructor(config) {
     const gatewayUrl = config ? (config.gatewayUrl || "") : "";
     const httpConfig = config ? (config.http || {}) : {};
-    
+
     if (gatewayUrl === "") {
       throw Errors.ConfigErrors.RequiredParam('gatewayUrl');
     }
@@ -59,10 +56,10 @@ export class DataSource {
    */
   async getAccount(id) {
     let accResponse;
-    
+
     try {
       accResponse = await this.gwClient.makeQuery('getAccount', id)
-      
+
       if (accResponse !== null) {
         return new Account(
           accResponse.address,
@@ -83,7 +80,7 @@ export class DataSource {
    */
   async getTransaction(id) {
     let txResponse;
-    
+
     try {
       txResponse = await this.gwClient.makeQuery('getTransaction', id)
     } catch (error) {
@@ -106,7 +103,7 @@ export class DataSource {
    */
   async getBlock(height) {
     let blockResponse;
-    
+
     try {
       blockResponse = await this.gwClient.makeQuery('getBlock', height);
     } catch (error) {
@@ -223,10 +220,10 @@ export class DataSource {
       });
       return 0;
     }
-   
+
     const totalstaked = Number(totalSupply.app_staked) + Number(totalSupply.node_staked);
     const totalSupplyPOKT = totalstaked/1000000;
-    
+
     return numeral(totalSupplyPOKT.toString()).format('(0.00 a)');
   }
 
@@ -236,7 +233,7 @@ export class DataSource {
    */
   async getNodes() {
     let validatorsResponse;
-    
+
     try {
       validatorsResponse = await this
         .gwClient
@@ -247,7 +244,7 @@ export class DataSource {
       });
       return 0;
     }
-    
+
     return validatorsResponse.total_pages;
   }
 }
