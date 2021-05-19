@@ -34,7 +34,7 @@ jobs:
         envkey_HTTP_CONFIG: '{ "timeout": 0, "headers": { "Content-Type": "application/json" } }'
         file_name: .env.production
     - name: Production build
-      run: npm run build
+      run: NODE_ENV=production npm run build
       env:
         CLIENT_PASSPHRASE: ${{ secrets.LEIF_TESTNET_CLIENT_PASSPHRASE }}
         CLIENT_PRIVATE_KEY: ${{ secrets.LEIF_TESTNET_CLIENT_PRIVATE_KEY }}
