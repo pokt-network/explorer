@@ -13,7 +13,7 @@ import Footer from "./components/footer";
 import AccountDetails from "./views/account/details";
 import { OCAlertsProvider } from '@opuscapita/react-alerts';
 import history from './history';
-import JSBI from 'jsbi';
+import JSBI from 'jsbi/dist/jsbi-cjs';
 import './normalize.css';
 import './message-box.css';
 

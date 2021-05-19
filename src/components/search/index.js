@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Wrapper from '../wrapper';
 import SearchContent from './search-content';
-import {
-  withRouter
-} from 'react-router-dom'
-import {DataSource} from "../../datasource";
 
-const dataSource = new DataSource();
+import { withRouter } from 'react-router-dom'
+import { getDataSource } from "../../datasource";
+
+const dataSource = getDataSource();
 
 class Search extends Component {
 
