@@ -1,6 +1,3 @@
-/* global BigInt */
-
-import JSBI from 'jsbi'
 import numeral from 'numeral'
 import { StakingStatus, JailedStatus } from "@pokt-network/pocket-js"
 import {

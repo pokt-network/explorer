@@ -112,9 +112,7 @@ class PocketQueriesController {
   parseSuccessfulResponse = (response) => {
 
     if (typeof response.data === 'string' && response.data.indexOf('Method Not Allowed') > -1) {
-      throw {
-        message: 'Method Not Allowed',
-      }
+      throw new Error('Method Not Allowed')
     }
 
     if (response.data.code && response.data.code !== 200) {
@@ -130,9 +128,7 @@ class PocketQueriesController {
     }
 
     if (typeof error === 'string') {
-      throw {
-        message: error,
-      }
+      throw new Error(error) 
     }
 
     throw error;
