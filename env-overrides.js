@@ -1,0 +1,9 @@
+module.exports = [
+  'GATEWAY_BASE_URL',
+  'CHAIN_ID',
+  'HTTP_TIMEOUT',
+  'HTTP_HEADERS',
+  'NODE_ENV',
+  'WALLET_BASE_URLL',
+  'DASHBOARD_BASE_LURL'
+]

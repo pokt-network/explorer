@@ -1,11 +1,12 @@
 import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
-import {DataSource} from "../../../datasource";
 import EventTable from "../../../components/events";
-import config from "../../../config/config.json";
+import config from "../../../config/config";
 
-const dataSource = new DataSource();
+import { getDataSource } from "../../../datasource";
+
+const dataSource = getDataSource();
 
 class TxDetails extends React.Component {
 
