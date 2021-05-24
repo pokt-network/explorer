@@ -1,7 +1,6 @@
 import React from 'react';
 import LatestContent from './latest';
 import OneTable from '../../../components/one-table';
-import Block from "../../../models/block";
 import { getDataSource  } from "../../../datasource";
 import { LatestInfo } from "../../../models/latestInfo";
 import config from "../../../config/config";
@@ -20,7 +19,6 @@ class BlockLatest extends React.Component {
 
     componentWillMount() {
         dataSource.getLatestBlock().then(block => {
-            console.log({ block })
             if (block) {
                 const latest = new LatestInfo(
                         block.id,
