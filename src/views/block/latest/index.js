@@ -20,7 +20,6 @@ class BlockLatest extends React.Component {
 
     componentWillMount() {
         dataSource.getLatestBlock().then(block => {
-            console.log({ block })
             if (block) {
                 const latest = new LatestInfo(
                         block.id,

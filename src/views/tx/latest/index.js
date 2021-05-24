@@ -20,7 +20,6 @@ class TxLatest extends React.Component {
 
     componentWillMount() {
         dataSource.getLatestTransactions(1, 100).then(txs => {
-            console.log({ txs })
             if(txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
