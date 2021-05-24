@@ -1,7 +1,6 @@
 import React from 'react';
 import LatestContent from './latest';
 import OneTable from '../../../components/one-table';
-import Block from "../../../models/block";
 import { getDataSource  } from "../../../datasource";
 import { LatestInfo } from "../../../models/latestInfo";
 import config from "../../../config/config";
