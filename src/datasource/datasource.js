@@ -63,7 +63,7 @@ export class DataSource {
       if (accResponse !== null) {
         return new Account(
           accResponse.address,
-          (accResponse.balance / 1000000) + " POKT",
+          (accResponse.coins[0].amount / 1000000) + " POKT",
           accResponse,
         )
       }

@@ -210,6 +210,37 @@ class GatewayClient {
     'getGreenNodes',
   ];
 
+  /**
+   *
+   * Query pre and post processors
+   * */
+  processors = {
+    getTransaction: {
+      processRequest: (...args) => args,
+      processResponse: (response) => {
+        const base64ToStr = (v) => Buffer.from(v, "base64").toString();
+        const kvToStr = (kvObj) => ({
+          key: base64ToStr(kvObj.key),
+          value: base64ToStr(kvObj.value),
+        });
+
+        const mapEvents = (events) => events.map(
+          (e) => ({ ...e, attributes: e.attributes.map(kvToStr) })
+        )
+
+        return {
+          ...response,
+          tx_result: {
+            ...response.tx_result,
+            events: mapEvents(response.tx_result.events),
+          }
+        }
+      }
+
+
+    }
+  }
+
   getLatestBlock = async () => {
     const height = await this.getHeight();
     const latestBlock = await this.getBlock(height);
@@ -250,17 +281,34 @@ class GatewayClient {
    * Execute an HTTP Gateway Query
    */
    async makeQuery(queryName, ...args) {
+    let queryFn = null;
+
     if (this.aliasedQueries.includes(queryName)) {
-      return this[queryName](...args);
+      queryFn = this[queryName];
     }
 
     if (this.queries.includes(queryName)) {
-      return await this
+      queryFn = this
           .controller
-          .query[queryName](...args);
+          .query[queryName];
     }
 
-    throw Errors.GatewayClientErrors.UnregistredQuery(queryName);
+
+    if (!queryFn) {
+      throw Errors.GatewayClientErrors.UnregistredQuery(queryName);
+    }
+
+    const queryHasProcessor = Object.keys(this.processors).includes(queryName)
+
+    if (!queryHasProcessor) {
+       return queryFn(...args);
+    }
+
+    const request = this.processors[queryName].processRequest(...args);
+    const rawResponse = await queryFn(...request);
+    const response = this.processors[queryName].processResponse(rawResponse);
+
+    return response;
   }
 }
 
