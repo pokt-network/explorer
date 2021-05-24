@@ -13,21 +13,24 @@ class TxLatest extends React.Component {
 
     constructor() {
         super();
-
-        this.state.transactions = [];
+        this.state = {
+          transactions: [],
+        }
     }
 
     componentWillMount() {
         dataSource.getLatestTransactions(1, 100).then(txs => {
+            console.log({ txs })
             if(txs.length !== 0) {
                 const latestArray = []
                 txs.forEach(tx => {
                     const latest = new LatestInfo(
-                        tx.hash,
                         tx.height.toString(),
+                        tx.id,
                         undefined,
-                        config.CHAIN_ID.toUpperCase(),
-                        tx.data
+                        config.CHAIN_ID.toUpperCase(), //network
+                        tx.data.index,
+                        tx.data 
                     )
 
                     latestArray.push(latest)
