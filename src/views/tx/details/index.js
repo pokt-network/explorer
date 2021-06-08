@@ -2,6 +2,7 @@ import React from 'react';
 import DetailsContent from './details';
 import Details from '../../../components/details';
 import EventTable from "../../../components/events";
+import TransactionMessage from "../../../components/transaction-message";
 import config from "../../../config/config";
 
 import { getDataSource } from "../../../datasource";
@@ -23,6 +24,7 @@ class TxDetails extends React.Component {
                     events: [] 
                 } 
             }, 
+            msg: {},
             showMessage: false
         };
 
@@ -37,7 +39,8 @@ class TxDetails extends React.Component {
                     txHash: tx.height.toString(),
                     time: tx.data.index,
                     network: config.CHAIN_ID.toUpperCase(),
-                    data: tx.data
+                    data: tx.data,
+                    msg: tx.data.stdTx.msg
                 })
             } else {
                 this.setState({showMessage: true})
@@ -46,7 +49,7 @@ class TxDetails extends React.Component {
     }
 
     render() {
-        const { txId, txHash, time, network, data } = this.state;
+        const { txId, txHash, time, network, data, msg } = this.state;
 
         return (
             <DetailsContent>
@@ -67,9 +70,12 @@ class TxDetails extends React.Component {
                 </div>
 
                 <div className="one-table-container white" style={{marginTop: "70px"}}>
-                    <EventTable
-                        events={data.tx_result.events}
-                    />
+                  {
+                    data.tx_result.events === null && <TransactionMessage msg={msg} />
+                  }
+                  {
+                    data.tx_result.events !== null && <EventTable events={data.tx_result.events} />
+                  }
                 </div>
             </DetailsContent>
         );
