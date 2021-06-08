@@ -58,8 +58,8 @@ const MessageTypes = {
 
 export class TxMessage {
   constructor(msg) {
-    this.originalMessage = msg;
-    this.renderedMessage = {}
+    this.original = msg;
+    this.rendered = {}
 
     this.render();
   }
@@ -67,24 +67,24 @@ export class TxMessage {
   render() {
     Object.keys(MessageTypes).forEach(
       (type) => {
-        if (MessageTypes[type].keys.includes(this.originalMessage.type)) {
-          this.renderedMessage.action = MessageTypes[type].action;
+        if (MessageTypes[type].keys.includes(this.original.type)) {
+          this.rendered.action = MessageTypes[type].action;
           if (MessageTypes[type].actor) {
-            this.renderedMessage.actor = {
+            this.rendered.actor = {
               name: MessageTypes[type].actor.name,
-              value: MessageTypes[type].actor.value(this.originalMessage.value),
+              value: MessageTypes[type].actor.value(this.original.value),
             };
           }
           if (MessageTypes[type].subject) {
-            this.renderedMessage.subject = {
+            this.rendered.subject = {
               name: MessageTypes[type].subject.name,
-              value: MessageTypes[type].subject.value(this.originalMessage.value),
+              value: MessageTypes[type].subject.value(this.original.value),
             };
           }
           if (MessageTypes[type].object) {
-            this.renderedMessage.object = {
+            this.rendered.object = {
               name: MessageTypes[type].object.name,
-              value: MessageTypes[type].object.value(this.originalMessage.value),
+              value: MessageTypes[type].object.value(this.original.value),
             };
           }
       }

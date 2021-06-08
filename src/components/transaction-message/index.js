@@ -15,7 +15,7 @@ class TransactionMessage extends Component {
       super(props);
       const message = new TxMessage(props.msg);
       this.state = {
-        message: message.renderedMessage,
+        message: message.rendered,
       }
     }
 
