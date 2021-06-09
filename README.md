@@ -1,42 +1,38 @@
 <div align="center">
   <a href="https://www.pokt.network">
-    <img src="https://pokt.network/wp-content/uploads/2018/12/Logo-488x228-px.png" alt="Pocket Network logo" width="340"/>
+    <img src="https://assets.website-files.com/609e7a6f2ec5c05d866ed6d3/60a7cd2bbdce89ccfbf8ff97_POKT_Logo_S_Color.png" alt="Pocket Network logo" width="340"/>
   </a>
 </div>
 
-# Project Title
+</br> <!-- BRRRR, BRROO -->
 
-One sentence summary of project
-<div>
-  <a  href="https://godoc.org/github.com/pokt-network/pocket-core"><img src="https://img.shields.io/badge/godoc-reference-blue.svg"/></a>
-  <a  href="https://goreportcard.com/report/github.com/pokt-network/pocket-core"><img src="https://goreportcard.com/badge/github.com/pokt-network/pocket-core"/></a>
-  <a href="https://golang.org"><img  src="https://img.shields.io/badge/golang-v1.11-red.svg"/></a>
-  <a  href="https://github.com/tools/godep" ><img src="https://img.shields.io/badge/godep-dependency-71a3d9.svg"/></a>
+<div align="center">
+ <h1>Explorer - Pocket Network Block Explorer</h1>
+ <p>Browse transactions, blocks, accounts and other network activity at https://explorer.pokt.network</p>
 </div>
 
-## Overview
-<div>
-    <a  href="https://github.com/pokt-network/pocket-core/releases"><img src="https://img.shields.io/github/release-pre/pokt-network/pocket-core.svg"/></a>
-    <a href="https://circleci.com/gh/pokt-network/pocket-core/tree/staging"><img src="https://circleci.com/gh/pokt-network/pocket-core/tree/staging.svg?style=svg"/></a>
-    <a  href="https://github.com/pokt-network/pocket-core/pulse"><img src="https://img.shields.io/github/contributors/pokt-network/pocket-core.svg"/></a>
-    <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/pulse"><img src="https://img.shields.io/github/last-commit/pokt-network/pocket-core.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/pulls"><img src="https://img.shields.io/github/issues-pr/pokt-network/pocket-core.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/releases"><img src="https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-pink.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/issues"><img src="https://img.shields.io/github/issues-closed/pokt-network/pocket-core.svg"/></a>
+<div align="center">
+ <h2>Explorer - Pocket Network Block Explorer</h2>
+  <div>
+      <a href="https://github.com/pokt-foundation/explorer/releases"><img src="https://img.shields.io/github/release-pre/pokt-foundation/explorer.svg"/></a>
+      <a href="https://github.com/pokt-foundation/explorer/pulse"><img src="https://img.shields.io/github/contributors/pokt-foundation/explorer.svg"/></a>
+      <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
+      <a href="https://github.com/pokt-foundation/explorer/pulse"><img src="https://img.shields.io/github/last-commit/pokt-foundation/explorer.svg"/></a>
+      <a href="https://github.com/pokt-foundation/explorer/pulls"><img src="https://img.shields.io/github/issues-pr/pokt-foundation/explorer.svg"/></a>
+      <a href="https://github.com/pokt-foundation/explorer/releases"><img src="https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-pink.svg"/></a>
+      <a href="https://github.com/pokt-foundation/explorer/issues"><img src="https://img.shields.io/github/issues-closed/pokt-foundation/explorer.svg"/></a>
+  </div>
+  <p>
+    The Pocket Network Block Explorer to browse blocks, transactions, account and network activity. Make yourself at home at https://explorer.pokt.network
+  </p>
 </div>
 
-Full Description
+</br> <!-- BRR, BRROOO  -->
+</br> <!-- BRR, BRROOO  -->
 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Example usage
-
-```
-The most basic example of how you would use the project
-```
 
 ### Installation
 
@@ -45,32 +41,36 @@ A step by step series of examples that tell you how to get a development env run
 Say what the step will be
 
 ```
-Give the step
+$ npm install
 ```
 
-And repeat
-
+### Run
 ```
-until finished
+$ npm run start -- --max_old_size_space=8912
+```
+This command will start a local development server at port 3000.
+
+You can access the local version of the explorer then at: http://localhost:3000
+
+### Build locally
+```
+$ npm run build -- --max_old_size_space=8912
 ```
 
-End with an example of getting data out of the system or using it for a demo
-
-## Documentation
-
-Full usage and options or a link to the docs.pokt.network site
+### Build locally before pushing to CI
+```
+$ CI=true npm run build -- --max_old_size_space=8912
+```
 
 ## Running the tests
 
-Explain how to run the automated tests
-
 ```
-Give an example
+$ npm run test
 ```
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/pokt-network/repo-template/blob/master/CONTRIBUTING.md) for details on contributions and the process of submitting pull requests.
+Please read [CONTRIBUTING.md](https://github.com/pokt-foundation/explorer/blob/master/CONTRIBUTING.md) for details on contributions and the process of submitting pull requests.
 
 ## Support & Contact
 
