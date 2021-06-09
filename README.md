@@ -18,7 +18,7 @@ Pocket Network Block Explorer
     <a href="https://github.com/pokt-foundation/explorer/issues"><img src="https://img.shields.io/github/issues-closed/pokt-foundation/explorer.svg"/></a>
 </div>
 
-Full Description
+The Pocket Network Block Explorer to browse blocks, transactions, account and network activity. Make yourself at home at https://explorer.pokt.network
 
 ## Getting Started
 
