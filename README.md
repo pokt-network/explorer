@@ -7,23 +7,15 @@
 # Project Title
 
 Pocket Network Block Explorer
-<div>
-  <a  href="https://godoc.org/github.com/pokt-network/pocket-core"><img src="https://img.shields.io/badge/godoc-reference-blue.svg"/></a>
-  <a  href="https://goreportcard.com/report/github.com/pokt-network/pocket-core"><img src="https://goreportcard.com/badge/github.com/pokt-network/pocket-core"/></a>
-  <a href="https://golang.org"><img  src="https://img.shields.io/badge/golang-v1.11-red.svg"/></a>
-  <a  href="https://github.com/tools/godep" ><img src="https://img.shields.io/badge/godep-dependency-71a3d9.svg"/></a>
-</div>
-
 ## Overview
 <div>
-    <a  href="https://github.com/pokt-network/pocket-core/releases"><img src="https://img.shields.io/github/release-pre/pokt-network/pocket-core.svg"/></a>
-    <a href="https://circleci.com/gh/pokt-network/pocket-core/tree/staging"><img src="https://circleci.com/gh/pokt-network/pocket-core/tree/staging.svg?style=svg"/></a>
-    <a  href="https://github.com/pokt-network/pocket-core/pulse"><img src="https://img.shields.io/github/contributors/pokt-network/pocket-core.svg"/></a>
+    <a href="https://github.com/pokt-foundation/explorer/releases"><img src="https://img.shields.io/github/release-pre/pokt-foundation/explorer.svg"/></a>
+    <a href="https://github.com/pokt-foundation/explorer/pulse"><img src="https://img.shields.io/github/contributors/pokt-foundation/explorer.svg"/></a>
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/pulse"><img src="https://img.shields.io/github/last-commit/pokt-network/pocket-core.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/pulls"><img src="https://img.shields.io/github/issues-pr/pokt-network/pocket-core.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/releases"><img src="https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-pink.svg"/></a>
-    <a href="https://github.com/pokt-network/pocket-core/issues"><img src="https://img.shields.io/github/issues-closed/pokt-network/pocket-core.svg"/></a>
+    <a href="https://github.com/pokt-foundation/explorer/pulse"><img src="https://img.shields.io/github/last-commit/pokt-foundation/explorer.svg"/></a>
+    <a href="https://github.com/pokt-foundation/explorer/pulls"><img src="https://img.shields.io/github/issues-pr/pokt-foundation/explorer.svg"/></a>
+    <a href="https://github.com/pokt-foundation/explorer/releases"><img src="https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-pink.svg"/></a>
+    <a href="https://github.com/pokt-foundation/explorer/issues"><img src="https://img.shields.io/github/issues-closed/pokt-foundation/explorer.svg"/></a>
 </div>
 
 Full Description
@@ -31,12 +23,6 @@ Full Description
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-### Example usage
-
-```
-The most basic example of how you would use the project
-```
 
 ### Installation
 
@@ -74,7 +60,7 @@ $ npm run test
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/pokt-network/repo-template/blob/master/CONTRIBUTING.md) for details on contributions and the process of submitting pull requests.
+Please read [CONTRIBUTING.md](https://github.com/pokt-foundation/explorer/blob/master/CONTRIBUTING.md) for details on contributions and the process of submitting pull requests.
 
 ## Support & Contact
 
