@@ -1,12 +1,12 @@
 <div align="center">
   <a href="https://www.pokt.network">
-    <img src="https://pokt.network/wp-content/uploads/2018/12/Logo-488x228-px.png" alt="Pocket Network logo" width="340"/>
+    <img src="https://assets.website-files.com/609e7a6f2ec5c05d866ed6d3/60a7cd2bbdce89ccfbf8ff97_POKT_Logo_S_Color.png" alt="Pocket Network logo" width="340"/>
   </a>
 </div>
 
 # Project Title
 
-One sentence summary of project
+Pocket Network Block Explorer
 <div>
   <a  href="https://godoc.org/github.com/pokt-network/pocket-core"><img src="https://img.shields.io/badge/godoc-reference-blue.svg"/></a>
   <a  href="https://goreportcard.com/report/github.com/pokt-network/pocket-core"><img src="https://goreportcard.com/badge/github.com/pokt-network/pocket-core"/></a>
@@ -45,27 +45,31 @@ A step by step series of examples that tell you how to get a development env run
 Say what the step will be
 
 ```
-Give the step
+$ npm install
 ```
 
-And repeat
-
+### Run
 ```
-until finished
+$ npm run start -- --max_old_size_space=8912
+```
+This command will start a local development server at port 3000.
+
+You can access the local version of the explorer then at: http://localhost:3000
+
+### Build locally
+```
+$ npm run build -- --max_old_size_space=8912
 ```
 
-End with an example of getting data out of the system or using it for a demo
-
-## Documentation
-
-Full usage and options or a link to the docs.pokt.network site
+### Build locally before pushing to CI
+```
+$ CI=true npm run build -- --max_old_size_space=8912
+```
 
 ## Running the tests
 
-Explain how to run the automated tests
-
 ```
-Give an example
+$ npm run test
 ```
 
 ## Contributing
