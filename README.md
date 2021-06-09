@@ -4,6 +4,7 @@
   </a>
 </div>
 
+</br> <!-- BRRRR, BRROO -->
 
 <div align="center">
  <h1>Explorer - Pocket Network Block Explorer</h1>
@@ -21,9 +22,13 @@
       <a href="https://github.com/pokt-foundation/explorer/releases"><img src="https://img.shields.io/badge/platform-linux%20%7C%20windows%20%7C%20macos-pink.svg"/></a>
       <a href="https://github.com/pokt-foundation/explorer/issues"><img src="https://img.shields.io/github/issues-closed/pokt-foundation/explorer.svg"/></a>
   </div>
+  <p>
+    The Pocket Network Block Explorer to browse blocks, transactions, account and network activity. Make yourself at home at https://explorer.pokt.network
+  </p>
 </div>
 
-The Pocket Network Block Explorer to browse blocks, transactions, account and network activity. Make yourself at home at https://explorer.pokt.network
+</br> <!-- BRR, BRROOO  -->
+</br> <!-- BRR, BRROOO  -->
 
 ## Getting Started
 
