@@ -1,10 +1,17 @@
+const Utils = {
+  /***
+   * Converts a uPOKT value to POKT
+   **/
+  toPOKT: (balance) => balance ? balance/1000000 : 0,
+}
+
 const MessageTypes = {
   AppStake: {
     action: "AppStake",
     keys: ["apps/MsgAppStake", "/x.apps.MsgProtoStake"],
     actor: { name: "App", value: (msgValue) => msgValue.pubkey.value },
     subject: { name: "Chains", value: (msgValue) => msgValue.chains },
-    object: { name: "Amount", value: (msgValue) => msgValue.amount },
+    object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
   },
   AppUnstake: {
     action: "AppUnstake",
@@ -21,7 +28,7 @@ const MessageTypes = {
     keys: ["pos/MsgStake", "/x.nodes.MsgProtoStake"],
     actor: { name: "Node", value: (msgValue) => msgValue.public_key.value },
     subject: { name: "Chains", value: (msgValue) => msgValue.chains },
-    object: { name: "Amount", value: (msgValue) => msgValue.value },
+    object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.value) },
   },
   NodeUnstake: {
     action: "NodeUnstake",
@@ -38,7 +45,7 @@ const MessageTypes = {
     keys: ["pos/Send", "/x.nodes.MsgSend"],
     actor: { name: "From", value: (msgValue) => msgValue.from_address },
     subject: { name: "To", value: (msgValue) => msgValue.to_address },
-    object: { name: "Amount", value: (msgValue) => msgValue.amount },
+    object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
   },
   Claim: {
     action: "Claim",
