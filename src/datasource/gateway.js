@@ -224,9 +224,9 @@ class GatewayClient {
           value: base64ToStr(kvObj.value),
         });
 
-        const mapEvents = (events) => events.map(
+        const mapEvents = (events) => events ? events.map(
           (e) => ({ ...e, attributes: e.attributes.map(kvToStr) })
-        )
+        ) : null;
 
         return {
           ...response,
@@ -236,8 +236,6 @@ class GatewayClient {
           }
         }
       }
-
-
     }
   }
 
