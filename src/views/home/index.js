@@ -29,7 +29,6 @@ class Home extends React.Component {
       latestBlocks: [],
       latestTransactions: [],
       totalApps: 0,
-      totalNodes: 0,
       totalTokens: 0,
       showMessage: false,
       transactions: [],
@@ -106,10 +105,6 @@ class Home extends React.Component {
           }
         });
       }
-    });
-
-    dataSource.getNodes().then((nodes) => {
-      this.setState({ totalNodes: nodes });
     });
   }
 
@@ -204,7 +199,6 @@ class Home extends React.Component {
 
   render() {
     const {
-      totalNodes,
       showMessage,
       totalTokens,
       totalApps,
@@ -225,7 +219,6 @@ class Home extends React.Component {
         <Search handler={this.showMessage} />
 
         <Statistics
-          totalStakedNodes={totalNodes}
           totalStaked={totalTokens}
           totalStakedApps={totalApps}
         />
