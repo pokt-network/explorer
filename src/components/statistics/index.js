@@ -12,7 +12,7 @@ class Statistics extends Component {
             <Wrapper>
                 <StatisticsWrapper>
                     <Statistic>
-                        <Number>{this.props.totalStakedNodes}</Number>
+                        <Number>5000&plus;</Number>
                         <Description>Total Staked Nodes</Description>
                     </Statistic>
                     <Statistic>
