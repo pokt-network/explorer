@@ -28,9 +28,9 @@ jobs:
         envkey_LEIF_APP_AAT_SIGNATURE: ${{ secrets.LEIF_TESTNET_APP_AAT_SIGNATURE }}
         envkey_WALLET_BASE_URL: "https://wallet.testnet.pokt.network"
         envkey_DASHBOARD_BASE_URL: "https://dashboard.testnet.pokt.network"
-        envkey_GATEWAY_BASE_URL: "https://gateway.pokt.network/v1/lb/60a2ac11b1747c6552385c61"
+        envkey_GATEWAY_BASE_URL: "http://gateway.pokt.network/v1/lb/60a2ac11b1747c6552385c61"
         envkey_CHAIN: "0002"
-        envkey_CHAIN_ID: "mainnet"
+        envkey_CHAIN_ID: "testnet"
         envkey_ADDRESS: "0594a790e92d423e565652ae16678f3329ec9985"
         envkey_HTTP_CONFIG: '{ "timeout": 0, "headers": { "Content-Type": "application/json" } }'
         file_name: .env.production
