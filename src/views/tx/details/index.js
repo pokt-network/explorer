@@ -25,7 +25,7 @@ class TxDetails extends React.Component {
                 } 
             }, 
             msg: {},
-            showMessage: false
+            showMessage: false,
         };
 
         this.hash = this.props.location.pathname.replace("/tx/", "");
@@ -40,13 +40,18 @@ class TxDetails extends React.Component {
                     time: tx.data.index,
                     network: config.CHAIN_ID.toUpperCase(),
                     data: tx.data,
-                    msg: tx.data.stdTx.msg
+                    msg: {
+                        msg: tx.data.stdTx.msg,
+                        fee: tx.data.stdTx.fee,
+                        memo: tx.data.stdTx.memo
+                    },
                 })
             } else {
                 this.setState({showMessage: true})
             }
         })
     }
+
 
     render() {
         const { txId, txHash, time, network, data, msg } = this.state;
