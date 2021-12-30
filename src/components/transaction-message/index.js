@@ -36,7 +36,7 @@ class TransactionMessage extends Component {
                       {
                         Object.keys(this.state.message).map((msgKey) => {
                           return msgKey === "action" ? null : (
-                            <Tr>
+                            <Tr key={this.state.message[msgKey].name}>
                               <Td>
                                   {this.state.message[msgKey].name}
                               </Td>
