@@ -46,6 +46,8 @@ const MessageTypes = {
     actor: { name: "From", value: (msgValue) => msgValue.from_address },
     subject: { name: "To", value: (msgValue) => msgValue.to_address },
     object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   Claim: {
     action: "Claim",
@@ -74,25 +76,37 @@ export class TxMessage {
   render() {
     Object.keys(MessageTypes).forEach(
       (type) => {
-        if (MessageTypes[type].keys.includes(this.original.type)) {
+        if (MessageTypes[type].keys.includes(this.original.msg.type)) {
           this.rendered.action = MessageTypes[type].action;
           if (MessageTypes[type].actor) {
             this.rendered.actor = {
               name: MessageTypes[type].actor.name,
-              value: MessageTypes[type].actor.value(this.original.value),
+              value: MessageTypes[type].actor.value(this.original.msg.value),
             };
           }
           if (MessageTypes[type].subject) {
             this.rendered.subject = {
               name: MessageTypes[type].subject.name,
-              value: MessageTypes[type].subject.value(this.original.value),
+              value: MessageTypes[type].subject.value(this.original.msg.value),
             };
           }
           if (MessageTypes[type].object) {
             this.rendered.object = {
               name: MessageTypes[type].object.name,
-              value: MessageTypes[type].object.value(this.original.value),
+              value: MessageTypes[type].object.value(this.original.msg.value),
             };
+          }
+          if (MessageTypes[type]?.fee) {
+            this.rendered.fee = {
+              name: MessageTypes[type].fee.name,
+              value: MessageTypes[type].fee.value(this.original.fee[0]),
+            }
+          }
+          if (MessageTypes[type]?.memo) {
+            this.rendered.memo = {
+              name: MessageTypes[type].memo.name,
+              value: MessageTypes[type].memo.value(this.original.memo),
+            }
           }
       }
     })
