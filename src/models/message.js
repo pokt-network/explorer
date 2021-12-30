@@ -12,16 +12,22 @@ const MessageTypes = {
     actor: { name: "App", value: (msgValue) => msgValue.pubkey.value },
     subject: { name: "Chains", value: (msgValue) => msgValue.chains },
     object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   AppUnstake: {
     action: "AppUnstake",
     keys: ["apps/MsgAppBeginUnstake", "/x.appsMsgBeginUnstake"],
     actor: { name: "App", value: (msgValue) => msgValue.application_address },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   AppUnjail: {
     action: "AppUnjail",
     keys: ["apps/MsgAppUnjail", "/x.nodes.MsgUnjail"],
     actor: { name: "Node", value: (msgValue) => msgValue.address },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   NodeStake: {
     action: "NodeStake",
@@ -29,16 +35,22 @@ const MessageTypes = {
     actor: { name: "Node", value: (msgValue) => msgValue.public_key.value },
     subject: { name: "Chains", value: (msgValue) => msgValue.chains },
     object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.value) },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   NodeUnstake: {
     action: "NodeUnstake",
     keys: ["pos/MsgBeginUnstake", "/x.nodes.MsgBeginUnstake"],
-    actor: { name: "Node", value: (msgValue) => msgValue.validator_address }
+    actor: { name: "Node", value: (msgValue) => msgValue.validator_address },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   NodeUnjail: {
     action: "NodeUnjail",
     keys: ["pos/MsgUnjail", "/x.nodes.MsgUnjail"],
     actor: { name: "Node", value: (msgValue) => msgValue.address },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   Send: {
     action: "Send",
@@ -55,6 +67,8 @@ const MessageTypes = {
     actor: { name: "Address", value: (msgValue) => msgValue.from_address },
     subject: { name: "App", value: (msgValue) => msgValue.header.app_public_key },
     object: { name: "Chain", value: (msgValue) => msgValue.header.chain },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
   Proof: {
     action: "Proof/Relay",
@@ -62,6 +76,8 @@ const MessageTypes = {
     actor: { name: "Servicer", value: (msgValue) => msgValue.leaf.value.servicer_pub_key },
     subject: { name: "App", value: (msgValue) => msgValue.leaf.value.aat.app_pub_key },
     object: { name: "Blockchain", value: (msgValue) => msgValue.leaf.value.blockchain },
+    fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
   },
 }
 
@@ -102,7 +118,7 @@ export class TxMessage {
               value: MessageTypes[type].fee.value(this.original.fee[0]),
             }
           }
-          if (MessageTypes[type]?.memo) {
+          if (MessageTypes[type]?.memo && this.original.memo.length > 0) {
             this.rendered.memo = {
               name: MessageTypes[type].memo.name,
               value: MessageTypes[type].memo.value(this.original.memo),
