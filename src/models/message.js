@@ -1,3 +1,5 @@
+import { getErrorMessage } from "../utils/errors";
+
 const Utils = {
   /***
    * Converts a uPOKT value to POKT
@@ -13,21 +15,24 @@ const MessageTypes = {
     subject: { name: "Chains", value: (msgValue) => msgValue.chains },
     object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   AppUnstake: {
     action: "AppUnstake",
     keys: ["apps/MsgAppBeginUnstake", "/x.appsMsgBeginUnstake"],
     actor: { name: "App", value: (msgValue) => msgValue.application_address },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   AppUnjail: {
     action: "AppUnjail",
     keys: ["apps/MsgAppUnjail", "/x.nodes.MsgUnjail"],
     actor: { name: "Node", value: (msgValue) => msgValue.address },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   NodeStake: {
     action: "NodeStake",
@@ -36,21 +41,24 @@ const MessageTypes = {
     subject: { name: "Chains", value: (msgValue) => msgValue.chains },
     object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.value) },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   NodeUnstake: {
     action: "NodeUnstake",
     keys: ["pos/MsgBeginUnstake", "/x.nodes.MsgBeginUnstake"],
     actor: { name: "Node", value: (msgValue) => msgValue.validator_address },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   NodeUnjail: {
     action: "NodeUnjail",
     keys: ["pos/MsgUnjail", "/x.nodes.MsgUnjail"],
     actor: { name: "Node", value: (msgValue) => msgValue.address },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   Send: {
     action: "Send",
@@ -59,7 +67,8 @@ const MessageTypes = {
     subject: { name: "To", value: (msgValue) => msgValue.to_address },
     object: { name: "Amount", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   Claim: {
     action: "Claim",
@@ -68,7 +77,8 @@ const MessageTypes = {
     subject: { name: "App", value: (msgValue) => msgValue.header.app_public_key },
     object: { name: "Chain", value: (msgValue) => msgValue.header.chain },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
   Proof: {
     action: "Proof/Relay",
@@ -77,7 +87,8 @@ const MessageTypes = {
     subject: { name: "App", value: (msgValue) => msgValue.leaf.value.aat.app_pub_key },
     object: { name: "Blockchain", value: (msgValue) => msgValue.leaf.value.blockchain },
     fee: { name: "Tx Fee", value: (msgValue) => Utils.toPOKT(msgValue.amount) },
-    memo: { name: "Tx Memo", value: (msgValue) => msgValue }
+    memo: { name: "Tx Memo", value: (msgValue) => msgValue },
+    result: { name: "Result Code", value: (msgValue) => getErrorMessage(msgValue) }
   },
 }
 
@@ -122,6 +133,12 @@ export class TxMessage {
             this.rendered.memo = {
               name: MessageTypes[type].memo.name,
               value: MessageTypes[type].memo.value(this.original.memo),
+            }
+          }
+          if (MessageTypes[type]?.result) {
+            this.rendered.result = {
+              name: MessageTypes[type].result.name,
+              value: MessageTypes[type].result.value(this.original.result.code)
             }
           }
       }
