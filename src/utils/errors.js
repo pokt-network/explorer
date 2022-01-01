@@ -1,0 +1,55 @@
+export function getErrorMessage(code) {
+  if (!POCKET_ERRORS[code]) {
+    return "There Was An Error!";
+  }
+
+  return POCKET_ERRORS[code];
+}
+
+export const POCKET_ERRORS = {
+  0: "OK",
+  1: "Internal Error",
+  2: "Tx Parse Error",
+  3: "Invalid Sequence",
+  4: "Unauthorized",
+  5: "Insufficient Funds",
+  6: "Unknown Request",
+  7: "Invalid Address",
+  8: "Invalid Public Key",
+  9: "Unknown Address",
+  10: "Insufficient Coins",
+  11: "Invalid Coins",
+  12: "Out of Gas",
+  13: "Memo Too Large",
+  14: "Insufficient Fee",
+  15: "Maximum Number of Signatures Exceeded",
+  16: "Gas Overflow",
+  17: "No Signatures",
+  18: "Negative Amount",
+  19: "Burn Staked Tokens",
+  20: "Force Validator Unstake",
+  21: "Invalid Slash",
+  22: "Module Account Create",
+  23: "Forbidden",
+  101: "Invalid Validator",
+  102: "Invalid Delegation",
+  103: "Invalid Input",
+  104: "Validator Jailed",
+  105: "Validator Not Jailed",
+  106: "Missing Self Delegation",
+  108: "Missing Signing Info",
+  109: "Bad Send",
+  110: "Invalid Status",
+  111: "Minimum Stake",
+  112: "Not Enough Coins",
+  113: "Validator Tombstoned",
+  114: "Can't Handle Evidence",
+  115: "No Chains",
+  116: "No Service URL",
+  117: "Waiting Validator",
+  118: "Invalid Service URL",
+  119: "Invalid Network Identifier",
+  120: "Too Many Chains",
+  121: "State Convert Error",
+  122: "Minimum Edit Stake",
+};
