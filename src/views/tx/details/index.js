@@ -43,7 +43,8 @@ class TxDetails extends React.Component {
                     msg: {
                         msg: tx.data.stdTx.msg,
                         fee: tx.data.stdTx.fee,
-                        memo: tx.data.stdTx.memo
+                        memo: tx.data.stdTx.memo,
+                        result: tx.data.tx_result
                     },
                 })
             } else {
